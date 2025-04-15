@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
+
 :root {
+  --fonte: "Lexend";
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -19,7 +22,7 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--fonte), Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
