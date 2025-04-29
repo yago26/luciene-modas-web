@@ -1,7 +1,8 @@
-export default function Aluno() {
+export default function PrimeiraRota() {
   return (
     <>
       <h1>Vamos comer</h1>
+      <a href="../">Voltar</a>
     </>
   );
 }
