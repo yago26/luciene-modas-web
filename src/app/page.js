@@ -2,7 +2,8 @@ import style from "./page.module.css";
 
 export default function Home() {
   return (
-    <>
+    <div className={style.content}>
+      <main></main>
       <h1>Bem-vindo(a)!</h1>
       <p>Esta é a tela inicial</p>
       <ol className={style.listaDeRotas}>
@@ -23,6 +24,6 @@ export default function Home() {
           </a>
         </li>
       </ol>
-    </>
+    </div>
   );
 }

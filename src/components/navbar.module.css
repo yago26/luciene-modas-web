@@ -1,0 +1,65 @@
+:root {
+  --cor-fundo: rgb(20, 20, 20);
+  --cor-texto: #57449a;
+}
+
+.header {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  font-weight: bold;
+}
+
+.button {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: 2px white solid;
+  color: var(--cor-texto);
+  font-weight: bold;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 30px;
+}
+
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: rgb(15, 15, 15);
+}
+
+.searchBar {
+  width: 20%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputSearchBar {
+  padding: 10px 10px 10px 40px;
+  width: 100%;
+  border: none;
+  border-radius: 20px;
+}
+
+.imageIcon {
+  position: absolute;
+}
+
+#imageIconEsquerda {
+  left: 10px;
+}
+
+#imageIconDireita {
+  left: calc(100% - 30px);
+}
