@@ -1,0 +1,16 @@
+:root {
+  --background-navbar: #adadad;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2% 10%;
+  background: var(--background-navbar);
+}
+
+.p {
+  font-size: 0.8rem;
+  margin-left: 5%;
+}

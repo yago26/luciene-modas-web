@@ -1,17 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
 
 :root {
-  --fonte: "Lexend";
+  --font-family: "Lexend";
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 html,
 body {
@@ -30,25 +30,16 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: var(--fonte), Arial;
+  font-family: var(--font-family), Arial;
 }
 
 button {
   cursor: pointer;
+  transition: 0.1s;
 }
 
 button:hover {
-  transform: scale(1.06);
-  animation: fadeBlur 0.1s ease-in;
-}
-
-@keyframes fadeBlur {
-  0% {
-    filter: blur(1px);
-  }
-  100% {
-    filter: blur(0px);
-  }
+  scale: 1.05;
 }
 
 a {

@@ -32,7 +32,7 @@ export default function NavBar() {
           <Image
             id={style.imageIconEsquerda}
             className={style.imageIcon}
-            src="icons/magnifying-glass-solid.svg"
+            src="/icons/magnifying-glass-solid.svg"
             alt="Lupa de pesquisa"
             width={25}
             height={25}
@@ -46,7 +46,7 @@ export default function NavBar() {
           <Image
             id={style.imageIconDireita}
             className={style.imageIcon}
-            src="icons/close-circle-line.svg"
+            src="/icons/close-circle-line.svg"
             alt="Botão de excluir texto"
             width={25}
             height={25}

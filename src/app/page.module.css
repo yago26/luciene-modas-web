@@ -1,5 +1,16 @@
 .content {
-  padding-inline: 15%;
+  padding: 4% 15%;
+}
+
+.categorias {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 5%;
+}
+
+.produtos {
+  text-align: center;
 }
 
 .listaDeRotas {

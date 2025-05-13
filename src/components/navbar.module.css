@@ -1,11 +1,15 @@
 :root {
-  --cor-fundo: rgb(20, 20, 20);
-  --cor-texto: #57449a;
+  --background-navbar: #adadad;
+  --foreground-navbar: #000000; /* Roxo: #57449a */
 }
 
 .header {
-  background-color: var(--cor-fundo);
-  color: var(--cor-texto);
+  background: var(--background-navbar);
+  color: var(--foreground-navbar);
+}
+
+.header a {
+  color: var(--foreground-navbar);
 }
 
 .ul {
@@ -19,7 +23,7 @@
   padding: 5px 10px;
   border-radius: 20px;
   border: 2px white solid;
-  color: var(--cor-texto);
+  color: var(--foreground-navbar);
   font-weight: bold;
 }
 
@@ -28,6 +32,7 @@
   align-items: center;
   justify-content: space-around;
   padding: 30px;
+  box-shadow: 1px 1px 10px 10px black;
 }
 
 .navBar {
@@ -35,7 +40,7 @@
   align-items: center;
   justify-content: space-around;
   padding: 10px;
-  background-color: rgb(15, 15, 15);
+  background-color: var(--background-navbar);
 }
 
 .searchBar {
@@ -50,6 +55,10 @@
   width: 100%;
   border: none;
   border-radius: 20px;
+}
+
+.inputSearchBar:focus {
+  outline: none;
 }
 
 .imageIcon {
