@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-// Biblioteca externas q faz conexão com o banco de dados do postgres
+// Biblioteca externa q faz a conexão com o banco de dados do postgreSQL
 // Instale a biblioteca com "npm i pg"
 
 export default new Pool({

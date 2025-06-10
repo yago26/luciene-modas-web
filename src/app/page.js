@@ -1,51 +1,33 @@
-import style from "./page.module.css";
-import Produto from "@/components/Produto";
-import Link from "next/link";
-import Image from "next/image";
 import db from "@/lib/db";
-
-/* Tem caminhos vazios */
+import { fakeProducts } from "@/lib/fakeDataBase";
+import NavBar from "@/components/NavBar";
+import Product from "@/components/Product";
+import style from "./page.module.css";
 
 export default async function Home() {
-  const PRODUTOS = await db.query("select * from tb_produto");
-  console.log(PRODUTOS);
+  // const produtos = db.query("select * from tb_produto");
   return (
-    <div className={style.content}>
-      <article>
-        <img src="" alt="" />
-      </article>
+    <>
+      <NavBar />
 
-      <section className={style.categorias}>
-        <div className={style.categoria}>
-          <Link href="">
-            <Image src="" alt="Categoria masculina" />
-            <h2>Masculino</h2>
-          </Link>
-        </div>
-        <div className={style.categoria}>
-          <Link href="">
-            <Image src="" alt="Categoria feminina" />
-            <h2>Feminino</h2>
-          </Link>
-        </div>
-        <div className={style.categoria}>
-          <Link href="">
-            <Image src="" alt="Categoria infatil" />
-            <h2>Infantil</h2>
-          </Link>
-        </div>
-        <div className={style.categoria}>
-          <Link href="">
-            <Image src="" alt="Categoria cosméticos" />
-            <h2>Cosméticos</h2>
-          </Link>
-        </div>
-      </section>
+      {/*{produtos.rows.map((produto) => {
+        return (
+          <Product
+            key={produto.id}
+            id={produto.id}
+            nome={produto.nome}
+            sobre={produto.sobre}
+            valor={produto.valor}
+            url={produto.url}
+          />
+        );
+      })}*/}
 
-      <article className={style.produtos}>
-        {PRODUTOS.rows.map((produto) => {
+      <article className={`produtosPaginaInicial produtosEmPromocao`}>
+        <h2>Em Promoção</h2>
+        {fakeProducts.map((produto) => {
           return (
-            <Produto
+            <Product
               key={produto.id}
               id={produto.id}
               nome={produto.nome}
@@ -57,28 +39,21 @@ export default async function Home() {
         })}
       </article>
 
-      <div>
-        <h1>Bem-vindo(a)!</h1>
-        <p>Esta é a tela inicial</p>
-        <ol className={style.listaDeRotas}>
-          <li>
-            <a href="./aula1">Criando Primeira Rota</a>
-          </li>
-          <li>
-            <a href="./aula2">Estilizando Rotas</a>
-          </li>
-          <li>
-            <a href="./aula3/usuario">
-              Rota dentro de Rota e Conexão do Banco de Dados
-            </a>
-          </li>
-          <li>
-            <a href="./aula4">
-              Utilizando tabelas a partir da Conexão com o Banco de Dados
-            </a>
-          </li>
-        </ol>
-      </div>
-    </div>
+      <article className={`produtosPaginaInicial produtosMaisVendidos`}>
+        <h2>Mais Vendidos</h2>
+        {fakeProducts.map((produto) => {
+          return (
+            <Product
+              key={produto.id}
+              id={produto.id}
+              nome={produto.nome}
+              sobre={produto.sobre}
+              valor={produto.valor}
+              url={produto.url}
+            />
+          );
+        })}
+      </article>
+    </>
   );
 }

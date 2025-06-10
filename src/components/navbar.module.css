@@ -1,74 +1,7 @@
-:root {
-  --background-navbar: #adadad;
-  --foreground-navbar: #000000; /* Roxo: #57449a */
-}
-
-.header {
-  background: var(--background-navbar);
-  color: var(--foreground-navbar);
-}
-
-.header a {
-  color: var(--foreground-navbar);
-}
-
-.ul {
+.visivel {
   display: flex;
-  list-style: none;
-  gap: 20px;
-  font-weight: bold;
 }
 
-.button {
-  padding: 5px 10px;
-  border-radius: 20px;
-  border: 2px white solid;
-  color: var(--foreground-navbar);
-  font-weight: bold;
-}
-
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 30px;
-  box-shadow: 1px 1px 10px 10px black;
-}
-
-.navBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 10px;
-  background-color: var(--background-navbar);
-}
-
-.searchBar {
-  width: 20%;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.inputSearchBar {
-  padding: 10px 10px 10px 40px;
-  width: 100%;
-  border: none;
-  border-radius: 20px;
-}
-
-.inputSearchBar:focus {
-  outline: none;
-}
-
-.imageIcon {
-  position: absolute;
-}
-
-#imageIconEsquerda {
-  left: 10px;
-}
-
-#imageIconDireita {
-  left: calc(100% - 30px);
+.invisivel {
+  display: none;
 }

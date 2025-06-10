@@ -1,0 +1,30 @@
+Terminar de fazer o fakeDataBase;
+
+_Ainda faltam:_
+    * Desenvolvimento da tela do carrinho
+        - Listar produtos por localStorage
+        - Cálculo de custo considerando apenas os produtos
+        - Finalizar a compra
+    
+    * Funcionamento do carrinho
+        - Adicionar
+        - Remover
+        - Finalizar a compra
+        - Cálculo dos produtos + frete
+    * Desenvolvimento da Tela de perfil
+    
+    * Barra de pesquisa funcional
+    
+    * Página Inicial mostrando os produtos mais vendidos ou em promoção
+    * Página do produto mostrando produtos relacionados e estoque
+    
+    * Funcionamento dos Links Rápidos para as Categorias
+
+_Futuramente_
+    * Atualizar Banco de Dados
+        - Talvez criar um gerenciador do Banco de Dados
+    * Adicionar as Imagens e Links
+        - NavBar: Links e Imagens
+        - Footer: Links e Imagens
+    * Favicon personalizado
+    * Estilização de todas as páginas
