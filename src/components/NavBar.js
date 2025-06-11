@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import style from "./navBar.module.css";
+import style from "./navbar.module.css";
 
 export default function NavBar() {
   let usuario = "";
