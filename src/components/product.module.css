@@ -1,0 +1,15 @@
+.produto {
+  width: 20%;
+  text-align: center;
+  transition: 0.5s;
+  padding: 20px;
+}
+
+.ancora {
+  color: black;
+  text-decoration: none;
+}
+
+.produto:hover {
+  scale: 1.05;
+}

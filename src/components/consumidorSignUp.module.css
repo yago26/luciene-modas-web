@@ -1,0 +1,36 @@
+.formSignUp {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  padding: 5%;
+}
+
+.formSignUp h1,
+.finalizarCadastro p {
+  text-align: center;
+}
+
+.dadosCadastro {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dadosCadastro input {
+  padding: 2%;
+}
+
+.genero {
+  margin: 0;
+  padding: 0;
+}
+
+.finalizarCadastro {
+  margin-top: 15px;
+}
+
+.finalizarCadastro button {
+  width: 100%;
+  padding: 2%;
+  margin-bottom: 5px;
+}

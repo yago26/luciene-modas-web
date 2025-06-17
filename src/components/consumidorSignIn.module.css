@@ -1,0 +1,36 @@
+.formSignIn {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  padding: 5%;
+}
+
+.formSignIn h1,
+.finalizarAutenticacao p {
+  text-align: center;
+}
+
+.dadosAutenticacao {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dadosAutenticacao input {
+  padding: 2%;
+}
+
+.genero {
+  margin: 0;
+  padding: 0;
+}
+
+.finalizarAutenticacao {
+  margin-top: 15px;
+}
+
+.finalizarAutenticacao button {
+  width: 100%;
+  padding: 2%;
+  margin-bottom: 5px;
+}

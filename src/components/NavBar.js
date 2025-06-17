@@ -6,9 +6,9 @@ export default function NavBar() {
   let usuario = "";
   return (
     <>
-      <header>
+      <header className={style.header}>
         <nav>
-          <div className="barraFuncionalidades">
+          <div className={style.barraFuncionalidades}>
             <Link href="/">
               <Image
                 src=""
@@ -30,7 +30,10 @@ export default function NavBar() {
             </form>
 
             <ul>
-              <div className={usuario ? style.visivel : style.invisivel}>
+              <div
+                id={style.funcionalidadesAutenticadas}
+                className={usuario ? style.visivel : style.invisivel}
+              >
                 <Link href="./shopCar">
                   <Image
                     src=""
@@ -44,18 +47,21 @@ export default function NavBar() {
                 </Link>
               </div>
 
-              <div className={usuario ? style.invisivel : style.visivel}>
+              <div
+                id={style.funcionalidadesNaoAutenticadas}
+                className={usuario ? style.invisivel : style.visivel}
+              >
                 <Link href="./signIn">
-                  <button>Login</button>
+                  <button className={style.signIn}>Login</button>
                 </Link>
                 <Link href="./signUp">
-                  <button>Sign Up</button>
+                  <button className={style.signUp}>Sign Up</button>
                 </Link>
               </div>
             </ul>
           </div>
 
-          <div className="linksRapidosCategorias">
+          <div className={style.linksRapidosCategorias}>
             <ul>
               <li>
                 <Link href="">Roupas Masculinas</Link>

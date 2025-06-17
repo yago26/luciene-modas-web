@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
+import style from "./consumidorSignUp.module.css";
 
 export default function ConsumidoresSignUp({ onAddConsumidor }) {
   const [nome, setNome] = useState("");
@@ -29,47 +30,44 @@ export default function ConsumidoresSignUp({ onAddConsumidor }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Sign Up</h1>
-      <div className="dadosCadastro">
-        <label>
-          Usuário
+    <>
+      <form className={style.formSignUp} onSubmit={handleSubmit}>
+        <h1>Sign Up</h1>
+        <div className={style.dadosCadastro}>
+          <label htmlFor="usuario">Usuário</label>
           <input
             className="campoEntradaUsuario"
             type="text"
             name="nome-usuario"
             id="usuario"
+            placeholder="Usuário"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Email
+          <label htmlFor="email">Email</label>
           <input
             className="campoEntradaEmail"
             type="email"
             name="email-usuario"
             id="email"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        <label>
-          CEP
+          <label htmlFor="cep">CEP</label>
           <input
             className="campoEntradaUsuario"
             type="text"
             name="cep-usuario"
             id="cep"
+            placeholder="CEP"
             value={cep}
             onChange={(e) => setCep(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Gênero
+          <p className={style.genero}>Gênero</p>
           <label htmlFor="campoEntradaGeneroMasculino">
             <input
               className="campoEntradaGeneroMasculino"
@@ -107,40 +105,38 @@ export default function ConsumidoresSignUp({ onAddConsumidor }) {
             />
             Prefiro não informar
           </label>
-        </label>
-        <label>
-          Senha
+          <label htmlFor="senhaCadastro">Senha</label>
           <input
             className="campoEntradaSenhaCadastro"
             type="password"
             name="senha-cadastro"
             id="senhaCadastro"
+            placeholder="Senha"
             value={senhaCadastro}
             onChange={(e) => setSenhaCadastro(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Confirmar senha
+          <label htmlFor="confirmarSenhaCadastro">Confirmar senha</label>
           <input
             className="campoEntradaconfirmarSenhaCadastro"
             type="password"
             name="confirmar-senha-cadastro"
             id="confirmarSenhaCadastro"
+            placeholder="Confirmar senha"
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
             required
           />
-        </label>
-      </div>
+        </div>
 
-      <div className="finalizarCadastro">
-        <button type="submit">Cadastrar</button>
-        <hr />
-        <p>
-          Já possui uma conta? <Link href="./signIn">Login</Link>
-        </p>
-      </div>
-    </form>
+        <div className={style.finalizarCadastro}>
+          <button type="submit">Cadastrar</button>
+          <hr />
+          <p>
+            Já possui uma conta? <Link href="./signIn">Login</Link>
+          </p>
+        </div>
+      </form>
+    </>
   );
 }
