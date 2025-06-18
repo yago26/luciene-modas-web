@@ -1,11 +1,24 @@
 export default function ConsumidoresList({ consumidores, onDeleteConsumidor }) {
   return (
-    <ul>
+    <div>
       {consumidores.map((consumidor) => (
-        <li key={consumidor.id}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "1% 2%",
+            width: "50%",
+          }}
+        >
           <span>
-            Nome: {consumidor.nome}; Email: {consumidor.email}; CEP:{" "}
-            {consumidor.cep}; Gênero: {consumidor.genero}; Senha:{" "}
+            <span style={{ fontWeight: "bold" }}>ID:</span> {consumidor.id};{" "}
+            <span style={{ fontWeight: "bold" }}>Nome:</span> {consumidor.nome};{" "}
+            <span style={{ fontWeight: "bold" }}>Email:</span>{" "}
+            {consumidor.email}; <span style={{ fontWeight: "bold" }}>CEP:</span>{" "}
+            {consumidor.cep};{" "}
+            <span style={{ fontWeight: "bold" }}>Gênero:</span>{" "}
+            {consumidor.genero};{" "}
+            <span style={{ fontWeight: "bold" }}>Senha:</span>{" "}
             {consumidor.senha}
           </span>
           <button
@@ -14,8 +27,8 @@ export default function ConsumidoresList({ consumidores, onDeleteConsumidor }) {
           >
             x
           </button>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
