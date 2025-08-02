@@ -1,9 +1,9 @@
+import InformacoesUsuario from "@/components/InformacoesUsuario";
+
 import { cookies } from "next/headers";
 import { verificarToken } from "@/lib/auth";
-import Checkout from "@/components/Checkout";
-import CarrinhoList from "@/components/CarrinhoList";
 
-export default function ShopCar() {
+export default function Profile() {
   const cookie = cookies().toString();
   const usuario = verificarToken(cookie);
 
@@ -13,8 +13,7 @@ export default function ShopCar() {
 
   return (
     <>
-      <CarrinhoList usuario={usuario} />
-      {/* <Checkout /> */}
+      <InformacoesUsuario usuario={usuario} />
     </>
   );
 }

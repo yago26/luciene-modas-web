@@ -8,10 +8,10 @@ export default function Footer() {
       <footer className={style.footer}>
         <Link href="/">
           <Image
-            src=""
+            src="/favicon/android-chrome-192x192.png"
             alt="Logo marca Luciene Modas - Roupas e Cosméticos"
-            width={150}
-            height={50}
+            width={96}
+            height={96}
           />
         </Link>
         <div className="contatosRodape">

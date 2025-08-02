@@ -1,0 +1,8 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: gray;
+  padding: 3% 10%;
+}

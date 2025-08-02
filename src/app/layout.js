@@ -1,4 +1,4 @@
-import Footer from "@/components/Footer";
+import Footer from "@/components/geral/Footer";
 
 export const metadata = {
   title: "Luciene Modas",

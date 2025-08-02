@@ -1,0 +1,21 @@
+.listaInformacoesUsuario {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  list-style: none;
+  width: 30%;
+}
+
+.informacaoUsuario {
+  display: flex;
+  flex-direction: column;
+}
+
+.informacaoUsuario input {
+  padding: 2%;
+}
+
+.btnLogout {
+  padding: 10px;
+}

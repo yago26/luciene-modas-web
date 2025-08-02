@@ -1,0 +1,103 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  position: fixed;
+  width: 100%;
+  top: 0;
+
+  z-index: 1000;
+}
+
+.barraFuncionalidades {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1% 10%;
+  background-color: white;
+}
+
+.linksRapidos {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.linksRapidos a {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  text-decoration: none;
+  color: gray;
+  font-size: small;
+  transition: 0.1s;
+}
+
+.visivel {
+  display: flex;
+}
+
+.invisivel {
+  display: none;
+}
+
+.signIn {
+  border: none;
+  background-color: transparent;
+  padding: 5px 10px;
+  color: gray;
+  transition: 0.1s;
+  margin-right: 10px;
+}
+
+.signUp {
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 5px 10px;
+  border: 1px gray solid;
+  color: gray;
+  transition: 0.1s;
+}
+
+.linksRapidos a:hover {
+  scale: 1.05;
+  background-color: gray;
+  color: white;
+}
+
+.signIn:hover,
+.signUp:hover {
+  cursor: pointer;
+  scale: 1.05;
+}
+
+.linksRapidosCategorias {
+  background-color: rgb(65, 65, 65);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  padding: 1% 10%;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  width: 100%;
+}
+
+.linksRapidosCategorias li {
+  transition: 0.1s;
+  font-size: 0.85rem;
+}
+
+.linksRapidosCategorias li a {
+  text-decoration: none;
+  color: gray;
+}
+
+.linksRapidosCategorias li:hover {
+  scale: 1.05;
+}
+
+.linksRapidosCategorias li a:hover {
+  color: white;
+}

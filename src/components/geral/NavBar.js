@@ -1,35 +1,48 @@
+import { cookies } from "next/headers";
+import { verificarToken } from "@/lib/auth";
+
 import Link from "next/link";
 import Image from "next/image";
+
+import SearchBar from "./SearchBar";
+import DivEspacamento from "./DivEspacamento";
+
 import style from "./navbar.module.css";
 
 export default function NavBar() {
-  let usuario = "";
+  const cookie = cookies().toString();
+  const usuario = verificarToken(cookie);
+
   return (
     <>
+      <DivEspacamento />
       <header className={style.header}>
         <nav>
           <div className={style.barraFuncionalidades}>
             <Link href="/">
               <Image
-                src=""
+                src="/favicon/android-chrome-192x192.png"
                 alt="Logo marca Luciene Modas - Roupas e Cosméticos"
-                width={150}
-                height={50}
+                width={48}
+                height={48}
               />
             </Link>
 
-            <form action="">
-              <input
-                className="barraPesquisa"
-                type="search"
-                name="barra-pesquisa"
-                id="barraPesquisa"
-                placeholder="Buscar produtos"
-              />
-              <button>Buscar</button>
-            </form>
+            <ul className={style.linksRapidos}>
+              <Link href="/">
+                <li>Início</li>
+              </Link>
+              <Link href="">
+                <li>Sobre</li>
+              </Link>
+              <Link href="">
+                <li>Contatos</li>
+              </Link>
+            </ul>
 
-            <ul>
+            <SearchBar />
+
+            <div>
               <div
                 id={style.funcionalidadesAutenticadas}
                 className={usuario ? style.visivel : style.invisivel}
@@ -42,7 +55,7 @@ export default function NavBar() {
                     height={50}
                   />
                 </Link>
-                <Link href="./usuario">
+                <Link href="./profile">
                   <Image src="" alt="Conta do usuário" width={50} height={50} />
                 </Link>
               </div>
@@ -51,32 +64,36 @@ export default function NavBar() {
                 id={style.funcionalidadesNaoAutenticadas}
                 className={usuario ? style.invisivel : style.visivel}
               >
-                <Link href="./signIn">
+                <Link href="./login">
                   <button className={style.signIn}>Login</button>
                 </Link>
                 <Link href="./signUp">
                   <button className={style.signUp}>Sign Up</button>
                 </Link>
               </div>
-            </ul>
+            </div>
           </div>
 
-          <div className={style.linksRapidosCategorias}>
-            <ul>
-              <li>
-                <Link href="">Roupas Masculinas</Link>
-              </li>
-              <li>
-                <Link href="">Roupas Femininas</Link>
-              </li>
-              <li>
-                <Link href="">Roupas Infantis</Link>
-              </li>
-              <li>
-                <Link href="">Cosméticos</Link>
-              </li>
-            </ul>
-          </div>
+          <ul className={style.linksRapidosCategorias}>
+            <li>
+              <Link href="">Roupas</Link>
+            </li>
+            <li>
+              <Link href="">Cosméticos</Link>
+            </li>
+            <li>
+              <Link href="">Masculino</Link>
+            </li>
+            <li>
+              <Link href="">Feminino</Link>
+            </li>
+            <li>
+              <Link href="">Infantil</Link>
+            </li>
+            <li>
+              <Link href="">Outros</Link>
+            </li>
+          </ul>
         </nav>
       </header>
     </>

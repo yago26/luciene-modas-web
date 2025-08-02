@@ -1,13 +1,7 @@
-.conteudo {
-  padding: 2% 10%;
-}
-
 .produtosPaginaInicial {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-around;
-  gap: 3%;
+  gap: 1%;
 }
 
 .produtosEmPromocao,

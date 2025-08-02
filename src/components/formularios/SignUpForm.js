@@ -1,32 +1,60 @@
 import Link from "next/link";
 import { useState } from "react";
-import style from "./consumidorSignUp.module.css";
+import style from "./signUpForm.module.css";
+// import { useRouter } from "next/navigation";
 
-export default function ConsumidoresSignUp({ onAddConsumidor }) {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [cep, setCep] = useState("");
-  const [genero, setGenero] = useState("");
-  const [senhaCadastro, setSenhaCadastro] = useState("");
-  const [senha, setSenha] = useState("");
+export default function SignUpForm({ onAddConsumidor }) {
+  const [toast, setToast] = useState("");
+  // const router = useRouter();
+
+  const [form, setForm] = useState({
+    nome: "",
+    email: "",
+    cep: "",
+    genero: "",
+    senha: "",
+  });
+  const [confirmarSenha, setConfirmarSenha] = useState("");
 
   const handleSubmit = (e) => {
     /* Tira o funcionamento padrão do <form></form> */
     e.preventDefault();
     /* Apaga os dados do formulário */
-    if (!(senhaCadastro === senha)) {
+    if (form.senha != confirmarSenha) {
       return alert(
         `Erro!\n O campo "senha" e "confirmar senha" estão incoerentes entre si.`
       );
     }
 
-    onAddConsumidor({ nome, email, cep, genero, senha: senhaCadastro });
-    setNome("");
-    setEmail("");
-    setCep("");
-    setGenero("");
-    setSenhaCadastro("");
-    setSenha("");
+    // const fetchEmailsUsuarios = async () => {
+    //   const response = await fetch("api/consumidores");
+    //   const data = await response.json;
+    //   return data.map((usuario) => {
+    //     return (usuario = usuario.email);
+    //   });
+    // };
+
+    // const emailsCadastrados = fetchEmailsUsuarios();
+    // for (let usuario of emailsCadastrados) {
+    //   if (form.email === usuario.email) {
+    //     setToast(`Erro!\nEmail já existente.`);
+    //     return;
+    //   }
+    // }
+
+    onAddConsumidor(form);
+
+    setForm({
+      nome: "",
+      email: "",
+      cep: "",
+      genero: "",
+      senha: "",
+    });
+    setConfirmarSenha("");
+
+    // setToast(`Operação realizada com sucesso!\nUsuário cadastrado.`);
+    // router("/login");
   };
 
   return (
@@ -41,9 +69,10 @@ export default function ConsumidoresSignUp({ onAddConsumidor }) {
             name="nome-usuario"
             id="usuario"
             placeholder="Usuário"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
+            value={form.nome}
+            onChange={(e) => setForm({ ...form, nome: e.target.value })}
             required
+            maxLength={255}
           />
           <label htmlFor="email">Email</label>
           <input
@@ -52,8 +81,8 @@ export default function ConsumidoresSignUp({ onAddConsumidor }) {
             name="email-usuario"
             id="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
           />
           <label htmlFor="cep">CEP</label>
@@ -63,20 +92,20 @@ export default function ConsumidoresSignUp({ onAddConsumidor }) {
             name="cep-usuario"
             id="cep"
             placeholder="CEP"
-            value={cep}
-            onChange={(e) => setCep(e.target.value)}
+            value={form.cep}
+            onChange={(e) => setForm({ ...form, cep: e.target.value })}
             required
+            maxLength={8}
           />
           <p className={style.genero}>Gênero</p>
-          <label htmlFor="campoEntradaGeneroMasculino">
+          <label htmlFor="masculino">
             <input
               className="campoEntradaGeneroMasculino"
               type="radio"
               name="genero"
               id="masculino"
               value="Masculino"
-              checked={genero === "Masculino"}
-              onChange={(e) => setGenero(e.target.value)}
+              onChange={(e) => setForm({ ...form, genero: e.target.value })}
             />
             Masculino
           </label>
@@ -87,8 +116,7 @@ export default function ConsumidoresSignUp({ onAddConsumidor }) {
               name="genero"
               id="feminino"
               value="Feminino"
-              checked={genero === "Feminino"}
-              onChange={(e) => setGenero(e.target.value)}
+              onChange={(e) => setForm({ ...form, genero: e.target.value })}
             />
             Feminino
           </label>
@@ -99,8 +127,7 @@ export default function ConsumidoresSignUp({ onAddConsumidor }) {
               name="genero"
               id="semIdentificacao"
               value="NULL"
-              checked={genero === "NULL"}
-              onChange={(e) => setGenero(e.target.value)}
+              onChange={(e) => setForm({ ...form, genero: e.target.value })}
               required
             />
             Prefiro não informar
@@ -112,8 +139,8 @@ export default function ConsumidoresSignUp({ onAddConsumidor }) {
             name="senha-cadastro"
             id="senhaCadastro"
             placeholder="Senha"
-            value={senhaCadastro}
-            onChange={(e) => setSenhaCadastro(e.target.value)}
+            value={form.senha}
+            onChange={(e) => setForm({ ...form, senha: e.target.value })}
             required
           />
           <label htmlFor="confirmarSenhaCadastro">Confirmar senha</label>
@@ -123,8 +150,8 @@ export default function ConsumidoresSignUp({ onAddConsumidor }) {
             name="confirmar-senha-cadastro"
             id="confirmarSenhaCadastro"
             placeholder="Confirmar senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
+            value={confirmarSenha}
+            onChange={(e) => setConfirmarSenha(e.target.value)}
             required
           />
         </div>
@@ -133,7 +160,7 @@ export default function ConsumidoresSignUp({ onAddConsumidor }) {
           <button type="submit">Cadastrar</button>
           <hr />
           <p>
-            Já possui uma conta? <Link href="./signIn">Login</Link>
+            Já possui uma conta? <Link href="./login">Login</Link>
           </p>
         </div>
       </form>

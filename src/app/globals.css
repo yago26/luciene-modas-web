@@ -1,15 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap");
 
-body,
-html {
+* {
   margin: 0;
   padding: 0;
-
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
   font-family: "Lexend", Arial;
   box-sizing: border-box;
+}
+
+body,
+html {
+  background-color: rgb(230, 230, 230);
+}
+
+a,
+p,
+li,
+button,
+label,
+input {
+  font-size: 0.8rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+button:hover {
+  cursor: pointer;
 }

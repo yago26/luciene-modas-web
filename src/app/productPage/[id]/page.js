@@ -1,6 +1,6 @@
 import db from "@/lib/db";
 import { fakeProducts } from "@/lib/fakeDataBase";
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/geral/NavBar";
 import Link from "next/link";
 
 export default async function ProductPage({ params }) {
@@ -9,7 +9,6 @@ export default async function ProductPage({ params }) {
   let indice = params.id;
   for (let p of fakeProducts) {
     if (p.id == indice) {
-      console.log("Deu certo");
       produto = p;
       break;
     }
@@ -18,11 +17,16 @@ export default async function ProductPage({ params }) {
   return (
     <>
       <NavBar />
-      <Link href="/">Voltar</Link>
       <main>
         <h1>{produto.nome}</h1>
         <hr />
-        <img src={produto.url} alt={produto.sobre} width={500} height={500} />
+        <img
+          src={produto.url}
+          alt={produto.sobre}
+          width={500}
+          height={500}
+          style={{ objectFit: "cover" }}
+        />
         <p>{produto.sobre}</p>
         <p>{produto.valor}</p>
         <p>{produto.tamanho}</p>

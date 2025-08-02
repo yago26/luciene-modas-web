@@ -1,0 +1,66 @@
+.contentSearchBar {
+  width: 30%;
+  background-color: white;
+  border-radius: 25px;
+  position: relative;
+}
+
+.searchBar {
+  width: 100%;
+  background-color: rgb(230, 230, 230);
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  padding-right: 15px;
+  border-radius: 50px;
+  gap: 5px;
+}
+
+.lupaPesquisa {
+  padding: 10px;
+  border-radius: 100%;
+  background-color: gray;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputPesquisa {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  padding-block: 10px;
+}
+
+.inputPesquisa:focus {
+  outline: none;
+}
+
+.showOptions {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  position: absolute;
+  top: 50px;
+  background-color: white;
+  width: 100%;
+}
+
+.hiddenOptions {
+  display: none;
+}
+
+.options button {
+  border: none;
+  text-align: start;
+  padding: 10px;
+  transition: 0.1s;
+  background-color: transparent;
+}
+
+.options button:hover {
+  scale: 1.01;
+  cursor: pointer;
+  background-color: rgb(230, 230, 230);
+}

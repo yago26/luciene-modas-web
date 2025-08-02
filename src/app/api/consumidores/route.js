@@ -21,7 +21,7 @@ export async function POST(request) {
       "INSERT INTO tb_consumidores (nome, email, cep, genero, senha) VALUES ($1, $2, $3, $4, $5)",
       [nome, email, cep, genero, senha]
     );
-    return NextResponse.json({ status: 201 });
+    return NextResponse.json({ status: 200 });
   } catch (error) {
     console.error("Error adding consumidor:", error);
     return NextResponse.json(
