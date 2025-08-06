@@ -1,3 +1,4 @@
+import NavBar from "@/components/geral/NavBar";
 import Footer from "@/components/geral/Footer";
 
 export const metadata = {
@@ -10,7 +11,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
       <body>
-        {children}
+        <NavBar />
+        <div style={{ padding: "12% 10% 5% 10%" }}>{children}</div>
         <Footer />
       </body>
     </html>

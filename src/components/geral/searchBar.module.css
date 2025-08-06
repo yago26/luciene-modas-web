@@ -17,9 +17,10 @@
 }
 
 .lupaPesquisa {
-  padding: 10px;
+  padding: 7.5px;
   border-radius: 100%;
-  background-color: gray;
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
 
   display: flex;
   align-items: center;

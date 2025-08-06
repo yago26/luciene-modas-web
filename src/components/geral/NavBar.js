@@ -8,6 +8,7 @@ import SearchBar from "./SearchBar";
 import DivEspacamento from "./DivEspacamento";
 
 import style from "./navbar.module.css";
+import { CircleUserRound, ShoppingCart } from "lucide-react";
 
 export default function NavBar() {
   const cookie = cookies().toString();
@@ -15,7 +16,6 @@ export default function NavBar() {
 
   return (
     <>
-      <DivEspacamento />
       <header className={style.header}>
         <nav>
           <div className={style.barraFuncionalidades}>
@@ -28,70 +28,63 @@ export default function NavBar() {
               />
             </Link>
 
-            <ul className={style.linksRapidos}>
+            {/* <ul className={style.linksRapidos}>
               <Link href="/">
                 <li>Início</li>
               </Link>
-              <Link href="">
+              <Link href="/">
                 <li>Sobre</li>
               </Link>
-              <Link href="">
+              <Link href="/">
                 <li>Contatos</li>
               </Link>
-            </ul>
+            </ul> */}
 
             <SearchBar />
 
             <div>
-              <div
-                id={style.funcionalidadesAutenticadas}
-                className={usuario ? style.visivel : style.invisivel}
-              >
-                <Link href="./shopCar">
-                  <Image
-                    src=""
-                    alt="Carrinho de compras"
-                    width={50}
-                    height={50}
-                  />
-                </Link>
-                <Link href="./profile">
-                  <Image src="" alt="Conta do usuário" width={50} height={50} />
-                </Link>
-              </div>
+              {usuario && (
+                <div id={style.funcionalidadesAutenticadas}>
+                  <Link href="/shopCar">
+                    <ShoppingCart size={30} color="black" />
+                  </Link>
+                  <Link href="/profile">
+                    <CircleUserRound size={30} color="black" />
+                  </Link>
+                </div>
+              )}
 
-              <div
-                id={style.funcionalidadesNaoAutenticadas}
-                className={usuario ? style.invisivel : style.visivel}
-              >
-                <Link href="./login">
-                  <button className={style.signIn}>Login</button>
-                </Link>
-                <Link href="./signUp">
-                  <button className={style.signUp}>Sign Up</button>
-                </Link>
-              </div>
+              {!usuario && (
+                <div id={style.funcionalidadesNaoAutenticadas}>
+                  <Link href="/login">
+                    <button className={style.signIn}>Login</button>
+                  </Link>
+                  <Link href="/signUp">
+                    <button className={style.signUp}>Sign Up</button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
 
           <ul className={style.linksRapidosCategorias}>
             <li>
-              <Link href="">Roupas</Link>
+              <Link href="/">Roupas</Link>
             </li>
             <li>
-              <Link href="">Cosméticos</Link>
+              <Link href="/">Cosméticos</Link>
             </li>
             <li>
-              <Link href="">Masculino</Link>
+              <Link href="/">Masculino</Link>
             </li>
             <li>
-              <Link href="">Feminino</Link>
+              <Link href="/">Feminino</Link>
             </li>
             <li>
-              <Link href="">Infantil</Link>
+              <Link href="/">Infantil</Link>
             </li>
             <li>
-              <Link href="">Outros</Link>
+              <Link href="/">Outros</Link>
             </li>
           </ul>
         </nav>

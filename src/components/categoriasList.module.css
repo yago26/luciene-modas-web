@@ -1,0 +1,25 @@
+.containerCategorias {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  padding-block: 1% 2%;
+}
+
+.categoria {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerCategorias li {
+  width: 8%;
+}

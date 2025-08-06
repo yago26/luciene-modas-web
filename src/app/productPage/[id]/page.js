@@ -1,14 +1,20 @@
-import db from "@/lib/db";
-import { fakeProducts } from "@/lib/fakeDataBase";
-import NavBar from "@/components/geral/NavBar";
-import Link from "next/link";
+"use client";
 
-export default async function ProductPage({ params }) {
+import { use } from "react";
+import { useCarrinhoStore } from "@/app/store/carrinho";
+// import db from "@/lib/db";
+import { fakeProducts } from "@/lib/fakeDataBase";
+import Link from "next/link";
+import style from "./page.module.css";
+
+export default function ProductPage({ params }) {
+  const { adicionarProduto } = useCarrinhoStore();
   // let produto = db.query(`select * from tb_produto where ${indice} = id`);
   let produto;
-  let indice = params.id;
+  let { id } = use(params);
+  console.log(id);
   for (let p of fakeProducts) {
-    if (p.id == indice) {
+    if (p.id == id) {
       produto = p;
       break;
     }
@@ -16,23 +22,33 @@ export default async function ProductPage({ params }) {
 
   return (
     <>
-      <NavBar />
-      <main>
-        <h1>{produto.nome}</h1>
-        <hr />
-        <img
-          src={produto.url}
-          alt={produto.sobre}
-          width={500}
-          height={500}
-          style={{ objectFit: "cover" }}
-        />
-        <p>{produto.sobre}</p>
-        <p>{produto.valor}</p>
-        <p>{produto.tamanho}</p>
-        <p>{produto.estoque}</p>
-        <button>Comprar</button>
-      </main>
+      <div className={style.containerInfosProduto}>
+        <div className={style.imagensProduto}>
+          <div>Imagens laterais</div>
+          <img
+            src={produto.url}
+            alt={produto.sobre}
+            width={320}
+            height={320}
+            style={{ objectFit: "cover" }}
+          />
+        </div>
+        <div className={style.infosProduto}>
+          <h1>{produto.nome}</h1>
+          <p>{produto.sobre}</p>
+          <p>{produto.valor}</p>
+          <p>Tamanho: {produto.tamanho}</p>
+          <p>Estoque: {produto.estoque}</p>
+          <button
+            onClick={() => {
+              adicionarProduto(produto);
+            }}
+          >
+            Adicionar ao carrinho
+          </button>
+        </div>
+      </div>
+      <h2>Produtos relacionados</h2>
     </>
   );
 }

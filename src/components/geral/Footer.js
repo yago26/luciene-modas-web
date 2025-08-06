@@ -6,43 +6,97 @@ export default function Footer() {
   return (
     <>
       <footer className={style.footer}>
-        <Link href="/">
-          <Image
-            src="/favicon/android-chrome-192x192.png"
-            alt="Logo marca Luciene Modas - Roupas e Cosméticos"
-            width={96}
-            height={96}
-          />
-        </Link>
-        <div className="contatosRodape">
-          <h5>Contatos</h5>
-          <p>+55 (83) 98728-4758</p>
+        <div>
+          <Link href="/">
+            <Image
+              src="/favicon/android-chrome-192x192.png"
+              alt="Logo marca Luciene Modas - Roupas e Cosméticos"
+              width={96}
+              height={96}
+            />
+          </Link>
+          <div className={style.contatosRodape}>
+            <h5>Contatos</h5>
+            <p>+55 (83) 98728-4758</p>
+            <ul>
+              <li>
+                <a href="https://www.instagram.com/luciene_modas_lm/">
+                  <img
+                    src="/footer/instagram.svg"
+                    alt="Instagram"
+                    width={30}
+                    height={30}
+                  />
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <img
+                    src="/footer/whatsapp.svg"
+                    alt="Whatsapp"
+                    width={30}
+                    height={30}
+                  />
+                </a>
+              </li>
+              <li>
+                <a href="/">
+                  <img
+                    style={{ backgroundColor: "white", borderRadius: "5px" }}
+                    src="/footer/facebook.svg"
+                    alt="Facebook"
+                    width={30}
+                    height={30}
+                  />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className={style.divRodape}>
+          <h5>Informações da empresa</h5>
+          <ul>
+            <li>Sobre a empresa</li>
+            <li>Conheça a dona</li>
+            <li>Localidade</li>
+          </ul>
+        </div>
+
+        <div className={style.divRodape}>
+          <h5>Ajuda e suporte</h5>
           <ul>
             <li>
-              <a href="https://www.instagram.com/luciene_modas_lm/">
-                <Image src="" alt="Instagram" width={30} height={30} />
-              </a>
+              <a href="/">Sobre sua conta</a>
             </li>
             <li>
-              <a href="">
-                <Image src="" alt="Whatsapp" width={30} height={30} />
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <Image src="" alt="Facebook" width={30} height={30} />
-              </a>
+              <a href="/">Dúvidas mais frequentes</a>
             </li>
           </ul>
         </div>
 
-        <div className="atendimentoRodape">
-          <h5>Atendimento</h5>
-          <p>Segunda a Sábado (exceto feriados)</p>
+        <div id={style.atendimentoRodape} className={style.divRodape}>
+          <h5>Atendimento ao cliente</h5>
           <ul>
-            Horários
-            <li>8h até 11h</li>
-            <li>14h até 17h</li>
+            <p>Localidade</p>
+            <li>- Areial-PB, Brasil</li>
+            <li>- Rua São José, nº 949, Bairro Centro</li>
+          </ul>
+
+          <ul>
+            <p>Horários</p>
+            <li>Funcionamento: Segunda a Sábado (exceto feriados)</li>
+            <li>- Manhã: 8h até 11h</li>
+            <li>- Tarde: 14h até 17h</li>
+          </ul>
+        </div>
+
+        <div className={style.divRodape}>
+          <h5>Formas de pagamento</h5>
+          <ul>
+            <li>PIX</li>
+            <li>Cartão de crédito</li>
+            <li>Débito</li>
           </ul>
         </div>
       </footer>

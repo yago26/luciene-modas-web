@@ -1,0 +1,10 @@
+.produtosPaginaInicial {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1%;
+}
+
+.produtosEmPromocao,
+.produtosMaisVendidos {
+  margin-bottom: 5%;
+}

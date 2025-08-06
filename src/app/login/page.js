@@ -12,17 +12,8 @@ export default function Login() {
 
     const data = await res.json();
 
-    console.log(data);
-
     if (res.ok) {
-      const nome = data.usuario.nome;
-      const genero =
-        data.usuario.genero === "Masculino"
-          ? "o"
-          : data.usuario.genero === "Feminino"
-          ? "a"
-          : "(a)o";
-      return `Bem vind${genero}, ${nome}`;
+      return alert("Operação realizada com sucesso! Login bem-sucedido.");
     } else {
       return data.error;
     }

@@ -26,9 +26,21 @@ export default ({ usuario }) => {
               </div>
             </Link>
             <div>
-              <button onClick={adicionarProduto}>+</button>
+              <button
+                onClick={() => {
+                  adicionarProduto(p);
+                }}
+              >
+                +
+              </button>
               <span>{p.quantidade}</span>
-              <button onClick={removerProduto}>-</button>
+              <button
+                onClick={() => {
+                  removerProduto(p);
+                }}
+              >
+                -
+              </button>
             </div>
           </div>
         ))}

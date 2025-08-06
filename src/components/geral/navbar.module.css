@@ -34,12 +34,14 @@
   transition: 0.1s;
 }
 
-.visivel {
+#funcionalidadesAutenticadas {
   display: flex;
+  gap: 20%;
 }
 
-.invisivel {
-  display: none;
+#funcionalidadesNaoAutenticadas {
+  display: flex;
+  gap: 10px;
 }
 
 .signIn {
@@ -48,7 +50,6 @@
   padding: 5px 10px;
   color: gray;
   transition: 0.1s;
-  margin-right: 10px;
 }
 
 .signUp {
@@ -73,7 +74,7 @@
 }
 
 .linksRapidosCategorias {
-  background-color: rgb(65, 65, 65);
+  background-color: var(--cor-principal);
   margin: 0;
   padding: 0;
   display: flex;

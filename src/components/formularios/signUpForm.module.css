@@ -1,8 +1,21 @@
+.containerSignUp {
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+}
+
 .formSignUp {
   display: flex;
   flex-direction: column;
-  width: 30%;
-  padding: 5%;
+  width: 40%;
+  padding: 2.5%;
+}
+
+.containerLateral {
+  width: 40%;
+  padding: 2.5%;
+  background-color: var(--cor-principal);
+  color: white;
 }
 
 .formSignUp h1,
@@ -33,4 +46,12 @@
   width: 100%;
   padding: 2%;
   margin-bottom: 5px;
+}
+
+.containerSenhaSignUp {
+  display: flex;
+}
+
+.containerSenhaSignUp input {
+  width: 100%;
 }

@@ -8,24 +8,22 @@ import { useRouter } from "next/navigation";
 export default function CardProduto({ produto, usuario }) {
   const { adicionarProduto } = useCarrinhoStore();
 
-  console.log(produto);
-
-  const { id, nome, sobre, valor, url } = produto;
+  let { id, nome, sobre, valor, url } = produto;
   const [reais, cents] = valor.split(".");
 
-  // if (nome.length > 42) {
-  //   nome = nome.split("");
-  //   nome.length = 39;
-  //   nome.push("...");
-  //   nome = nome.join().replaceAll(",", "");
-  // }
+  if (nome.length > 42) {
+    nome = nome.split("");
+    nome.length = 39;
+    nome.push("...");
+    nome = nome.join().replaceAll(",", "");
+  }
 
   const router = useRouter();
 
   return (
     <>
       <div className={style.produto}>
-        <Link className={style.ancora} href={`./productPage/${id}`}>
+        <Link className={style.ancora} href={`/productPage/${id}`}>
           <img
             src={url}
             alt={sobre}
@@ -44,11 +42,11 @@ export default function CardProduto({ produto, usuario }) {
           >
             {nome}
           </h4>
+          <p style={{ textAlign: "right" }}>
+            <span style={{ fontSize: "1.3rem" }}>R{reais}</span>,
+            <span>{cents}</span>
+          </p>
         </Link>
-        <p style={{ textAlign: "right" }}>
-          <span style={{ fontSize: "1.3rem" }}>R{reais}</span>,
-          <span>{cents}</span>
-        </p>
         <button
           className={style.btnAdicionar}
           onClick={() => {

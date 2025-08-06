@@ -1,8 +1,36 @@
 .footer {
   display: flex;
-  align-items: center;
   justify-content: space-between;
 
-  background-color: gray;
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
   padding: 3% 10%;
+}
+
+.footer ul {
+  list-style: none;
+}
+
+.contatosRodape ul {
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+}
+
+.contatosRodape li {
+  margin: 0;
+}
+
+#atendimentoRodape li {
+  margin-left: 10%;
+}
+
+.divRodape {
+  width: 15%;
+}
+
+.divRodape ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20%;
 }

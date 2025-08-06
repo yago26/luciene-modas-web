@@ -22,12 +22,24 @@ export const useCarrinhoStore = create((set) => ({
         produtos: [...state.produtos, { ...produto, quantidade: 1 }],
       };
     }),
-  removerProduto: (id) =>
+  removerProduto: (produto) =>
     set((state) => {
       alert("Produto removido com sucesso!");
-      return {
-        produtos: state.produtos.filter((p) => p.id !== id),
-      };
+      if (
+        state.produtos.find((p) => {
+          if (p.id === produto.id) return p.quantidade > 1;
+        })
+      ) {
+        return {
+          produtos: state.produtos.map((p) =>
+            p.id === produto.id ? { ...p, quantidade: p.quantidade - 1 } : p
+          ),
+        };
+      } else {
+        return {
+          produtos: state.produtos.filter((p) => p.id !== produto.id),
+        };
+      }
     }),
   limparCarrinho: () => set({ produtos: [] }),
 }));

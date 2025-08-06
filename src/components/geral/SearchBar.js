@@ -5,6 +5,7 @@ import style from "./searchBar.module.css";
 import { fakeProducts } from "@/lib/fakeDataBase";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
 
 export default function SearchBar() {
   const [valorPesquisa, setValorPesquisa] = useState("");
@@ -38,12 +39,7 @@ export default function SearchBar() {
       <form onSubmit={handleSumit} className={style.contentSearchBar}>
         <div className={style.searchBar}>
           <div className={style.lupaPesquisa}>
-            <Image
-              src="/icons/magnifying-glass-solid.svg"
-              alt="Lupa de pesquisa"
-              width={16}
-              height={16}
-            />
+            <Search size={24} />
           </div>
 
           <input
