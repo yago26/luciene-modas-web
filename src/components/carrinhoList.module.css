@@ -1,0 +1,47 @@
+.containerProduto,
+.containerLinkProduto {
+  padding: 1%;
+  display: flex;
+  align-items: center;
+}
+
+.containerLinkProduto {
+  transition: 1s;
+  width: 70%;
+  gap: 5%;
+}
+
+.containerQuantidadeProduto,
+.containerSelecaoProduto {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerLinkProduto:hover {
+  scale: 1.02;
+}
+
+.containerProduto a {
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+}
+
+.btn {
+  margin-inline: 10px;
+  padding: 10px;
+}
+
+.checkbox {
+  width: 30px;
+  height: 30px;
+}
+
+/* 
+Tabela proprietário e cliente
+Pitch de outubro
+* Problema
+* Solução
+Não tem fundamentação teórica de DAW: Detalhar a utilização das tecnologias no caso pessoal
+*/

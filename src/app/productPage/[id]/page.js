@@ -35,6 +35,7 @@ export default function ProductPage({ params }) {
         </div>
         <div className={style.infosProduto}>
           <h1>{produto.nome}</h1>
+          <hr />
           <p>{produto.sobre}</p>
           <p>{produto.valor}</p>
           <p>Tamanho: {produto.tamanho}</p>
