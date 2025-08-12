@@ -4,17 +4,30 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import SignUpForm from "@/components/formularios/SignUpForm";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
+  const router = useRouter();
+
   const addConsumidor = async (consumidor) => {
     // fetch => Uma busca na API
-    await fetch("/api/signUp", {
+    const res = await fetch("/api/signUp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(consumidor),
     });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Operação realizada com sucesso! Cadastro bem-sucedido.");
+      router.push("/login");
+      return;
+    } else {
+      return data.error;
+    }
   };
 
   return (

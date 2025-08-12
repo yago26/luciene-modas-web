@@ -1,8 +1,10 @@
 "use client";
 
 import LoginForm from "@/components/formularios/LoginForm";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
   const authUsuario = async (form) => {
     const res = await fetch("api/login", {
       method: "POST",
@@ -13,7 +15,10 @@ export default function Login() {
     const data = await res.json();
 
     if (res.ok) {
-      return alert("Operação realizada com sucesso! Login bem-sucedido.");
+      alert("Operação realizada com sucesso! Autenticação bem-sucedida.");
+      router.push("/");
+      router.refresh();
+      return;
     } else {
       return data.error;
     }
