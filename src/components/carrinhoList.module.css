@@ -38,6 +38,10 @@
   height: 30px;
 }
 
+.containerFinalizarCompra button {
+  padding: 10px;
+}
+
 /* 
 Tabela proprietário e cliente
 Pitch de outubro

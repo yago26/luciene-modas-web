@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CarrinhoList({ usuario }) {
-  const [selecionados, setSelecionados] = useState({});
+  const [selecionados, setSelecionados] = useState([]);
   const { produtos, adicionarProduto, removerProduto } = useCarrinhoStore();
   const router = useRouter();
 
@@ -47,6 +47,11 @@ export default function CarrinhoList({ usuario }) {
               <button
                 className={style.btn}
                 onClick={() => {
+                  if (p.quantidade <= 1) {
+                    setSelecionados(
+                      selecionados.filter((produto) => p.id != produto.id)
+                    );
+                  }
                   removerProduto(p);
                 }}
               >
@@ -59,8 +64,18 @@ export default function CarrinhoList({ usuario }) {
                 name={p.id}
                 className={style.checkbox}
                 type="checkbox"
-                onChange={() => {
-                  setSelecionados({});
+                onChange={(e) => {
+                  if (
+                    selecionados.find((produto) => {
+                      if (p === produto) return true;
+                    })
+                  ) {
+                    setSelecionados(
+                      selecionados.filter((produto) => p.id !== produto.id)
+                    );
+                    return;
+                  }
+                  setSelecionados([...selecionados, p]);
                 }}
               />
             </div>
@@ -70,12 +85,25 @@ export default function CarrinhoList({ usuario }) {
       <div className={style.containerFinalizarCompra}>
         <button
           onClick={() => {
+            console.log(selecionados);
+            if (selecionados.length <= 0) {
+              alert("Erro! Nenhum produto selecionado.");
+              return;
+            }
             router.push(`./checkout/${selecionados}`);
             router.refresh();
           }}
         >
           Finalizar compra
         </button>
+      </div>
+      <div>
+        <h3>Selecionados</h3>
+        {selecionados.map((p) => (
+          <div key={p.id}>
+            <p>{p.nome}</p>
+          </div>
+        ))}
       </div>
     </>
   );
