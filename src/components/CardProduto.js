@@ -3,9 +3,8 @@
 import Link from "next/link";
 import style from "./cardProduto.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
-import { useRouter } from "next/navigation";
 
-export default function CardProduto({ produto, usuario }) {
+export default function CardProduto({ produto }) {
   const { adicionarProduto } = useCarrinhoStore();
 
   let { id, nome, sobre, valor, url } = produto;
@@ -17,8 +16,6 @@ export default function CardProduto({ produto, usuario }) {
     nome.push("...");
     nome = nome.join().replaceAll(",", "");
   }
-
-  const router = useRouter();
 
   return (
     <>
@@ -50,11 +47,6 @@ export default function CardProduto({ produto, usuario }) {
         <button
           className={style.btnAdicionar}
           onClick={() => {
-            if (!usuario) {
-              router.push("/login");
-              router.refresh();
-              return;
-            }
             adicionarProduto(produto);
           }}
         >

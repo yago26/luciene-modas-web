@@ -3,13 +3,28 @@
 import Link from "next/link";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import style from "./carrinhoList.module.css";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function CarrinhoList({ usuario }) {
   const [selecionados, setSelecionados] = useState([]);
   const { produtos, adicionarProduto, removerProduto } = useCarrinhoStore();
-  const router = useRouter();
+
+  if (!usuario) {
+    redirect("/login");
+  }
+
+  // import { cookies } from "next/headers";
+  //   import { verificarToken } from "@/lib/auth";
+
+  //   const cookie = cookies().toString();
+  //   const usuario = verificarToken(cookie);
+
+  //   if (!usuario) {
+  //     router.push("/login");
+  //     router.refresh();
+  //     return;
+  //   }
 
   const genero = usuario.genero;
   return (
@@ -65,11 +80,7 @@ export default function CarrinhoList({ usuario }) {
                 className={style.checkbox}
                 type="checkbox"
                 onChange={(e) => {
-                  if (
-                    selecionados.find((produto) => {
-                      if (p === produto) return true;
-                    })
-                  ) {
+                  if (selecionados.find((produto) => p.id === produto.id)) {
                     setSelecionados(
                       selecionados.filter((produto) => p.id !== produto.id)
                     );

@@ -1,4 +1,4 @@
-import pool from "@/lib/db";
+import db from "@/lib/db";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
@@ -7,7 +7,7 @@ export async function POST(req) {
   const { email, senha } = await req.json();
 
   try {
-    const result = await pool.query(
+    const result = await db.query(
       "SELECT * FROM tb_consumidores WHERE email = $1",
       [email]
     );

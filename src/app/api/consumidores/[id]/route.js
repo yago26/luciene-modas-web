@@ -7,7 +7,7 @@ export async function DELETE(request, { params }) {
     await db.query("DELETE FROM tb_consumidores WHERE id = $1", [id]);
     return NextResponse.json({ message: "Consumidor removido com sucesso" });
   } catch (error) {
-    console.error("Erro ao remover consumidor:", error);
+    console.log("Erro ao remover consumidor:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

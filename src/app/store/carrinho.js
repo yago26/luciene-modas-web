@@ -1,6 +1,5 @@
-// Zustand é uma biblioteca utliizada para melhor controle de estados globais na aplicação, um
-// useContext do React JS só que melhorado
-
+// Zustand é uma biblioteca utliizada para melhor controle de estados globais na aplicação,
+// * Um useContext do React JS só que melhorado
 import { create } from "zustand";
 
 export const useCarrinhoStore = create((set) => ({

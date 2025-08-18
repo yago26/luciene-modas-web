@@ -1,15 +1,15 @@
-import db from "@/lib/db";
-
 import { cookies } from "next/headers";
 import { verificarToken } from "@/lib/auth";
 
-import { fakeProducts } from "@/lib/fakeDataBase";
 import style from "./produtosList.module.css";
 
 import CardProduto from "@/components/CardProduto";
 
-export default function ProdutosList() {
-  // const produtos = db.query("select * from tb_produto");
+export default async function ProdutosList() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/produtos`
+  );
+  const produtos = await response.json();
 
   const cookie = cookies().toString();
   const usuario = verificarToken(cookie);
@@ -20,7 +20,7 @@ export default function ProdutosList() {
       <article className={style.produtosEmPromocao}>
         <h2>Em Promoção</h2>
         <div className={style.produtosPaginaInicial}>
-          {fakeProducts
+          {produtos
             .filter((produto) => {
               try {
                 if (
@@ -53,7 +53,7 @@ export default function ProdutosList() {
       <article className={style.produtosMaisVendidos}>
         <h2>Mais Vendidos</h2>
         <div className={style.produtosPaginaInicial}>
-          {fakeProducts.map((produto) => {
+          {produtos.map((produto) => {
             return (
               <CardProduto
                 key={produto.id}

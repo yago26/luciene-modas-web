@@ -4,7 +4,11 @@ export default function Loading() {
   return (
     <div
       style={{
-        margin: "auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "70%",
       }}
     >
       <Ring />

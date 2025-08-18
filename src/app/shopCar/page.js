@@ -1,20 +1,14 @@
 import { cookies } from "next/headers";
 import { verificarToken } from "@/lib/auth";
-import Checkout from "@/components/Checkout";
 import CarrinhoList from "@/components/CarrinhoList";
 
 export default function ShopCar() {
   const cookie = cookies().toString();
   const usuario = verificarToken(cookie);
 
-  if (!usuario) {
-    return <></>;
-  }
-
   return (
     <>
       <CarrinhoList usuario={usuario} />
-      {/* <Checkout /> */}
     </>
   );
 }

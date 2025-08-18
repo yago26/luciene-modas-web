@@ -2,23 +2,13 @@
 
 import { use } from "react";
 import { useCarrinhoStore } from "@/app/store/carrinho";
-// import db from "@/lib/db";
-import { fakeProducts } from "@/lib/fakeDataBase";
-import Link from "next/link";
 import style from "./page.module.css";
 
-export default function ProductPage({ params }) {
-  const { adicionarProduto } = useCarrinhoStore();
-  // let produto = db.query(`select * from tb_produto where ${indice} = id`);
-  let produto;
+export default async function ProductPage({ params }) {
   let { id } = use(params);
-  console.log(id);
-  for (let p of fakeProducts) {
-    if (p.id == id) {
-      produto = p;
-      break;
-    }
-  }
+  const response = await fetch(`/api/produtos/${id}`);
+  const produto = await response.json();
+  const { adicionarProduto } = useCarrinhoStore();
 
   return (
     <>

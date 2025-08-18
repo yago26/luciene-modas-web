@@ -5,12 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 
 import SearchBar from "./SearchBar";
-import DivEspacamento from "./DivEspacamento";
 
 import style from "./navbar.module.css";
 import { CircleUserRound, ShoppingCart } from "lucide-react";
 
 export default function NavBar() {
+  /*
+  useEffect(() => {}, [usuario]); 
+  */
   const cookie = cookies().toString();
   const usuario = verificarToken(cookie);
 
