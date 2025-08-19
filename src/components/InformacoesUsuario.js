@@ -9,7 +9,7 @@ export default function InformacoesUsuario({ usuario }) {
   const router = useRouter();
 
   const logout = async () => {
-    await fetch("/api/logout"); // Limpa o cookie
+    await fetch("/api/logout", { method: "POST" }); // Limpa o cookie
     router.push("/"); // Redireciona para home
     router.refresh(); // Força reload do server-side para atualizar NavBar
   };

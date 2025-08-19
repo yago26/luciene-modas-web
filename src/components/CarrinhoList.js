@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import style from "./carrinhoList.module.css";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CarrinhoList({ usuario }) {
@@ -14,17 +14,7 @@ export default function CarrinhoList({ usuario }) {
     redirect("/login");
   }
 
-  // import { cookies } from "next/headers";
-  //   import { verificarToken } from "@/lib/auth";
-
-  //   const cookie = cookies().toString();
-  //   const usuario = verificarToken(cookie);
-
-  //   if (!usuario) {
-  //     router.push("/login");
-  //     router.refresh();
-  //     return;
-  //   }
+  const router = useRouter();
 
   const genero = usuario.genero;
   return (

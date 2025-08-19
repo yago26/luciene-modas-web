@@ -20,7 +20,10 @@ export async function POST(req) {
       );
     }
 
-    return NextResponse.json({ mensagem: "Pedido finalizado" });
+    return NextResponse.json(
+      { mensagem: "Pedido finalizado" },
+      { status: 201 }
+    );
   } catch (e) {
     return NextResponse.json(
       { erro: "Erro ao finalizar pedido" },

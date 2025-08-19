@@ -5,7 +5,12 @@ export async function DELETE(request, { params }) {
   try {
     const { id } = params;
     await db.query("DELETE FROM tb_consumidores WHERE id = $1", [id]);
-    return NextResponse.json({ message: "Consumidor removido com sucesso" });
+    return NextResponse.json(
+      {
+        message: "Consumidor removido com sucesso",
+      },
+      { status: 204 }
+    );
   } catch (error) {
     console.log("Erro ao remover consumidor:", error);
     return NextResponse.json(

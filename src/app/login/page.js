@@ -1,7 +1,7 @@
 "use client";
 
 import LoginForm from "@/components/formularios/LoginForm";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const router = useRouter();
@@ -16,7 +16,8 @@ export default function Login() {
 
     if (res.ok) {
       alert("Operação realizada com sucesso! Autenticação bem-sucedida.");
-      redirect("/");
+      router.push("/");
+      router.refresh();
     } else {
       return data.error;
     }

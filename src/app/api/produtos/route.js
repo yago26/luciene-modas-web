@@ -11,7 +11,7 @@ export async function GET() {
     console.log("Erro ao listar produtos", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 401 }
+      { status: 500 }
     );
   }
 }

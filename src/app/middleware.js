@@ -2,28 +2,41 @@
 import { NextResponse } from "next/server";
 import { verificarToken } from "@/lib/auth";
 
-export function middleware(req) {
-  const token = req.cookies.get("token")?.value;
+const PRIVATE = ["/shopCar", "/profile"];
+const PUBLIC = ["/login", "/signUp"]; // inclua as duas grafias que você usa
 
-  // Rotas privadas
-  const rotasPrivadas = ["/shopCar", "/checkout", "/profile"];
+export async function middleware(req) {
+  const { pathname } = req.nextUrl;
+  const token = (await req.cookies.get("token")?.value) ?? "";
 
-  if (rotasPrivadas.some((rota) => req.nextUrl.pathname.startsWith(rota))) {
-    if (!token || !verificarToken(token)) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
+  const match = (list) =>
+    list.some((p) => pathname === p || pathname.startsWith(p + "/"));
+
+  const isPrivate = match(PRIVATE);
+  const isPublic = match(PUBLIC);
+
+  // suporta verificarToken síncrona ou assíncrona
+  const valid = token
+    ? await Promise.resolve(verificarToken(token)).catch(() => null)
+    : null;
+
+  if (isPrivate && !valid) {
+    const url = new URL("/login", req.url);
+    url.searchParams.set("from", pathname);
+    return NextResponse.redirect(url);
   }
 
-  // Rotas públicas que não devem ser acessadas por logados
-  const rotasPublicas = ["/login", "/cadastro"];
-
-  if (rotasPublicas.some((rota) => req.nextUrl.pathname.startsWith(rota))) {
-    if (token && verificarToken(token)) {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
+  if (isPublic && valid) {
+    return NextResponse.redirect(new URL("/", req.url));
   }
-
-  // Rotas de administradores ???
 
   return NextResponse.next();
 }
+
+// IMPORTANTÍSSIMO: não interceptar estáticos nem arquivos da /public
+export const config = {
+  matcher: [
+    // exclui /api, internals do Next e QUALQUER arquivo com ponto (ex.: /logo.png, /styles.css)
+    "/((?!api|_next/s tatic|_next/image|favicon.ico|.*\\..*).*)",
+  ],
+};

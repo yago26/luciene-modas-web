@@ -10,9 +10,6 @@ import style from "./navbar.module.css";
 import { CircleUserRound, ShoppingCart } from "lucide-react";
 
 export default function NavBar() {
-  /*
-  useEffect(() => {}, [usuario]); 
-  */
   const cookie = cookies().toString();
   const usuario = verificarToken(cookie);
 
