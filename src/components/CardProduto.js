@@ -4,7 +4,7 @@ import Link from "next/link";
 import style from "./cardProduto.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 
-export default function CardProduto({ produto }) {
+export default function CardProduto({ produto, usuario }) {
   const { adicionarProduto } = useCarrinhoStore();
 
   let { id, nome, sobre, valor, url } = produto;
@@ -44,14 +44,16 @@ export default function CardProduto({ produto }) {
             <span>{cents}</span>
           </p>
         </Link>
-        <button
-          className={style.btnAdicionar}
-          onClick={() => {
-            adicionarProduto(produto);
-          }}
-        >
-          Adicionar
-        </button>
+        {usuario && (
+          <button
+            className={style.btnAdicionar}
+            onClick={() => {
+              adicionarProduto(produto);
+            }}
+          >
+            Adicionar
+          </button>
+        )}
       </div>
     </>
   );

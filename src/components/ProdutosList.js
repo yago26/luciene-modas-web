@@ -11,7 +11,7 @@ export default async function ProdutosList() {
   );
   const produtos = await response.json();
 
-  const cookie = cookies().toString();
+  const cookie = (await cookies()).toString();
   const usuario = verificarToken(cookie);
   let genero = usuario ? usuario.genero : null;
 

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     // const result = await db.query("SELECT * FROM tb_produtos WHERE id = $1", [id]);
     // return NextResponse(result.rows[0]);
     const result = fakeProducts.find((product) => product.id == id);

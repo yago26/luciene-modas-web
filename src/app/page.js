@@ -3,8 +3,6 @@ import CategoriasList from "@/components/CategoriasList";
 import ProdutosList from "@/components/ProdutosList";
 import Loading from "./loading";
 
-import "./globals.css";
-
 import { Suspense } from "react";
 
 export default async function Home() {

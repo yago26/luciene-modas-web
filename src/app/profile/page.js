@@ -3,8 +3,8 @@ import InformacoesUsuario from "@/components/InformacoesUsuario";
 import { cookies } from "next/headers";
 import { verificarToken } from "@/lib/auth";
 
-export default function Profile() {
-  const cookie = cookies().toString();
+export default async function Profile() {
+  const cookie = (await cookies()).toString();
   const usuario = verificarToken(cookie);
 
   if (!usuario) {

@@ -1,5 +1,6 @@
 import NavBar from "@/components/geral/NavBar";
 import Footer from "@/components/geral/Footer";
+import "./globals.css";
 
 export const metadata = {
   title: "Luciene Modas",

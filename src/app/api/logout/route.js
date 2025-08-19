@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST() {
   const res = NextResponse.json(
     { mensagem: "Logout feito com sucesso!" },
-    { status: 204 }
+    { status: 200 }
   );
 
   // Apaga o cookie `token`

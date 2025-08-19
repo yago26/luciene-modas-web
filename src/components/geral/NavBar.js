@@ -9,9 +9,9 @@ import SearchBar from "./SearchBar";
 import style from "./navbar.module.css";
 import { CircleUserRound, ShoppingCart } from "lucide-react";
 
-export default function NavBar() {
-  const cookie = cookies().toString();
-  const usuario = verificarToken(cookie);
+export default async function NavBar() {
+  const cookie = (await cookies())?.toString();
+  const usuario = cookie ? verificarToken(cookie) : null;
 
   return (
     <>

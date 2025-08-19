@@ -21,19 +21,19 @@ export default function InformacoesUsuario({ usuario }) {
       <ul className={style.listaInformacoesUsuario}>
         <li className={style.informacaoUsuario}>
           <label htmlFor="">Nome</label>
-          <input id="" type="text" value={usuario.nome} />
+          {usuario.nome}
         </li>
         <li className={style.informacaoUsuario}>
           <label htmlFor="">Email</label>
-          <input id="" type="text" value={usuario.email} />
+          {usuario.email}
         </li>
         <li className={style.informacaoUsuario}>
           <label htmlFor="">CEP</label>
-          <input id="" type="text" value={usuario.cep} />
+          {usuario.cep}
         </li>
         <li className={style.informacaoUsuario}>
           <label htmlFor="">Gênero</label>
-          <input id="" type="text" value={usuario.genero} />
+          {usuario.genero}
         </li>
       </ul>
       <hr />

@@ -10,9 +10,9 @@ export default function CarrinhoList({ usuario }) {
   const [selecionados, setSelecionados] = useState([]);
   const { produtos, adicionarProduto, removerProduto } = useCarrinhoStore();
 
-  if (!usuario) {
+  /*if (!usuario) {
     redirect("/login");
-  }
+  }*/
 
   const router = useRouter();
 
