@@ -1,10 +1,13 @@
-"use client";
-import style from "./productPageMain.module.css";
-import { useCarrinhoStore } from "@/app/store/carrinho";
+import { cookies } from "next/headers";
+import { verificarToken } from "@/lib/auth";
 
-export default function ProductPageMain({ produto }) {
-  console.log(produto);
-  const { adicionarProduto } = useCarrinhoStore();
+import ProductPageInfoProduct from "./ProductPageInfoProduct";
+import style from "./productPageMain.module.css";
+
+export default async function ProductPageMain({ produto }) {
+  const cookie = (await cookies())?.toString();
+  const usuario = cookie ? verificarToken(cookie) : null;
+
   return (
     <>
       <div className={style.containerInfosProduto}>
@@ -18,21 +21,7 @@ export default function ProductPageMain({ produto }) {
             style={{ objectFit: "cover" }}
           />
         </div>
-        <div className={style.infosProduto}>
-          <h1>{produto.nome}</h1>
-          <hr />
-          <p>{produto.sobre}</p>
-          <p>{produto.valor}</p>
-          <p>Tamanho: {produto.tamanho}</p>
-          <p>Estoque: {produto.estoque}</p>
-          <button
-            onClick={() => {
-              adicionarProduto(produto);
-            }}
-          >
-            Adicionar ao carrinho
-          </button>
-        </div>
+        <ProductPageInfoProduct produto={produto} usuario={usuario} />
       </div>
     </>
   );

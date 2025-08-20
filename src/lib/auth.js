@@ -2,12 +2,11 @@ import jwt from "jsonwebtoken";
 
 export function verificarToken(cookie) {
   try {
-    const token = cookie.includes("token=")
-      ? cookie?.split("token=")[1]?.split(";")[0]
-      : cookie;
+    const token = cookie?.split("token=")[1]?.split(";")[0];
     return jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
-    console.log(error);
+    console.log("O usuário não está autenticado.");
+    // console.log(error);
     return null;
   }
 }
