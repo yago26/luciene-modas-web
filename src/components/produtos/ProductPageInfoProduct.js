@@ -1,5 +1,5 @@
 "use client";
-import style from "./productPageMain.module.css";
+import style from "@/components/produtos/productPageMain.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 
 export default ({ produto, usuario }) => {

@@ -1,6 +1,6 @@
-import Gerenciamento from "@/components/Gerenciamento";
+import Gerenciamento from "@/components/gerenciamento/Gerenciamento";
 import CategoriasList from "@/components/CategoriasList";
-import ProdutosList from "@/components/ProdutosList";
+import ProdutosList from "@/components/produtos/ProdutosList";
 import Loading from "./loading";
 
 import { Suspense } from "react";

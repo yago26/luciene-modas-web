@@ -6,26 +6,15 @@ import style from "./carrinhoList.module.css";
 import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function CarrinhoList({ usuario }) {
+export default function CarrinhoList() {
   const [selecionados, setSelecionados] = useState([]);
   const { produtos, adicionarProduto, removerProduto } = useCarrinhoStore();
 
-  /*if (!usuario) {
-    redirect("/login");
-  }*/
-
   const router = useRouter();
 
-  const genero = usuario.genero;
   return (
     <>
       <div>
-        <h1>
-          Bem vind
-          {genero === "Masculino" ? "o" : genero === "Feminino" ? "a" : "(o)a"}!
-        </h1>
-        <h2>Esse é o seu Carrinho de Compras</h2>
-        <hr />
         {produtos.map((p) => (
           <div key={p.id} className={style.containerProduto}>
             <Link

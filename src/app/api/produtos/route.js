@@ -19,17 +19,41 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    const { nome, sobre, valor, categoria, imagem, estoque } = await req.json();
-    const id = uuidv4(); 
+    const { nome, sobre, valor, categoria, imagemUrl, estoque } =
+      await req.json();
+    const id = uuidv4();
 
-    db.query("INSERT INTO tb_produtos (id, nome, sobre, valor, categoria, imagem, estoque) VALUES ($1, $2, $3, $4, $5, $6)", [id, nome, sobre, valor, categoria, imagem, estoque]);
+    if (!sobre && !estoque) {
+      db.query(
+        "INSERT INTO tb_produtos (id, nome, valor, categoria, imagem) VALUES ($1, $2, $3, $4, $5)",
+        [id, nome, Number(valor), categoria, Number(imagemUrl)]
+      );
+    } else if (!sobre) {
+      db.query(
+        "INSERT INTO tb_produtos (id, nome, valor, categoria, imagem, estoque) VALUES ($1, $2, $3, $4, $5, $6)",
+        [id, nome, Number(valor), categoria, imagemUrl, Number(estoque)]
+      );
+    } else if (!estoque) {
+      db.query(
+        "INSERT INTO tb_produtos (id, nome, sobre, valor, categoria, imagem) VALUES ($1, $2, $3, $4, $5, $6)",
+        [id, nome, sobre, Number(valor), categoria, imagemUrl]
+      );
+    } else {
+      db.query(
+        "INSERT INTO tb_produtos (id, nome, sobre, valor, categoria, imagem, estoque) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+        [id, nome, sobre, Number(valor), categoria, imagemUrl, Number(estoque)]
+      );
+    }
 
     return NextResponse.json(
       { mensagem: "Produto adicionado" },
       { status: 201 }
     );
-  } catch(error) {
+  } catch (error) {
     console.log("Erro ao adicionar um novo produto", error);
-    return NextResponse.json({error: "Internal Server Error"}, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

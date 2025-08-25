@@ -14,14 +14,14 @@ export default function ConsumidoresList({ consumidores, onDeleteConsumidor }) {
         </thead>
 
         <tbody>
-          {consumidores.map((usuario) => (
-            <tr>
-              <td>{usuario.id}</td>
-              <td>{usuario.nome}</td>
-              <td>{usuario.email}</td>
-              <td>{usuario.cep}</td>
-              <td>{usuario.genero}</td>
-              <td>{usuario.senha}</td>
+          {consumidores.map((consumidor) => (
+            <tr key={consumidor.id}>
+              <td>{consumidor.id}</td>
+              <td>{consumidor.nome}</td>
+              <td>{consumidor.email}</td>
+              <td>{consumidor.cep}</td>
+              <td>{consumidor.genero}</td>
+              <td>{consumidor.senha}</td>
               <td>
                 <button
                   style={{
@@ -30,7 +30,7 @@ export default function ConsumidoresList({ consumidores, onDeleteConsumidor }) {
                     padding: "15px",
                     border: "none",
                   }}
-                  onClick={() => onDeleteConsumidor(usuario.id)}
+                  onClick={() => onDeleteConsumidor(consumidor.id)}
                 >
                   x
                 </button>

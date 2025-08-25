@@ -2,12 +2,8 @@ import Link from "next/link";
 import { useState } from "react";
 import style from "./signUpForm.module.css";
 import { Eye, EyeOff } from "lucide-react";
-// import { useRouter } from "next/navigation";
 
 export default function SignUpForm({ onAddConsumidor }) {
-  const [toast, setToast] = useState("");
-  // const router = useRouter();
-
   const [form, setForm] = useState({
     nome: "",
     email: "",
@@ -15,7 +11,6 @@ export default function SignUpForm({ onAddConsumidor }) {
     genero: "",
     senha: "",
   });
-  const [selecionado, setSelecionado] = useState(false);
 
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -57,9 +52,6 @@ export default function SignUpForm({ onAddConsumidor }) {
       senha: "",
     });
     setConfirmarSenha("");
-
-    // setToast(`Operação realizada com sucesso!\nUsuário cadastrado.`);
-    // router("/login");
   };
 
   return (

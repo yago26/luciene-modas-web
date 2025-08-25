@@ -1,4 +1,4 @@
-import ProductPageMain from "@/components/ProductPageMain";
+import ProductPageMain from "@/components/produtos/ProductPageMain";
 import style from "./page.module.css";
 
 export default async function ProductPage({ params }) {

@@ -1,9 +1,9 @@
 import { cookies } from "next/headers";
 import { verificarToken } from "@/lib/auth";
 
-import style from "./produtosList.module.css";
+import style from "@/components/produtos/produtosList.module.css";
 
-import CardProduto from "@/components/CardProduto";
+import CardProduto from "@/components/produtos/CardProduto";
 
 export default async function ProdutosList() {
   const response = await fetch(

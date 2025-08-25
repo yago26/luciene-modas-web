@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import style from "./cardProduto.module.css";
+import style from "@/components/produtos/cardProduto.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 
 export default function CardProduto({ produto, usuario }) {

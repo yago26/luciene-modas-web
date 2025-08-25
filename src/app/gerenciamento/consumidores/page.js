@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ConsumidoresList from "@/components/formularios/ConsumidoresList";
+import ConsumidoresList from "@/components/gerenciamento/ConsumidoresList";
 
 export default function Consumidores() {
   const [consumidores, setConsumidores] = useState([]);

@@ -3,8 +3,8 @@ import { verificarToken } from "@/lib/auth";
 
 import { fakeProducts } from "@/lib/fakeDataBase";
 
-import NavBar from "@/components/geral/NavBar";
-import Product from "@/components/CardProduto";
+import NavBar from "@/components/layout/NavBar";
+import Product from "@/components/produtos/CardProduto";
 
 import Link from "next/link";
 

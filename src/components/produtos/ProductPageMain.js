@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { verificarToken } from "@/lib/auth";
 
-import ProductPageInfoProduct from "./ProductPageInfoProduct";
-import style from "./productPageMain.module.css";
+import ProductPageInfoProduct from "@/components/produtos/ProductPageInfoProduct";
+import style from "@/components/produtos/productPageMain.module.css";
 
 export default async function ProductPageMain({ produto }) {
   const cookie = (await cookies())?.toString();
