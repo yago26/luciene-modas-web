@@ -32,15 +32,16 @@ export default function SignUpForm({ onAddConsumidor }) {
 
     // const fetchEmailsUsuarios = async () => {
     //   const response = await fetch("api/consumidores");
-    //   const data = await response.json;
+    //   const data = await response.json();
     //   return data.map((usuario) => {
-    //     return (usuario = usuario.email);
+    //     usuario = usuario.email;
     //   });
     // };
 
-    // const emailsCadastrados = fetchEmailsUsuarios();
+    // const emailsCadastrados = await fetchEmailsUsuarios();
+    // console.log(emailsCadastrados);
     // for (let usuario of emailsCadastrados) {
-    //   if (form.email === usuario.email) {
+    //   if (form.email == usuario.email) {
     //     setToast(`Erro!\nEmail já existente.`);
     //     return;
     //   }
