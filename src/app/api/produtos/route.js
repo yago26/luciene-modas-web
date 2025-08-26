@@ -1,13 +1,11 @@
 import db from "@/lib/db";
-import { fakeProducts } from "@/lib/fakeDataBase";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
 export async function GET() {
   try {
-    // const result = await db.query("SELECT * FROM tb_produtos");
-    // return NextResponse.json(result.rows);
-    return NextResponse.json(fakeProducts);
+    const result = await db.query("SELECT * FROM tb_produtos");
+    return NextResponse.json(result.rows);
   } catch (error) {
     console.log("Erro ao listar produtos", error);
     return NextResponse.json(
@@ -26,7 +24,7 @@ export async function POST(req) {
     if (!sobre && !estoque) {
       db.query(
         "INSERT INTO tb_produtos (id, nome, valor, categoria, imagem) VALUES ($1, $2, $3, $4, $5)",
-        [id, nome, Number(valor), categoria, Number(imagemUrl)]
+        [id, nome, Number(valor), categoria, imagemUrl]
       );
     } else if (!sobre) {
       db.query(

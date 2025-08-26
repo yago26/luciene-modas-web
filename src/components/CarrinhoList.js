@@ -21,7 +21,7 @@ export default function CarrinhoList() {
               href={`/productPage/${p.id}`}
               className={style.containerLinkProduto}
             >
-              <img src={p.url} alt={p.sobre} width={100} height={100} />
+              <img src={p.imagem} alt={p.sobre} width={100} height={100} />
               <div>
                 <h3>{p.nome}</h3>
                 <p>{p.sobre}</p>

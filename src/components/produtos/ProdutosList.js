@@ -13,6 +13,7 @@ export default async function ProdutosList() {
 
   const cookie = (await cookies()).toString();
   const usuario = verificarToken(cookie);
+
   let genero = usuario ? usuario.genero : null;
 
   return (
@@ -50,6 +51,7 @@ export default async function ProdutosList() {
             })}
         </div>
       </article>
+
       <article className={style.produtosMaisVendidos}>
         <h2>Mais Vendidos</h2>
         <div className={style.produtosPaginaInicial}>
@@ -64,18 +66,6 @@ export default async function ProdutosList() {
           })}
         </div>
       </article>
-      {/*{produtos.rows.map((produto) => {
-          return (
-            <CardProduto
-              key={produto.id}
-              id={produto.id}
-              nome={produto.nome}
-              sobre={produto.sobre}
-              valor={produto.valor}
-              url={produto.url}
-            />
-            );
-        })}*/}
     </>
   );
 }

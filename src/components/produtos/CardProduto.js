@@ -7,7 +7,7 @@ import { useCarrinhoStore } from "@/app/store/carrinho";
 export default function CardProduto({ produto, usuario }) {
   const { adicionarProduto } = useCarrinhoStore();
 
-  let { id, nome, sobre, valor, url } = produto;
+  let { id, nome, sobre, valor, imagem } = produto;
   const [reais, cents] = valor.split(".");
 
   if (nome.length > 42) {
@@ -22,7 +22,7 @@ export default function CardProduto({ produto, usuario }) {
       <div className={style.produto}>
         <Link className={style.ancora} href={`/productPage/${id}`}>
           <img
-            src={url}
+            src={imagem}
             alt={sobre}
             width={150}
             height={150}
@@ -40,7 +40,7 @@ export default function CardProduto({ produto, usuario }) {
             {nome}
           </h4>
           <p style={{ textAlign: "right" }}>
-            <span style={{ fontSize: "1.3rem" }}>R{reais}</span>,
+            <span style={{ fontSize: "1.3rem" }}>R${reais}</span>,
             <span>{cents}</span>
           </p>
         </Link>
