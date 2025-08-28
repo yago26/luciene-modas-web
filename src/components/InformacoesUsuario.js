@@ -9,10 +9,20 @@ export default function InformacoesUsuario({ usuario }) {
   const router = useRouter();
 
   const logout = async () => {
-    await fetch("/api/logout", { method: "POST" }); // Limpa o cookie
+    await fetch("/api/logout"); // Limpa o cookie
     router.push("/"); // Redireciona para home
     router.refresh(); // Força reload do server-side para atualizar NavBar
   };
+  
+  const excluirConta = async (id) => {
+    await fetch("/api/logout"); // Limpa o cookie
+    await fetch(`/api/consumidores/${id}`, {
+      method: "DELETE",
+      headers: { "Content-type": "application/json" }
+    })
+    router.push("/"); // Redireciona para home
+    router.refresh(); // Força reload do server-side para atualizar NavBar
+  }
 
   return (
     <>
@@ -39,6 +49,9 @@ export default function InformacoesUsuario({ usuario }) {
       <hr />
       <button className={style.btnLogout} onClick={logout}>
         Logout
+      </button>
+      <button className={style.btnLogout} onClick={() => excluirConta(usuario.id)}>
+        Excluir conta
       </button>
     </>
   );
