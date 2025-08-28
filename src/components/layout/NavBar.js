@@ -20,10 +20,10 @@ export default async function NavBar() {
           <div className={style.barraFuncionalidades}>
             <Link href="/">
               <Image
-                src="/favicon/android-chrome-192x192.png"
+                src="/favicon/fundo-branco/android-chrome-192x192.png"
                 alt="Logo marca Luciene Modas - Roupas e Cosméticos"
-                width={48}
-                height={48}
+                width={60}
+                height={60}
               />
             </Link>
 

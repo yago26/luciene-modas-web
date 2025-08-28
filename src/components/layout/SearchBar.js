@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import style from "./searchBar.module.css";
 import { fakeProducts } from "@/lib/fakeDataBase";
 import { useState, useEffect } from "react";

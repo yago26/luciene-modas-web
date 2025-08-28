@@ -9,8 +9,7 @@ export default () => {
           style={{
             marginLeft: "5%",
             display: "flex",
-            flexDirection: "column",
-            gap: "10px",
+            gap: "5%",
           }}
         >
           {/* Consumidores */}
@@ -37,6 +36,44 @@ export default () => {
               </li>
               <li>
                 <Link href="gerenciamento/produtos">Gerenciar produtos</Link>
+              </li>
+              <li>
+                <Link href="/">Ver Imagens dos Produtos</Link>
+              </li>
+              <li>
+                <Link href="/">Ver Atributos dos produtos</Link>
+              </li>
+            </ul>
+          </li>
+
+          {/* Carrinho */}
+          <li>
+            Carrinhos
+            <ul>
+              <li>
+                <Link href="/">Ver Carrinhos</Link>
+              </li>
+              <li>
+                <Link href="/">Ver Itens dos Carrinhos</Link>
+              </li>
+              <li>
+                <Link href="/">Ver Itens de um Carrinho Específico</Link>
+              </li>
+            </ul>
+          </li>
+
+          {/* Pedidos */}
+          <li>
+            Pedidos
+            <ul>
+              <li>
+                <Link href="/">Ver Pedidos</Link>
+              </li>
+              <li>
+                <Link href="/">Ver Itens dos Pedidos</Link>
+              </li>
+              <li>
+                <Link href="/">Ver Itens de um Pedido Específico</Link>
               </li>
             </ul>
           </li>
