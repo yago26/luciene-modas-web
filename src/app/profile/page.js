@@ -1,19 +1,13 @@
-import InformacoesUsuario from "@/components/InformacoesUsuario";
+import InformacoesConsumidor from "@/components/InformacoesConsumidor";
 
-import { cookies } from "next/headers";
-import { verificarToken } from "@/lib/auth";
+import getConsumidor from "@/lib/getConsumidor";
 
 export default async function Profile() {
-  const cookie = (await cookies()).toString();
-  const usuario = verificarToken(cookie);
-
-  if (!usuario) {
-    return <></>;
-  }
+  const consumidor = await getConsumidor();
 
   return (
     <>
-      <InformacoesUsuario usuario={usuario} />
+      <InformacoesConsumidor consumidor={consumidor} />
     </>
   );
 }

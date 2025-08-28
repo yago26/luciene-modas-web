@@ -15,7 +15,7 @@ export default function Login() {
 
     const data = await response.json();
 
-    if (res.ok) {
+    if (response.ok) {
       alert("Operação realizada com sucesso! Autenticação bem-sucedida.");
       router.push("/");
       router.refresh();

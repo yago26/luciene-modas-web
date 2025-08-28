@@ -1,6 +1,3 @@
-import { cookies } from "next/headers";
-import { verificarToken } from "@/lib/auth";
-
 import Link from "next/link";
 import Image from "next/image";
 
@@ -8,10 +5,10 @@ import SearchBar from "./SearchBar";
 
 import style from "./navbar.module.css";
 import { CircleUserRound, ShoppingCart } from "lucide-react";
+import getConsumidor from "@/lib/getConsumidor";
 
 export default async function NavBar() {
-  const cookie = (await cookies())?.toString();
-  const usuario = cookie ? verificarToken(cookie) : null;
+  const consumidor = await getConsumidor();
 
   return (
     <>
@@ -27,22 +24,10 @@ export default async function NavBar() {
               />
             </Link>
 
-            {/* <ul className={style.linksRapidos}>
-              <Link href="/">
-                <li>Início</li>
-              </Link>
-              <Link href="/">
-                <li>Sobre</li>
-              </Link>
-              <Link href="/">
-                <li>Contatos</li>
-              </Link>
-            </ul> */}
-
             <SearchBar />
 
             <div>
-              {usuario && (
+              {consumidor && (
                 <div id={style.funcionalidadesAutenticadas}>
                   <Link href="/shopCar">
                     <ShoppingCart size={30} color="black" />
@@ -53,7 +38,7 @@ export default async function NavBar() {
                 </div>
               )}
 
-              {!usuario && (
+              {!consumidor && (
                 <div id={style.funcionalidadesNaoAutenticadas}>
                   <Link href="/login">
                     <button className={style.signIn}>Login</button>

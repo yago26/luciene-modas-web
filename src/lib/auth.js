@@ -1,12 +1,28 @@
-import jwt from "jsonwebtoken";
+import * as jose from "jose";
 
-export function verificarToken(cookie) {
+const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+
+export async function gerarToken(payload) {
+  return await new jose.SignJWT(payload)
+    .setProtectedHeader({ alg: "HS256" })
+    .setExpirationTime("5h")
+    .sign(secret);
+}
+
+export async function verificarToken(token) {
   try {
-    const token = cookie?.split("token=")[1]?.split(";")[0];
-    return jwt.verify(token, process.env.JWT_SECRET);
+    if (!token || typeof token !== "string") {
+      return null;
+    }
+
+    const { payload } = await jose.jwtVerify(
+      token,
+      secret // precisa estar em Uint8Array
+    );
+
+    return payload;
   } catch (error) {
-    console.log("O usuário não está autenticado.");
-    // console.log(error);
+    console.error("Erro ao verificar token:", error);
     return null;
   }
 }

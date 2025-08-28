@@ -1,10 +1,10 @@
 "use client";
 
-import style from "./informacoesUsuario.module.css";
+import style from "./informacoesConsumidor.module.css";
 
 import { useRouter } from "next/navigation";
 
-export default function InformacoesUsuario({ usuario }) {
+export default function Informacoesconsumidor({ consumidor }) {
   const router = useRouter();
 
   const logout = async () => {
@@ -12,37 +12,37 @@ export default function InformacoesUsuario({ usuario }) {
     router.push("/"); // Redireciona para home
     router.refresh(); // Força reload do server-side para atualizar NavBar
   };
-  
+
   const excluirConta = async () => {
     await fetch("/api/logout"); // Limpa o cookie
-    await fetch(`/api/consumidores/${usuario.id}`, {
+    await fetch(`/api/consumidores/${consumidor.id}`, {
       method: "DELETE",
-      headers: { "Content-type": "application/json" }
-    })
+      headers: { "Content-type": "application/json" },
+    });
     router.push("/"); // Redireciona para home
     router.refresh(); // Força reload do server-side para atualizar NavBar
-  }
+  };
 
   return (
     <>
       <h1>Perfil do Usuário</h1>
       <hr />
-      <ul className={style.listaInformacoesUsuario}>
-        <li className={style.informacaoUsuario}>
+      <ul className={style.listaInformacoesconsumidor}>
+        <li className={style.informacaoconsumidor}>
           <label htmlFor="">Nome</label>
-          {usuario.nome}
+          {consumidor.nome}
         </li>
-        <li className={style.informacaoUsuario}>
+        <li className={style.informacaoconsumidor}>
           <label htmlFor="">Email</label>
-          {usuario.email}
+          {consumidor.email}
         </li>
-        <li className={style.informacaoUsuario}>
+        <li className={style.informacaoconsumidor}>
           <label htmlFor="">CEP</label>
-          {usuario.cep}
+          {consumidor.cep}
         </li>
-        <li className={style.informacaoUsuario}>
+        <li className={style.informacaoconsumidor}>
           <label htmlFor="">Gênero</label>
-          {usuario.genero}
+          {consumidor.genero}
         </li>
       </ul>
       <hr />
