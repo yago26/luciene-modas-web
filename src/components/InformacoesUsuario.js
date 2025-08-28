@@ -2,7 +2,6 @@
 
 import style from "./informacoesUsuario.module.css";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function InformacoesUsuario({ usuario }) {
@@ -14,9 +13,9 @@ export default function InformacoesUsuario({ usuario }) {
     router.refresh(); // Força reload do server-side para atualizar NavBar
   };
   
-  const excluirConta = async (id) => {
+  const excluirConta = async () => {
     await fetch("/api/logout"); // Limpa o cookie
-    await fetch(`/api/consumidores/${id}`, {
+    await fetch(`/api/consumidores/${usuario.id}`, {
       method: "DELETE",
       headers: { "Content-type": "application/json" }
     })
@@ -50,7 +49,7 @@ export default function InformacoesUsuario({ usuario }) {
       <button className={style.btnLogout} onClick={logout}>
         Logout
       </button>
-      <button className={style.btnLogout} onClick={() => excluirConta(usuario.id)}>
+      <button className={style.btnLogout} onClick={excluirConta}>
         Excluir conta
       </button>
     </>

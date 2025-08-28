@@ -80,7 +80,7 @@ export default function CarrinhoList() {
               alert("Erro! Nenhum produto selecionado.");
               return;
             }
-            router.push(`./checkout/${selecionados}`);
+            router.push(`/shopCar/checkout/${selecionados}`);
             router.refresh();
           }}
         >
