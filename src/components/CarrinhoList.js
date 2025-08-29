@@ -3,19 +3,17 @@
 import Link from "next/link";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import style from "./carrinhoList.module.css";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function CarrinhoList() {
   const [selecionados, setSelecionados] = useState([]);
-  const { items, adicionarProduto, removerProduto, fetchItensCarrinho } =
+  const { items, atualizarProduto, removerProduto, fetchItensCarrinho } =
     useCarrinhoStore();
   const [itemsCarrinho, setItemsCarrinho] = useState([]);
 
   useEffect(() => {
     async function loadCarrinho() {
       await fetchItensCarrinho();
-
       const produtos = [];
       for (let item of items) {
         const response = await fetch(`/api/produtos/${item.id_produto}`);
@@ -27,10 +25,6 @@ export default function CarrinhoList() {
     }
     loadCarrinho();
   }, []);
-
-  const router = useRouter();
-
-  const atualizarQuantidade = async () => {};
 
   return (
     <>
@@ -56,15 +50,6 @@ export default function CarrinhoList() {
             <div className={style.containerQuantidadeProduto}>
               <button
                 className={style.btn}
-                onClick={() =>
-                  atualizarQuantidade(produto.id, produto.quantidade + 1)
-                }
-              >
-                +
-              </button>
-              <span>{produto.quantidade}</span>
-              <button
-                className={style.btn}
                 onClick={() => {
                   if (produto.quantidade <= 1) {
                     setSelecionados(
@@ -72,11 +57,20 @@ export default function CarrinhoList() {
                     );
                     removerProduto(produto.id);
                   } else {
-                    atualizarQuantidade(produto.id, produto.quantidade - 1);
+                    atualizarProduto(produto.id, produto.quantidade - 1);
                   }
                 }}
               >
                 -
+              </button>
+              <span>{produto.quantidade}</span>
+              <button
+                className={style.btn}
+                onClick={() => {
+                  atualizarProduto(produto.id, produto.quantidade + 1);
+                }}
+              >
+                +
               </button>
             </div>
             <div className={style.containerSelecaoProduto}>

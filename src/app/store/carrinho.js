@@ -47,7 +47,7 @@ export const useCarrinhoStore = create((set, get) => ({
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/itensCarrinho`,
       {
-        method: "",
+        method: "PUT",
         body: JSON.stringify({ idProduto: productId, quantidade: quantity }),
       }
     );
