@@ -54,7 +54,7 @@ export default () => {
                 <Link href="/api/carrinhos">Ver Carrinhos</Link>
               </li>
               <li>
-                <Link href="/">Ver Itens dos Carrinhos</Link>
+                <Link href="/api/itensCarrinho">Ver Itens dos Carrinhos</Link>
               </li>
               <li>
                 <Link href="/">Ver Itens de um Carrinho Específico</Link>

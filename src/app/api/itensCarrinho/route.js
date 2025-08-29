@@ -70,6 +70,7 @@ export async function POST(req) {
     }
 
     const idCarrinho = carrinho.id;
+
     const id = uuidv4();
 
     await db.query(
@@ -100,11 +101,26 @@ export async function DELETE(req) {
   try {
     const consumidor = await getConsumidor();
     const idConsumidor = consumidor?.id;
+    if (!idConsumidor) {
+      return NextResponse.json(
+        { error: "Consumidor não encontrado" },
+        { status: 400 }
+      );
+    }
+
+    const { idProduto } = await req.json();
+    if (!idProduto) {
+      return NextResponse.json(
+        { error: "O produto passado no corpo da requisição não existe" },
+        { status: 400 }
+      );
+    }
 
     const carrinhos = await db.query(
       "SELECT * FROM tb_carrinhos WHERE id_consumidor = $1",
       [idConsumidor]
     );
+
     const carrinho = carrinhos.rows[0];
     if (!carrinho?.id) {
       return NextResponse.json(
@@ -112,13 +128,8 @@ export async function DELETE(req) {
         { status: 404 }
       );
     }
+
     const idCarrinho = carrinho.id;
-
-    const { idProduto } = await req.json();
-
-    if (!idCarrinho || !idProduto) {
-      return NextResponse.json({ error: "Dados inválidos" }, { status: 400 });
-    }
 
     await db.query(
       "DELETE FROM rl_carrinhos_produtos_itens_carrinho WHERE id_carrinho = $1 AND id_produto = $2",

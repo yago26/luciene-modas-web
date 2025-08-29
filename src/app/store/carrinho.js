@@ -7,7 +7,9 @@ export const useCarrinhoStore = create((set, get) => ({
 
   // 🔹 Busca carrinho do DB do usuário logado
   fetchItensCarrinho: async () => {
-    const res = await fetch("/api/itensCarrinho");
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/itensCarrinho`
+    );
     const data = await res.json();
     set({ items: data.items });
   },
@@ -23,24 +25,34 @@ export const useCarrinhoStore = create((set, get) => ({
     );
     const data = await res.json();
     set({ items: data.items });
-    if (res.ok) alert("Produto adicionado ao carrinho com sucesso!");
+    if (res.ok) alert("Item adicionado ao carrinho com sucesso!");
   },
 
   // 🔹 Remover produto
   removerProduto: async (productId) => {
-    const res = await fetch(`/api/itensCarrinho`, {
-      method: "DELETE",
-      body: JSON.stringify({ idProduto: productId }),
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/itensCarrinho`,
+      {
+        method: "DELETE",
+        body: JSON.stringify({ idProduto: productId }),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     const data = await res.json();
     set({ items: data.items });
-    if (res.ok) alert("Produto removido do carrinho com sucesso!");
+    if (res.ok) alert("Item removido do carrinho com sucesso!");
   },
 
-  // 🔹 Limpar carrinho (ex: no checkout)
-  clearCart: async () => {
-    await fetch("/api/itensCarrinho/clear", { method: "POST" });
-    set({ items: [] });
+  atualizarProduto: async (productId, quantity) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/itensCarrinho`,
+      {
+        method: "",
+        body: JSON.stringify({ idProduto: productId, quantidade: quantity }),
+      }
+    );
+    const data = await res.json();
+    set({ items: data.items });
+    if (res.ok) alert("Item do carrinho atualizado com sucesso!");
   },
 }));

@@ -1,5 +1,7 @@
 import CarrinhoList from "@/components/CarrinhoList";
 import getConsumidor from "@/lib/getConsumidor";
+import Loading from "@/app/loading";
+import { Suspense } from "react";
 
 export default async function ShopCar() {
   const consumidor = await getConsumidor();
@@ -14,7 +16,9 @@ export default async function ShopCar() {
       </h1>
       <h2>Esse é o seu Carrinho de Compras</h2>
       <hr />
-      <CarrinhoList consumidor={consumidor} />
+      <Suspense fallback={<Loading />}>
+        <CarrinhoList />
+      </Suspense>
     </>
   );
 }
