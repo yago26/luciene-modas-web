@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import style from "./carrinhoList.module.css";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CarrinhoList() {

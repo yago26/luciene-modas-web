@@ -2,7 +2,7 @@
 import style from "@/components/produtos/productPageMain.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 
-export default ({ produto, usuario }) => {
+export default ({ produto, consumidor }) => {
   const { adicionarProduto } = useCarrinhoStore();
   return (
     <>
@@ -12,7 +12,7 @@ export default ({ produto, usuario }) => {
         <p>{!produto.sobre ? produto.nome : produto.sobre}</p>
         <p>{produto.valor}</p>
         <p>Estoque: {produto.estoque}</p>
-        {usuario && (
+        {consumidor && (
           <button
             onClick={() => {
               adicionarProduto(produto);

@@ -1,4 +1,4 @@
-.listaInformacoesUsuario {
+.listaInformacoesConsumidor {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -7,12 +7,12 @@
   width: 30%;
 }
 
-.informacaoUsuario {
+.informacaoConsumidor {
   display: flex;
   flex-direction: column;
 }
 
-.informacaoUsuario input {
+.informacaoConsumidor input {
   padding: 2%;
 }
 

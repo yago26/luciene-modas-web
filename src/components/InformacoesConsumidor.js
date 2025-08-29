@@ -27,20 +27,20 @@ export default function Informacoesconsumidor({ consumidor }) {
     <>
       <h1>Perfil do Usuário</h1>
       <hr />
-      <ul className={style.listaInformacoesconsumidor}>
-        <li className={style.informacaoconsumidor}>
+      <ul className={style.listaInformacoesConsumidor}>
+        <li className={style.informacaoConsumidor}>
           <label htmlFor="">Nome</label>
           {consumidor.nome}
         </li>
-        <li className={style.informacaoconsumidor}>
+        <li className={style.informacaoConsumidor}>
           <label htmlFor="">Email</label>
           {consumidor.email}
         </li>
-        <li className={style.informacaoconsumidor}>
+        <li className={style.informacaoConsumidor}>
           <label htmlFor="">CEP</label>
           {consumidor.cep}
         </li>
-        <li className={style.informacaoconsumidor}>
+        <li className={style.informacaoConsumidor}>
           <label htmlFor="">Gênero</label>
           {consumidor.genero}
         </li>

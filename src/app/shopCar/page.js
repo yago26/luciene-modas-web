@@ -1,12 +1,10 @@
-import { cookies } from "next/headers";
-import { verificarToken } from "@/lib/auth";
 import CarrinhoList from "@/components/CarrinhoList";
+import getConsumidor from "@/lib/getConsumidor";
 
 export default async function ShopCar() {
-  const cookie = (await cookies()).toString();
-  const usuario = verificarToken(cookie);
+  const consumidor = getConsumidor();
 
-  const genero = usuario.genero;
+  const genero = consumidor.genero;
 
   return (
     <>
@@ -16,7 +14,7 @@ export default async function ShopCar() {
       </h1>
       <h2>Esse é o seu Carrinho de Compras</h2>
       <hr />
-      <CarrinhoList usuario={usuario} />
+      <CarrinhoList consumidor={consumidor} />
     </>
   );
 }

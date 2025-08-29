@@ -1,12 +1,9 @@
-import { cookies } from "next/headers";
-import { verificarToken } from "@/lib/auth";
-
 import ProductPageInfoProduct from "@/components/produtos/ProductPageInfoProduct";
 import style from "@/components/produtos/productPageMain.module.css";
+import getConsumidor from "@/lib/getConsumidor";
 
 export default async function ProductPageMain({ produto }) {
-  const cookie = (await cookies())?.toString();
-  const usuario = cookie ? verificarToken(cookie) : null;
+  const consumidor = await getConsumidor();
 
   return (
     <>
@@ -21,7 +18,7 @@ export default async function ProductPageMain({ produto }) {
             style={{ objectFit: "cover" }}
           />
         </div>
-        <ProductPageInfoProduct produto={produto} usuario={usuario} />
+        <ProductPageInfoProduct produto={produto} consumidor={consumidor} />
       </div>
     </>
   );
