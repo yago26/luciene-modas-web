@@ -8,7 +8,7 @@ import { Suspense } from "react";
 export default async function Home() {
   return (
     <>
-      <Gerenciamento />
+      {/*<Gerenciamento />*/}
       <CategoriasList />
       <Suspense fallback={<Loading />}>
         <ProdutosList />

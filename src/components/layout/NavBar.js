@@ -10,6 +10,9 @@ import getConsumidor from "@/lib/getConsumidor";
 export default async function NavBar() {
   const consumidor = await getConsumidor();
 
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produtos`);
+  const produtos = await response.json();
+
   return (
     <>
       <header className={style.header}>
@@ -24,7 +27,7 @@ export default async function NavBar() {
               />
             </Link>
 
-            <SearchBar />
+            <SearchBar produtos={produtos} />
 
             <div>
               {consumidor && (

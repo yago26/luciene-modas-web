@@ -15,7 +15,7 @@ export default ({ produto, consumidor }) => {
         {consumidor && (
           <button
             onClick={() => {
-              adicionarProduto(produto);
+              adicionarProduto(produto.id, 1);
             }}
           >
             Adicionar ao carrinho

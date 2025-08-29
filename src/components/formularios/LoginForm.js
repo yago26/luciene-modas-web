@@ -22,8 +22,6 @@ export default function LoginForm({ onAuthUsuario }) {
       email: "",
       senha: "",
     });
-
-    await fetchItensCarrinho();
   };
 
   return (

@@ -1,27 +1,26 @@
 "use client";
 
 import style from "./searchBar.module.css";
-import { fakeProducts } from "@/lib/fakeDataBase";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 
-export default function SearchBar() {
+export default function SearchBar({ produtos }) {
   const [valorPesquisa, setValorPesquisa] = useState("");
   const [produtosFiltrados, setProdutosFiltrados] = useState(
-    fakeProducts.slice(0, 15)
+    produtos
   );
   const [isInputFocus, setIsInputFocus] = useState(false);
 
   useEffect(() => {
     // Utilizado quando queremos renderizar as telas novamente com base em algum estado de uma variável
     if (valorPesquisa === "") {
-      setProdutosFiltrados(fakeProducts.slice(0, 15));
+      setProdutosFiltrados(produtos);
       return;
     }
 
-    const filtrados = fakeProducts.filter((product) =>
-      product.nome.toLowerCase().includes(valorPesquisa.trim().toLowerCase())
+    const filtrados = produtos.filter((produto) =>
+      produto.nome.toLowerCase().includes(valorPesquisa.trim().toLowerCase())
     );
     setProdutosFiltrados(filtrados);
   }, [valorPesquisa]);
@@ -72,40 +71,6 @@ export default function SearchBar() {
           ))}
         </div>
       </form>
-
-      {/* <form className={style.barraPesquisa} action="">
-        <div className={style.divPesquisa}>
-          <div className={style.lupaPesquisa}>
-            <Image
-              src="/icons/magnifying-glass-solid.svg"
-              alt="Lupa de pesquisa"
-              width={16}
-              height={16}
-            />
-          </div>
-
-          <input
-            className={style.inputPesquisa}
-            type="search"
-            name="input-pesquisa"
-            id="inputPesquisa"
-            placeholder="Buscar produtos"
-            list="lista-produtos"
-            autoComplete="off"
-            onChange={(e) =>
-              setValorPesquisa(e.target.value.trim().toLowerCase())
-            }
-          />
-
-          <datalist id="lista-produtos">
-            {produtosFiltrados.map((produto) => (
-              <option key={produto.id} value={produto.nome}>
-                {produto.nome}
-              </option>
-            ))}
-          </datalist>
-        </div>
-      </form> */}
     </>
   );
 }
