@@ -1,44 +1,46 @@
-// Zustand é uma biblioteca utliizada para melhor controle de estados globais na aplicação,
-// * Um useContext do React JS só que melhorado
+"use client";
 
 import { create } from "zustand";
 
-export const useCarrinhoStore = create((set) => ({
-  produtos: [], // definindo o estado inicial
-  // Futuramente colocar para iniciar com os valores do carrinho do usuário
-  // os seguintes são métodos para modificar o estado inicial
-  adicionarProduto: (produto) =>
-    set((state) => {
-      alert("Produto adicionado com sucesso!");
-      if (state.produtos.find((p) => p.id === produto.id)) {
-        return {
-          produtos: state.produtos.map((p) =>
-            p.id === produto.id ? { ...p, quantidade: p.quantidade + 1 } : p
-          ),
-        };
+export const useCarrinhoStore = create((set, get) => ({
+  items: [],
+
+  // 🔹 Busca carrinho do DB do usuário logado
+  fetchItensCarrinho: async () => {
+    const res = await fetch("/api/itensCarrinho");
+    const data = await res.json();
+    set({ items: data.items });
+  },
+
+  // 🔹 Adicionar produto
+  adicionarProduto: async (productId, quantity = 1) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/itensCarrinho`,
+      {
+        method: "POST",
+        body: JSON.stringify({ idProduto: productId, quantidade: quantity }),
       }
-      return {
-        produtos: [...state.produtos, { ...produto, quantidade: 1 }],
-      };
-    }),
-  removerProduto: (produto) =>
-    set((state) => {
-      alert("Produto removido com sucesso!");
-      if (
-        state.produtos.find((p) => {
-          if (p.id === produto.id) return p.quantidade > 1;
-        })
-      ) {
-        return {
-          produtos: state.produtos.map((p) =>
-            p.id === produto.id ? { ...p, quantidade: p.quantidade - 1 } : p
-          ),
-        };
-      } else {
-        return {
-          produtos: state.produtos.filter((p) => p.id !== produto.id),
-        };
-      }
-    }),
-  limparCarrinho: () => set({ produtos: [] }),
+    );
+    const data = await res.json();
+    set({ items: data.items });
+    if (res.ok) alert("Produto adicionado ao carrinho com sucesso!");
+  },
+
+  // 🔹 Remover produto
+  removerProduto: async (productId) => {
+    const res = await fetch(`/api/itensCarrinho`, {
+      method: "DELETE",
+      body: JSON.stringify({ idProduto: productId }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    set({ items: data.items });
+    if (res.ok) alert("Produto removido do carrinho com sucesso!");
+  },
+
+  // 🔹 Limpar carrinho (ex: no checkout)
+  clearCart: async () => {
+    await fetch("/api/itensCarrinho/clear", { method: "POST" });
+    set({ items: [] });
+  },
 }));

@@ -4,73 +4,95 @@ import Link from "next/link";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import style from "./carrinhoList.module.css";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CarrinhoList() {
   const [selecionados, setSelecionados] = useState([]);
-  const { produtos, adicionarProduto, removerProduto } = useCarrinhoStore();
+  const { items, adicionarProduto, removerProduto, fetchItensCarrinho } =
+    useCarrinhoStore();
+
+  useEffect(() => {
+    async function loadCarrinho() {
+      await fetchItensCarrinho();
+    }
+    loadCarrinho();
+  }, []);
 
   const router = useRouter();
+
+  const handleAdd = async () => {
+    await adicionarProduto(produto.id, 1);
+  };
+
+  const fetchProdutoById = async (id) => {
+    const response = await fetch(`/api/produtos/${id}`);
+    const data = await response.json();
+    return data;
+  };
 
   return (
     <>
       <div>
-        {produtos.map((p) => (
-          <div key={p.id} className={style.containerProduto}>
-            <Link
-              href={`/productPage/${p.id}`}
-              className={style.containerLinkProduto}
-            >
-              <img src={p.imagem} alt={p.sobre} width={100} height={100} />
-              <div>
-                <h3>{p.nome}</h3>
-                <p>{p.sobre}</p>
-                <p>{p.valor}</p>
+        {items?.map((item) => {
+          const produto = fetchProdutoById(item.id_produto);
+
+          return (
+            <div key={produto.id} className={style.containerProduto}>
+              <Link
+                href={`/productPage/${produto.id}`}
+                className={style.containerLinkProduto}
+              >
+                <img
+                  src={produto.imagem}
+                  alt={produto.sobre}
+                  width={100}
+                  height={100}
+                />
+                <div>
+                  <h3>{produto.nome}</h3>
+                  <p>{produto.sobre}</p>
+                  <p>{produto.valor}</p>
+                </div>
+              </Link>
+              <div className={style.containerQuantidadeProduto}>
+                <button className={style.btn} onClick={handleAdd}>
+                  +
+                </button>
+                <span>{item.quantidade}</span>
+                <button
+                  className={style.btn}
+                  onClick={() => {
+                    if (item.quantidade <= 1) {
+                      setSelecionados(
+                        selecionados.filter((p) => p.id != produto.id)
+                      );
+                    }
+                    removerProduto(produto.id);
+                  }}
+                >
+                  -
+                </button>
               </div>
-            </Link>
-            <div className={style.containerQuantidadeProduto}>
-              <button
-                className={style.btn}
-                onClick={() => {
-                  adicionarProduto(p);
-                }}
-              >
-                +
-              </button>
-              <span>{p.quantidade}</span>
-              <button
-                className={style.btn}
-                onClick={() => {
-                  if (p.quantidade <= 1) {
-                    setSelecionados(
-                      selecionados.filter((produto) => p.id != produto.id)
-                    );
-                  }
-                  removerProduto(p);
-                }}
-              >
-                -
-              </button>
+              <div className={style.containerSelecaoProduto}>
+                <input
+                  id={produto.id}
+                  name={produto.id}
+                  className={style.checkbox}
+                  type="checkbox"
+                  onChange={(e) => {
+                    if (selecionados.find((p) => p.id === produto.id)) {
+                      setSelecionados(
+                        selecionados.filter((p) => p.id !== produto.id)
+                      );
+                      return;
+                    }
+                    setSelecionados([...selecionados, produto]);
+                  }}
+                />
+              </div>
             </div>
-            <div className={style.containerSelecaoProduto}>
-              <input
-                id={p.id}
-                name={p.id}
-                className={style.checkbox}
-                type="checkbox"
-                onChange={(e) => {
-                  if (selecionados.find((produto) => p.id === produto.id)) {
-                    setSelecionados(
-                      selecionados.filter((produto) => p.id !== produto.id)
-                    );
-                    return;
-                  }
-                  setSelecionados([...selecionados, p]);
-                }}
-              />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <div className={style.containerFinalizarCompra}>
         <button

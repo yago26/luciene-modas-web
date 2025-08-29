@@ -4,13 +4,16 @@ import Link from "next/link";
 import style from "./loginForm.module.css";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useCarrinhoStore } from "@/app/store/carrinho";
 
 export default function LoginForm({ onAuthUsuario }) {
   const [form, setForm] = useState({ email: "", senha: "" });
   const [mensagem, setMensagem] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const { fetchItensCarrinho } = useCarrinhoStore();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setMensagem(onAuthUsuario(form));
@@ -19,6 +22,8 @@ export default function LoginForm({ onAuthUsuario }) {
       email: "",
       senha: "",
     });
+
+    await fetchItensCarrinho();
   };
 
   return (

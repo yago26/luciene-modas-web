@@ -17,6 +17,10 @@ export default function CardProduto({ produto, consumidor }) {
     nome = nome.join().replaceAll(",", "");
   }
 
+  const handleAdd = async () => {
+    await adicionarProduto(produto.id, 1);
+  };
+
   return (
     <>
       <div className={style.produto}>
@@ -45,12 +49,7 @@ export default function CardProduto({ produto, consumidor }) {
           </p>
         </Link>
         {consumidor && (
-          <button
-            className={style.btnAdicionar}
-            onClick={() => {
-              adicionarProduto(produto);
-            }}
-          >
+          <button className={style.btnAdicionar} onClick={handleAdd}>
             Adicionar
           </button>
         )}

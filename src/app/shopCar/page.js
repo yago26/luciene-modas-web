@@ -2,7 +2,7 @@ import CarrinhoList from "@/components/CarrinhoList";
 import getConsumidor from "@/lib/getConsumidor";
 
 export default async function ShopCar() {
-  const consumidor = getConsumidor();
+  const consumidor = await getConsumidor();
 
   const genero = consumidor.genero;
 
