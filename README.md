@@ -6,13 +6,16 @@
 
 # Tecnologias utilizadas
 
-- HTML, CSS, JavaScript
-- React JS
-- Next JS
+- Hyper Text Markup Language (HTML)
+- Cascading Style Sheet (CSS)
+- JavaScript (JS)
 - Bibliotecas
-  - pg (conexão com o banco de dados)
-  - bcryptjs (criptografia de senhas)
-  - jwt (json web token)
-  - uuid (geração de ids)
-  - zustand (controle de estado)
-  - lucide (icons)
+  - pg (Compõe a conexão com o Banco de Dados)
+  - bcryptjs (Cifração e decifração de senhas em hash)
+  - jwt (Geração e verificação de tokens)
+  - uuid (Geração de ids)
+  - zustand (Melhor controle de estado)
+  - lucide (Ícones)
+  - jose (Gerenciamento do token)
+  - React JS (Componentização de páginas)
+- Framework: Next JS
