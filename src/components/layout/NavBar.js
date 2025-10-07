@@ -10,7 +10,7 @@ import getConsumidor from "@/lib/getConsumidor";
 export default async function NavBar() {
   const consumidor = await getConsumidor();
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produtos`);
+  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
   const produtos = await response.json();
 
   return (

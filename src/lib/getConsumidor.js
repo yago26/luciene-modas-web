@@ -1,7 +1,9 @@
 import { cookies } from "next/headers";
-import { verificarToken } from "@/lib/auth";
+// import { verificarToken } from "@/lib/auth";
 
 export default async () => {
+  return null;
+
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value; // pegar apenas o valor (string)
 

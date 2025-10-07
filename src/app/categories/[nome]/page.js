@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { verificarToken } from "@/lib/auth";
+// import { verificarToken } from "@/lib/auth";
 
 import { fakeProducts } from "@/lib/fakeDataBase";
 
