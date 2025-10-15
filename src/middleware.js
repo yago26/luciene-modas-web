@@ -1,7 +1,7 @@
 // import { verificarToken } from "@/lib/auth";
 // import { NextResponse } from "next/server";
 
-// export default async function middleware(req) {
+export default async function middleware(req) {}
 //   const token = req.cookies.get("token")?.value;
 //   const autenticado = token ? await verificarToken(token) : null;
 

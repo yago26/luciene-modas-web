@@ -16,12 +16,16 @@ export default function LoginForm({ onAuthUsuario }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setMensagem(onAuthUsuario(form));
+    let message = await onAuthUsuario(form);
+
+    setMensagem(message);
 
     setForm({
       email: "",
       senha: "",
     });
+
+    await fetchItensCarrinho();
   };
 
   return (

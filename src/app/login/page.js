@@ -19,6 +19,7 @@ export default function Login() {
       alert("Operação realizada com sucesso! Autenticação bem-sucedida.");
       router.push("/");
       router.refresh();
+      return data.message;
     } else {
       return data.error;
     }
