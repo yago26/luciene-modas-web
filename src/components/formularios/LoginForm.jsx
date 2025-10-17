@@ -6,8 +6,6 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 
-import { signIn } from "next-auth/react";
-
 export default function LoginForm({ onAuthConsumidor }) {
   const [form, setForm] = useState({ email: "", senha: "" });
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -37,17 +35,7 @@ export default function LoginForm({ onAuthConsumidor }) {
         </div>
         <form onSubmit={handleSubmit} className={style.formSignIn}>
           <h1>Login</h1>
-
-          <div>
-            <button onClick={() => signIn("google")}>Login com google</button>
-          </div>
-          <div>
-            <button onClick={() => signIn("credentials")}>
-              Login com credenciais
-            </button>
-          </div>
-
-          {/* <div className={style.dadosAutenticacao}>
+          <div className={style.dadosAutenticacao}>
             <label htmlFor="usuarioEmail">Email</label>
             <input
               className="campoEntradaEmailLogin"
@@ -75,19 +63,17 @@ export default function LoginForm({ onAuthConsumidor }) {
               />
               <button
                 type="button"
-                onClick={() => {
-                  isShowPassword
-                    ? setIsShowPassword(false)
-                    : setIsShowPassword(true);
-                }}
+                onClick={() => 
+                  setIsShowPassword(!isShowPassword)
+                }
+                aria-label={isShowPassword ? "Ocultar senha" : "Mostrar senha"}
               >
-                {isShowPassword && <Eye />}
-                {!isShowPassword && <EyeOff />}
+                {isShowPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
-          </div> */}
+          </div>
           <div className={style.finalizarAutenticacao}>
-            {/* <button type="submit">Entrar</button> */}
+            <button type="submit">Entrar</button>
             <hr />
             <p>
               Não possui uma conta? <Link href="./signUp">Cadastre-se</Link>

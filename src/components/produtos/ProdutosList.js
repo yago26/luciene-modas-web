@@ -1,13 +1,27 @@
+"use client";
+
 import style from "@/components/produtos/produtosList.module.css";
 
 import CardProduto from "@/components/produtos/CardProduto";
 import getConsumidor from "@/lib/getConsumidor";
+import { useSession } from "next-auth/react";
 
 export default async function ProdutosList() {
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
-  const produtos = await response.json();
+  const { data: session, status } = useSession();
 
-  const consumidor = await getConsumidor();
+  const [produtos, setProdutos] = useState([]);
+
+  useEffect(() => {
+    const fetchProdutos = async () => {
+      const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
+      const data = await response.json();
+      setProdutos(data);
+    };
+
+    fetchProdutos();
+  }, []);
+
+  const consumidor = await getConsumidor(session);
 
   return (
     <>

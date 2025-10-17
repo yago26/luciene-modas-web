@@ -1,16 +1,12 @@
-import { cookies } from "next/headers";
-// import { verificarToken } from "@/lib/auth";
+export default async (session) => {
+  if (!session) return null;
 
-export default async () => {
-  return null;
+  const idConsumidor = session.consumidor.id;
 
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value; // pegar apenas o valor (string)
+  const response = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/consumidores/${idConsumidor}`
+  );
+  const data = response.json();
 
-  if (!token) {
-    return null; // ou lançar erro de não autenticado
-  }
-
-  const consumidor = await verificarToken(token);
-  return consumidor || null;
+  return data;
 };
