@@ -6,9 +6,10 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 
-export default function LoginForm({ onAuthUsuario }) {
+import { signIn } from "next-auth/react";
+
+export default function LoginForm({ onAuthConsumidor }) {
   const [form, setForm] = useState({ email: "", senha: "" });
-  const [mensagem, setMensagem] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   const { fetchItensCarrinho } = useCarrinhoStore();
@@ -16,9 +17,7 @@ export default function LoginForm({ onAuthUsuario }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let message = await onAuthUsuario(form);
-
-    setMensagem(message);
+    await onAuthConsumidor(form);
 
     setForm({
       email: "",
@@ -38,7 +37,17 @@ export default function LoginForm({ onAuthUsuario }) {
         </div>
         <form onSubmit={handleSubmit} className={style.formSignIn}>
           <h1>Login</h1>
-          <div className={style.dadosAutenticacao}>
+
+          <div>
+            <button onClick={() => signIn("google")}>Login com google</button>
+          </div>
+          <div>
+            <button onClick={() => signIn("credentials")}>
+              Login com credenciais
+            </button>
+          </div>
+
+          {/* <div className={style.dadosAutenticacao}>
             <label htmlFor="usuarioEmail">Email</label>
             <input
               className="campoEntradaEmailLogin"
@@ -76,9 +85,9 @@ export default function LoginForm({ onAuthUsuario }) {
                 {!isShowPassword && <EyeOff />}
               </button>
             </div>
-          </div>
+          </div> */}
           <div className={style.finalizarAutenticacao}>
-            <button type="submit">Entrar</button>
+            {/* <button type="submit">Entrar</button> */}
             <hr />
             <p>
               Não possui uma conta? <Link href="./signUp">Cadastre-se</Link>
@@ -86,7 +95,6 @@ export default function LoginForm({ onAuthUsuario }) {
           </div>
         </form>
       </div>
-      <p>{mensagem}</p>
     </>
   );
 }

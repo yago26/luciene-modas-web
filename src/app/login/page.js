@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const router = useRouter();
 
-  const authUsuario = async (form) => {
+  const authConsumidor = async (form) => {
     const response = await fetch("api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -27,7 +27,7 @@ export default function Login() {
 
   return (
     <>
-      <LoginForm onAuthUsuario={authUsuario} />
+      <LoginForm onAuthConsumidor={authConsumidor} />
     </>
   );
 }
