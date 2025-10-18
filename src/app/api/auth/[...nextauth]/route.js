@@ -44,17 +44,19 @@ export const authOptions = {
     strategy: "jwt", // Usar JWT para gerenciamento de sessão
   },
   callbacks: {
-    async jwt({ token, consumidor }) {
-      if (consumidor) {
-        token.id = consumidor.id;
-        token.email = consumidor.email;
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      session.consumidor.id = token.id;
-      session.consumidor.email = token.email;
-      return session;
+      return {
+        ...session,
+        consumidor: {
+          id: token.id,
+        },
+      };
     },
   },
   secret: process.env.NEXTAUTH_SECRET,

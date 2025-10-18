@@ -8,10 +8,10 @@ import { CircleUserRound, ShoppingCart } from "lucide-react";
 import getConsumidor from "@/lib/getConsumidor";
 
 export default async function NavBar() {
-  const consumidor = await getConsumidor();
-
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
   const produtos = await response.json();
+  
+  const consumidor = await getConsumidor();
 
   return (
     <>

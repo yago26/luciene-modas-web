@@ -1,27 +1,16 @@
-"use client";
-
 import style from "@/components/produtos/produtosList.module.css";
 
 import CardProduto from "@/components/produtos/CardProduto";
+
+import { Suspense } from "react";
+import Loading from "@/app/loading";
 import getConsumidor from "@/lib/getConsumidor";
-import { useSession } from "next-auth/react";
 
 export default async function ProdutosList() {
-  const { data: session, status } = useSession();
+  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
+  const produtos = await response.json();
 
-  const [produtos, setProdutos] = useState([]);
-
-  useEffect(() => {
-    const fetchProdutos = async () => {
-      const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
-      const data = await response.json();
-      setProdutos(data);
-    };
-
-    fetchProdutos();
-  }, []);
-
-  const consumidor = await getConsumidor(session);
+  const consumidor = await getConsumidor();
 
   return (
     <>
@@ -30,24 +19,15 @@ export default async function ProdutosList() {
         <div className={style.produtosPaginaInicial}>
           {produtos.map((produto) => {
             return (
-              <CardProduto
-                key={produto.id}
-                produto={produto}
-                consumidor={consumidor}
-              />
+              <Suspense key={produto.id} fallback={<Loading />}>
+                <CardProduto
+                  produto={produto}
+                  consumidor={consumidor}
+                />
+              </Suspense>
             );
           })}
         </div>
-      </article>
-
-      <article className={style.produtosEmPromocao}>
-        <h2>Em Promoção</h2>
-        <div className={style.produtosPaginaInicial}></div>
-      </article>
-
-      <article className={style.produtosMaisVendidos}>
-        <h2>Mais Vendidos</h2>
-        <div className={style.produtosPaginaInicial}></div>
       </article>
     </>
   );

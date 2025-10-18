@@ -1,12 +1,18 @@
-export default async (session) => {
-  if (!session) return null;
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // se você tiver authOptions definido
 
-  const idConsumidor = session.consumidor.id;
+export default async () => {
+  const session = await getServerSession(authOptions);
 
-  const response = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/consumidores/${idConsumidor}`
-  );
-  const data = response.json();
+  let consumidor = null;
+  
+  if (session?.consumidor?.id) {
+    const idConsumidor = session.consumidor.id;
+    const res = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/consumidores/${idConsumidor}`
+    );
+    consumidor = await res.json();
+  }
 
-  return data;
+  return consumidor;
 };

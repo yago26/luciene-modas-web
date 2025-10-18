@@ -20,7 +20,7 @@ export default function Login() {
       router.refresh();
       return <p>{response.message}</p>;
     } else {
-      return response.error || <p>Erro</p>;
+      return <p>{response.error}</p> || <p>Erro</p>;
     }
   };
 

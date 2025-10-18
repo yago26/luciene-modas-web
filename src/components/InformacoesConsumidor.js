@@ -1,20 +1,22 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import style from "./informacoesConsumidor.module.css";
 
 import { useRouter } from "next/navigation";
 
 export default function Informacoesconsumidor({ consumidor }) {
+  console.log("Informações do consumidor recebidas:", consumidor);
   const router = useRouter();
 
   const logout = async () => {
-    await fetch("/api/logout"); // Limpa o cookie
+    await signOut({ redirect: false }); // Limpa o cookie
     router.push("/"); // Redireciona para home
     router.refresh(); // Força reload do server-side para atualizar NavBar
   };
 
   const excluirConta = async () => {
-    await fetch("/api/logout"); // Limpa o cookie
+    await signOut({ redirect: false }); // Limpa o cookie
     await fetch(`/api/consumidores/${consumidor.id}`, {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
