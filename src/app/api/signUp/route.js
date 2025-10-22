@@ -6,17 +6,42 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   // Função assíncrona chamada POST, para enviar dados ao Banco de Dados
-  // req é a requisição de cadastro feita pelo usuário a partir dos dados do próprio cadastro
-  const { nome, email, cep, genero, senha } = await req.json();
 
   try {
     // primeiramente, tente isso
-    const senhaCriptografada = await bcrypt.hash(senha, 10);
+    const {
+      nome,
+      email,
+      cep,
+      genero,
+      senha,
+      role = "cliente",
+    } = await req.json(); // req é a requisição de cadastro feita pelo usuário a partir dos dados do próprio cadastro
+
+    // validação para campos vazios
+    if (!nome || !email || !cep || !genero || !senha) {
+      return NextResponse.json({ error: "Dados inválidos" }, { status: 400 });
+    }
+
+    const existe = await db.query(
+      "SELECT id FROM consumidor WHERE email = $1",
+      [email]
+    );
+
+    if (existe.rowCount > 0) {
+      return NextResponse.json(
+        { error: "E-mail já cadastrado" },
+        { status: 400 }
+      );
+    }
+
+    const senha_hash = await bcrypt.hash(senha, 12); // Antes era 10
     const idConsumidor = uuidv4(); // Geração de ID único
 
+    // Adicionar o atributo "role"
     await db.query(
       "INSERT INTO tb_consumidores (id, nome, email, cep, genero, senha) VALUES ($1, $2, $3, $4, $5, $6)",
-      [idConsumidor, nome, email, cep, genero, senhaCriptografada]
+      [idConsumidor, nome, email, cep, genero, senha_hash]
     );
 
     const idCarrinho = uuidv4(); // Geração de ID único
@@ -32,11 +57,10 @@ export async function POST(req) {
   } catch (error) {
     // caso a tentativa falhe, tente isso (Provavelmente não tá conectado com o Banco de Dados)
     console.log(
-      "Erro ao adicionar novo usuário. Provavelmente a aplicação não está conectada ao Banco de Dados do sistema."
+      "Erro ao adicionar novo consumidor. ",
+      error.message,
+      error.stack
     );
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

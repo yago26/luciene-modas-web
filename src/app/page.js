@@ -7,7 +7,7 @@ export default async function Home() {
     <>
       <Gerenciamento />
       <CategoriasList />
-        <ProdutosList />
+      <ProdutosList />
     </>
   );
 }
