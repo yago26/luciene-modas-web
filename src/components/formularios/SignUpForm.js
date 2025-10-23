@@ -60,13 +60,13 @@ export default function SignUpForm({ onAddConsumidor }) {
         <form className={style.formSignUp} onSubmit={handleSubmit}>
           <h1>Sign Up</h1>
           <div className={style.dadosCadastro}>
-            <label htmlFor="usuario">Usuário</label>
+            <label htmlFor="nome">Nome</label>
             <input
-              className="campoEntradaUsuario"
+              className="campoEntradaNome"
               type="text"
               name="nome-usuario"
-              id="usuario"
-              placeholder="Usuário"
+              id="nome"
+              placeholder="Nome"
               value={form.nome}
               onChange={(e) => setForm({ ...form, nome: e.target.value })}
               required
@@ -147,14 +147,9 @@ export default function SignUpForm({ onAddConsumidor }) {
               />
               <button
                 type="button"
-                onClick={() => {
-                  isShowPassword
-                    ? setIsShowPassword(false)
-                    : setIsShowPassword(true);
-                }}
+                onClick={() => setIsShowPassword(!isShowPassword)}
               >
-                {isShowPassword && <Eye />}
-                {!isShowPassword && <EyeOff />}
+                {isShowPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
             <label htmlFor="confirmarSenhaCadastro">Confirmar senha</label>

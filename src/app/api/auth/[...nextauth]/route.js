@@ -1,8 +1,16 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import db from "@/lib/db";
 
-export const authOptions = {
+async function getConsumidorByEmail() {
+  // fazer função depois
+}
+
+const authOptions = {
+  session: {
+    strategy: "jwt", // Usar JWT para gerenciamento de sessão
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -12,7 +20,7 @@ export const authOptions = {
     CredentialsProvider({
       name: "Luciene Modas",
       credentials: {
-        email: { label: "Email", type: "email" },
+        email: { label: "E-mail", type: "email" },
         senha: { label: "Senha", type: "password" },
       },
       async authorize(credentials) {
@@ -27,7 +35,7 @@ export const authOptions = {
           }),
         });
 
-        const consumidor = await res.json();
+        const { consumidor } = await res.json();
 
         if (res.ok && consumidor) {
           return consumidor; // Retorna o usuário autenticado
@@ -37,31 +45,35 @@ export const authOptions = {
       },
     }),
   ],
-  pages: {
-    signIn: "/login", // Página de login customizada
-  },
-  session: {
-    strategy: "jwt", // Usar JWT para gerenciamento de sessão
-  },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account, profile }) {
+      if (account && profile && !user) {
+        const existe = await getConsumidorByEmail();
+        if (existe) {
+          token.id = existe.id;
+        } else {
+          // chamar API de cadastro de consumidores
+        }
+      }
+
       if (user) {
         token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      return {
-        ...session,
-        consumidor: {
-          id: token.id,
-        },
-      };
+      if (token) {
+        session.consumidor.id = token.id;
+      }
+      return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/login", // Página de login customizada
+  },
 };
 
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
+export { authOptions }; // Para usar em APIs protegidas

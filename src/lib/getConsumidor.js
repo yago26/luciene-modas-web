@@ -1,11 +1,11 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // se você tiver authOptions definido
 
-export default async () => {
+export default async function getConsumidor() {
   const session = await getServerSession(authOptions);
 
   let consumidor = null;
-  
+
   if (session?.consumidor?.id) {
     const idConsumidor = session.consumidor.id;
     const res = await fetch(
@@ -15,4 +15,4 @@ export default async () => {
   }
 
   return consumidor;
-};
+}

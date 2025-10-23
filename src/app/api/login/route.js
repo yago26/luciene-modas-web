@@ -21,35 +21,6 @@ export async function POST(req) {
     }
 
     return NextResponse.json({ consumidor }, { status: 200 });
-
-    // const token = await gerarToken({
-    //   id: consumidor.id,
-    //   nome: consumidor.nome,
-    //   email: consumidor.email,
-    //   cep: consumidor.cep,
-    //   genero: consumidor.genero,
-    // });
-
-    // // cria a resposta
-    // const response = NextResponse.json({
-    //   mensagem: "Login feito com sucesso!",
-    //   usuario: {
-    //     nome: consumidor.nome,
-    //     email: consumidor.email,
-    //     cep: consumidor.cep,
-    //     genero: consumidor.genero,
-    //   },
-    // });
-
-    // // define o cookie no response
-    // response.cookies.set("token", token, {
-    //   httpOnly: true,
-    //   secure: process.env.NODE_ENV === "production",
-    //   path: "/",
-    //   maxAge: 60 * 60 * 5, // 5 horas
-    // });
-
-    // return response;
   } catch (error) {
     console.error("Erro ao autenticar:", error);
     return NextResponse.json(

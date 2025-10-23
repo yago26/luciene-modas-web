@@ -24,7 +24,7 @@ export async function POST(req) {
     }
 
     const existe = await db.query(
-      "SELECT id FROM consumidor WHERE email = $1",
+      "SELECT id FROM tb_consumidores WHERE email = $1",
       [email]
     );
 
@@ -38,10 +38,9 @@ export async function POST(req) {
     const senha_hash = await bcrypt.hash(senha, 12); // Antes era 10
     const idConsumidor = uuidv4(); // Geração de ID único
 
-    // Adicionar o atributo "role"
     await db.query(
-      "INSERT INTO tb_consumidores (id, nome, email, cep, genero, senha) VALUES ($1, $2, $3, $4, $5, $6)",
-      [idConsumidor, nome, email, cep, genero, senha_hash]
+      "INSERT INTO tb_consumidores (id, nome, email, cep, genero, senha, role) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [idConsumidor, nome, email, cep, genero, senha_hash, role]
     );
 
     const idCarrinho = uuidv4(); // Geração de ID único

@@ -1,1 +1,1 @@
-* Ajeitar as inserções de novos consumidores
+* Dar uma olhada na API Auth

@@ -1,8 +1,6 @@
 "use client";
 /* O padrão é estar do lado do servidor ('use server') */
 
-import Link from "next/link";
-import { useState, useEffect } from "react";
 import SignUpForm from "@/components/formularios/SignUpForm";
 import { useRouter } from "next/navigation";
 
