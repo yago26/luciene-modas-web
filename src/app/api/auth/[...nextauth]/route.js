@@ -1,10 +1,24 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import crypto from "crypto";
 import db from "@/lib/db";
 
-async function getConsumidorByEmail() {
+async function getConsumidorByEmail(email) {
   // fazer função depois
+  try {
+    const result = await db.query(
+      "SELECT * FROM tb_consumidores WHERE email = $1",
+      [email]
+    );
+
+    const consumidor = result.rows[0];
+
+    return consumidor || null;
+  } catch (error) {
+    console.error("Erro ao buscar consumidor por email:", error);
+    return null;
+  }
 }
 
 const authOptions = {
@@ -35,24 +49,43 @@ const authOptions = {
           }),
         });
 
-        const { consumidor } = await res.json();
+        const data = await res.json();
 
-        if (res.ok && consumidor) {
-          return consumidor; // Retorna o usuário autenticado
-        } else {
-          return null; // Retorna null se não autenticado
+        if (res.ok && data.consumidor) {
+          return data.consumidor; // Retorna o usuário autenticado
         }
+        return null; // Retorna null se não autenticado
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user, account, profile }) {
       if (account && profile && !user) {
-        const existe = await getConsumidorByEmail();
+        const existe = await getConsumidorByEmail(profile.email);
+
         if (existe) {
           token.id = existe.id;
         } else {
           // chamar API de cadastro de consumidores
+          const res = await fetch(`${process.env.NEXTAUTH_URL}/api/signUp`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              nome: "Consumidor",
+              email: profile.email,
+              cep: "",
+              genero: "NULL",
+              senha: crypto.randomUUID(),
+            }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            return data.error;
+          }
         }
       }
 
@@ -63,7 +96,7 @@ const authOptions = {
     },
     async session({ session, token }) {
       if (token) {
-        session.consumidor.id = token.id;
+        session.user.id = token.id;
       }
       return session;
     },

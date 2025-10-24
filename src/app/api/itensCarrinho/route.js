@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
-import db from "@/lib/db";
 import { NextResponse } from "next/server";
-import getConsumidor from "@/lib/getConsumidor";
+import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
+import db from "@/lib/db";
 
 export async function GET() {
   try {
-    const consumidor = await getConsumidor();
+    const consumidor = await getConsumidorServerSide();
     const idConsumidor = consumidor?.id;
 
     const carrinhos = await db.query(
@@ -42,7 +42,7 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    const consumidor = await getConsumidor();
+    const consumidor = await getConsumidorServerSide();
     const idConsumidor = consumidor?.id;
     if (!idConsumidor) {
       return NextResponse.json(
@@ -98,7 +98,7 @@ export async function POST(req) {
 
 export async function PUT(req) {
   try {
-    const consumidor = await getConsumidor();
+    const consumidor = await getConsumidorServerSide();
     const idConsumidor = consumidor?.id;
     if (!idConsumidor) {
       return NextResponse.json(
@@ -161,7 +161,7 @@ export async function PUT(req) {
 
 export async function DELETE(req) {
   try {
-    const consumidor = await getConsumidor();
+    const consumidor = await getConsumidorServerSide();
     const idConsumidor = consumidor?.id;
     if (!idConsumidor) {
       return NextResponse.json(

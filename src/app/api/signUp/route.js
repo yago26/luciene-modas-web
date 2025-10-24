@@ -35,7 +35,7 @@ export async function POST(req) {
       );
     }
 
-    const senha_hash = await bcrypt.hash(senha, 12); // Antes era 10
+    const senha_hash = await bcrypt.hash(senha, 12);
     const idConsumidor = uuidv4(); // Geração de ID único
 
     await db.query(

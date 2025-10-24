@@ -4,13 +4,13 @@ import CardProduto from "@/components/produtos/CardProduto";
 
 import { Suspense } from "react";
 import Loading from "@/app/loading";
-import getConsumidor from "@/lib/getConsumidor";
+import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
 
 export default async function ProdutosList() {
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
   const produtos = await response.json();
 
-  const consumidor = await getConsumidor();
+  const consumidor = await getConsumidorServerSide();
 
   return (
     <>
@@ -22,7 +22,9 @@ export default async function ProdutosList() {
               <Suspense key={produto.id} fallback={<Loading />}>
                 <CardProduto
                   produto={produto}
-                  consumidor={consumidor}
+                  consumidor={
+                    consumidor ? JSON.parse(JSON.stringify(consumidor)) : null
+                  }
                 />
               </Suspense>
             );

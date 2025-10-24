@@ -5,13 +5,13 @@ import SearchBar from "./SearchBar";
 
 import style from "./navbar.module.css";
 import { CircleUserRound, ShoppingCart } from "lucide-react";
-import getConsumidor from "@/lib/getConsumidor";
+import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
 
 export default async function NavBar() {
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
   const produtos = await response.json();
-  
-  const consumidor = await getConsumidor();
+
+  const consumidor = await getConsumidorServerSide();
 
   return (
     <>

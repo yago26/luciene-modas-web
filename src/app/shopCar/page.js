@@ -1,19 +1,14 @@
 import CarrinhoList from "@/components/CarrinhoList";
-import getConsumidor from "@/lib/getConsumidor";
+import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
 import Loading from "@/app/loading";
 import { Suspense } from "react";
 
 export default async function ShopCar() {
-  const consumidor = await getConsumidor();
-
-  const genero = consumidor.genero;
+  const consumidor = await getConsumidorServerSide();
 
   return (
     <>
-      <h1>
-        Bem vind
-        {genero === "Masculino" ? "o" : genero === "Feminino" ? "a" : "(o)a"}!
-      </h1>
+      <h1>Olá, {consumidor.nome}!</h1>
       <h2>Esse é o seu Carrinho de Compras</h2>
       <hr />
       <Suspense fallback={<Loading />}>

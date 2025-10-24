@@ -1,9 +1,9 @@
 import ProductPageInfoProduct from "@/components/produtos/ProductPageInfoProduct";
 import style from "@/components/produtos/productPageMain.module.css";
-import getConsumidor from "@/lib/getConsumidor";
+import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
 
 export default async function ProductPageMain({ produto }) {
-  const consumidor = await getConsumidor();
+  const consumidor = await getConsumidorServerSide();
 
   return (
     <>

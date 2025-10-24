@@ -1,9 +1,9 @@
 import InformacoesConsumidor from "@/components/InformacoesConsumidor";
 
-import getConsumidor from "@/lib/getConsumidor";
+import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
 
 export default async function Profile() {
-  const consumidor = await getConsumidor();
+  const consumidor = await getConsumidorServerSide();
 
   return (
     <>

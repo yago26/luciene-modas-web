@@ -4,10 +4,19 @@ import { signOut } from "next-auth/react";
 import style from "./informacoesConsumidor.module.css";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Informacoesconsumidor({ consumidor }) {
-  console.log("Informações do consumidor recebidas:", consumidor);
+  const [form, setForm] = useState({
+    nome: consumidor.nome,
+    cep: consumidor.cep,
+    genero: consumidor.genero,
+  });
   const router = useRouter();
+
+  const salvar = () => {
+    // fazer depois
+  };
 
   const logout = async () => {
     await signOut({ redirect: false }); // Limpa o cookie
@@ -32,7 +41,12 @@ export default function Informacoesconsumidor({ consumidor }) {
       <ul className={style.listaInformacoesConsumidor}>
         <li className={style.informacaoConsumidor}>
           <label htmlFor="">Nome</label>
-          {consumidor.nome}
+          <input
+            type="text"
+            placeholder="Nome"
+            value={form.nome}
+            onChange={(e) => setForm({ ...form, nome: e.target.value })}
+          />
         </li>
         <li className={style.informacaoConsumidor}>
           <label htmlFor="">Email</label>
@@ -40,18 +54,33 @@ export default function Informacoesconsumidor({ consumidor }) {
         </li>
         <li className={style.informacaoConsumidor}>
           <label htmlFor="">CEP</label>
+          <input
+            type="text"
+            placeholder="Nome"
+            value={form.cep}
+            onChange={(e) => setForm({ ...form, cep: e.target.value })}
+          />
           {consumidor.cep}
         </li>
         <li className={style.informacaoConsumidor}>
           <label htmlFor="">Gênero</label>
+          <input
+            type="radio"
+            placeholder="Nome"
+            value={form.genero}
+            onChange={(e) => setForm({ ...form, genero: e.target.value })}
+          />
           {consumidor.genero}
         </li>
       </ul>
+      <button className={style.btn} onClick={salvar}>
+        Salvar
+      </button>
       <hr />
-      <button className={style.btnLogout} onClick={logout}>
+      <button className={style.btn} onClick={logout}>
         Logout
       </button>
-      <button className={style.btnLogout} onClick={excluirConta}>
+      <button className={style.btn} onClick={excluirConta}>
         Excluir conta
       </button>
     </>

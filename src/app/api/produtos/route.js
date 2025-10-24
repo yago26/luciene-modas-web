@@ -34,7 +34,7 @@ export async function POST(req) {
         "INSERT INTO tb_produtos (id, nome, valor, categoria, imagem, estoque) VALUES ($1, $2, $3, $4, $5, $6)",
         [
           id,
-          nome,
+          nome.trim(),
           Number(valorFormatado),
           categoria,
           imagemUrl,
