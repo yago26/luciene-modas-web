@@ -7,6 +7,8 @@ export default async function Profile() {
 
   return (
     <>
+      <h1>Perfil do Usuário</h1>
+      <hr />
       <InformacoesConsumidor consumidor={consumidor} />
     </>
   );

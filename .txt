@@ -1,1 +1,12 @@
-* Criar o salvar no profile
+* Fazer ser obrigatório incluir letras maiúsculas e minúsculas, números e símbolos especiais
+* Refazer a função loadCarrinho em CarrinhoList
+    - Pesa muito por conta das várias iterações que ocorrem ao buscar os produtos um por um e depois colocar as quantidades
+    - // /api/itensCarrinho GET
+    const carrinho = await db.query(`
+    SELECT ic.id_produto, ic.quantidade, p.nome, p.valor, p.imagem
+    FROM itens_carrinho ic
+    JOIN produtos p ON p.id = ic.id_produto
+    WHERE ic.id_usuario = $1
+    `);
+* Trocar os alerts por toast
+* Baixar Antd e ShadCN

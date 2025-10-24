@@ -18,7 +18,11 @@ export default function SignUpForm({ onAddConsumidor }) {
   const handleSubmit = (e) => {
     /* Tira o funcionamento padrão do <form></form> */
     e.preventDefault();
-    /* Apaga os dados do formulário */
+
+    if (form.senha.length < 12) {
+      return alert("A senha deve conter pelo menos 12 dígitos.");
+    }
+
     if (form.senha != confirmarSenha) {
       return alert(
         `Erro!\n O campo "senha" e "confirmar senha" estão incoerentes entre si.`
@@ -42,7 +46,15 @@ export default function SignUpForm({ onAddConsumidor }) {
     //   }
     // }
 
-    onAddConsumidor(form);
+    const cepLimpo = form.cep.replace(/\D/g, "");
+
+    onAddConsumidor({
+      nome: form.nome,
+      email: form.email,
+      cep: cepLimpo,
+      genero: form.genero,
+      senha: form.senha,
+    });
 
     setForm({
       nome: "",
@@ -81,6 +93,14 @@ export default function SignUpForm({ onAddConsumidor }) {
               placeholder="Email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
+              onBlur={() => {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(form.email)) {
+                  alert("Por favor, insira um e-mail válido.");
+                }
+              }}
+              minLength={12}
+              // Fazer ser obrigatório incluir letras maiúsculas e minúsculas, números e símbolos especiais
               required
             />
             <label htmlFor="cep">CEP</label>
@@ -89,11 +109,20 @@ export default function SignUpForm({ onAddConsumidor }) {
               type="text"
               name="cep-usuario"
               id="cep"
-              placeholder="CEP"
+              placeholder="12345-678"
               value={form.cep}
-              onChange={(e) => setForm({ ...form, cep: e.target.value })}
-              required
-              maxLength={8}
+              onChange={(e) => {
+                let value = e.target.value.replace(/\D/g, ""); // remove tudo que não é número
+                if (value.length > 8) value = value.slice(0, 8); // limita a 8 dígitos
+
+                // Aplica a formatação do CEP automaticamente
+                if (value.length > 5) {
+                  value = value.replace(/(\d{5})(\d{1,3})/, "$1-$2");
+                }
+
+                setForm({ ...form, cep: value });
+              }}
+              maxLength={9}
             />
             <p className={style.genero}>Gênero</p>
             <label htmlFor="masculino">

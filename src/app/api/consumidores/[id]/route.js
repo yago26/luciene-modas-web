@@ -46,3 +46,34 @@ export async function DELETE(req, { params }) {
     );
   }
 }
+
+export async function PUT(req, { params }) {
+  try {
+    const { id } = await params;
+    const { nome, cep, genero } = await req.json();
+
+    if (!nome || !cep || !genero) {
+      console.log("Dados inválidos");
+      return NextResponse.json(
+        { error: "Dados inválidos." },
+        { status: 400 }
+      );
+    }
+
+    await db.query(
+      "UPDATE tb_consumidores SET nome = $1, cep = $2, genero = $3 WHERE id = $4",
+      [nome, cep, genero, id]
+    );
+
+    return NextResponse.json(
+      { message: "Consumidor atualizado com sucesso" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log("Erro ao atualizar informações de consumidor:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

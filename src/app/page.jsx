@@ -5,9 +5,11 @@ import ProdutosList from "@/components/produtos/ProdutosList";
 export default async function Home() {
   return (
     <>
-      <Gerenciamento />
-      <CategoriasList />
-      <ProdutosList />
+      <div style={{ display: "flex", flexDirection: "column", gap: "50px", justifyContent: "center" }}>
+        {/* <Gerenciamento /> */}
+        <CategoriasList />
+        <ProdutosList />
+      </div>
     </>
   );
 }

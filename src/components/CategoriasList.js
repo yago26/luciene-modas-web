@@ -11,8 +11,7 @@ import Link from "next/link";
 
 export default function CategoriasList() {
   return (
-    <>
-      <h2>Buscar por categorias</h2>
+    <div>
       <ul className={style.containerCategorias}>
         <li>
           <Link href="/categories/Roupa">
@@ -63,6 +62,6 @@ export default function CategoriasList() {
           </Link>
         </li>
       </ul>
-    </>
+    </div>
   );
 }

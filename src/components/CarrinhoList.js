@@ -12,19 +12,20 @@ export default function CarrinhoList() {
   const [itemsCarrinho, setItemsCarrinho] = useState([]);
 
   useEffect(() => {
-    async function loadCarrinho() {
-      await fetchItensCarrinho();
-      const produtos = [];
-      for (let item of items) {
-        const response = await fetch(`/api/produtos/${item.id_produto}`);
-        const data = await response.json();
-        data.quantidade = item.quantidade;
-        produtos.push(data);
-      }
-      setItemsCarrinho(produtos); // prev serve para pegar o estado mais atual possível
-    }
     loadCarrinho();
   }, []);
+
+  async function loadCarrinho() {
+    await fetchItensCarrinho();
+    const produtos = [];
+    for (let item of items) {
+      const response = await fetch(`/api/produtos/${item.id_produto}`);
+      const data = await response.json();
+      data.quantidade = item.quantidade;
+      produtos.push(data);
+    }
+    setItemsCarrinho(produtos); // prev serve para pegar o estado mais atual possível
+  }
 
   return (
     <>
@@ -96,7 +97,6 @@ export default function CarrinhoList() {
       <div className={style.containerFinalizarCompra}>
         <button
           onClick={() => {
-            console.log(selecionados);
             if (selecionados.length <= 0) {
               alert("Erro! Nenhum produto selecionado.");
               return;
