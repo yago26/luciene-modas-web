@@ -1,0 +1,8 @@
+.btnAdicionar {
+  width: 100%;
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+}

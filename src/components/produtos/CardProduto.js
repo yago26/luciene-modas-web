@@ -29,7 +29,7 @@ export default function CardProduto({ produto, consumidor }) {
     setLoading(false);
     if (result) {
       setShowSuccessAlert(true);
-      setTimeout(() => setShowSuccessAlert(false), 4000); // fecha após 3s
+      setTimeout(() => setShowSuccessAlert(false), 3000);
     }
   };
 
@@ -63,7 +63,10 @@ export default function CardProduto({ produto, consumidor }) {
           </p>
         </Link>
         {consumidor && (
-          <button className={style.btnAdicionar} onClick={handleAdd}>
+          <button
+            className={style.btnAdicionar}
+            onClick={() => (loading ? "" : handleAdd())}
+          >
             {loading ? (
               <Spin
                 indicator={

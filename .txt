@@ -16,10 +16,8 @@ Banco de Dados
     WHERE ic.id_usuario = $1
     `);
 
-* Trocar os alerts por toast
-
-* Baixar Antd e ShadCN
-
 * Middleware funcional
 
 * Modal para excluir
+
+* Comentários???

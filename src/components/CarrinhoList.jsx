@@ -5,8 +5,12 @@ import { useCarrinhoStore } from "@/app/store/carrinho";
 import style from "./carrinhoList.module.css";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
+import { Alert } from "antd";
 
 export default function CarrinhoList() {
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSucessAlertRemove, setShowSucessAlertRemove] = useState(false);
+
   const [selecionados, setSelecionados] = useState([]);
   const { items, atualizarProduto, removerProduto, fetchItensCarrinho } =
     useCarrinhoStore();
@@ -73,12 +77,15 @@ export default function CarrinhoList() {
                 <td className={style.containerQuantidadeProduto}>
                   <button
                     className={style.btn}
-                    onClick={() => {
+                    onClick={async () => {
                       if (produto.quantidade <= 1) {
                         setSelecionados(
                           selecionados.filter((p) => p.id != produto.id)
                         );
-                        removerProduto(produto.id);
+                        await removerProduto(produto.id);
+
+                        setShowSucessAlertRemove(true);
+                        setTimeout(() => setShowSucessAlertRemove(false), 3000);
                       } else {
                         atualizarProduto(produto.id, produto.quantidade - 1);
                       }
@@ -89,8 +96,11 @@ export default function CarrinhoList() {
                   <span>{produto.quantidade}</span>
                   <button
                     className={style.btn}
-                    onClick={() => {
-                      atualizarProduto(produto.id, produto.quantidade + 1);
+                    onClick={async () => {
+                      await atualizarProduto(
+                        produto.id,
+                        produto.quantidade + 1
+                      );
                     }}
                   >
                     +
@@ -118,12 +128,15 @@ export default function CarrinhoList() {
                 <td>
                   <button
                     className={style.btnRemover}
-                    onClick={() => {
-                      removerProduto(produto.id);
+                    onClick={async () => {
+                      await removerProduto(produto.id);
+
+                      setShowSucessAlertRemove(true);
+                      setTimeout(() => setShowSucessAlertRemove(false), 3000);
+
                       setSelecionados(
                         selecionados.filter((p) => p.id !== produto.id)
                       );
-                      loadCarrinho();
                     }}
                   >
                     <X width={20} height={20} />
@@ -139,7 +152,8 @@ export default function CarrinhoList() {
         <button
           onClick={() => {
             if (selecionados.length <= 0) {
-              alert("Erro! Nenhum produto selecionado.");
+              setShowErrorAlert(true);
+              setTimeout(() => setShowErrorAlert(false), 3000);
               return;
             }
             router.push(`/shopCar/checkout/${selecionados}`);
@@ -157,6 +171,28 @@ export default function CarrinhoList() {
           </div>
         ))}
       </div>
+
+      {showErrorAlert && (
+        <Alert
+          style={{ position: "fixed", bottom: 10, right: 10, zIndex: 10 }}
+          message="Erro!"
+          description="Selecione algum produto para iniciar a compra."
+          type="error"
+          showIcon
+          closable
+        />
+      )}
+
+      {showSucessAlertRemove && (
+        <Alert
+          style={{ position: "fixed", bottom: 10, right: 10, zIndex: 10 }}
+          message="Item removido!"
+          description="O item foi removido do carrinho com sucesso."
+          type="success"
+          showIcon
+          closable
+        />
+      )}
     </>
   );
 }

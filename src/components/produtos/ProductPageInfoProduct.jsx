@@ -1,11 +1,28 @@
 "use client";
-import style from "@/components/produtos/productPageMain.module.css";
+
+import style from "@/components/produtos/productPageInfoProduct.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import { useState } from "react";
+import { Alert, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export default ({ produto, consumidor }) => {
+  const [loading, setLoading] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
   const [cep, setCep] = useState("");
   const { adicionarProduto } = useCarrinhoStore();
+
+  const handleAdd = async () => {
+    setLoading(true);
+    const result = await adicionarProduto(produto.id, 1);
+    setLoading(false);
+    if (result) {
+      setShowSuccessAlert(true);
+      setTimeout(() => setShowSuccessAlert(false), 4000);
+    }
+  };
+
   return (
     <>
       <div className={style.infosProduto}>
@@ -38,11 +55,21 @@ export default ({ produto, consumidor }) => {
 
         {consumidor && (
           <button
-            onClick={() => {
-              adicionarProduto(produto.id, 1);
-            }}
+            className={style.btnAdicionar}
+            onClick={() => (loading ? "" : handleAdd())}
           >
-            Adicionar ao carrinho
+            {loading ? (
+              <Spin
+                indicator={
+                  <LoadingOutlined
+                    style={{ color: "white", height: "100%" }}
+                    spin
+                  />
+                }
+              />
+            ) : (
+              "Adicionar"
+            )}
           </button>
         )}
 
@@ -71,6 +98,18 @@ export default ({ produto, consumidor }) => {
         )}
         <button>Consultar</button>
       </div>
+
+      {showSuccessAlert && (
+        <Alert
+          style={{ position: "fixed", bottom: 10, right: 10, zIndex: 10 }}
+          message="Item adicionado!"
+          description={`${produto.nome} adicionado(a) ao carrinho com sucesso!`}
+          type="success"
+          showIcon
+          closable
+          onClose={() => setShowSuccessAlert(false)}
+        />
+      )}
     </>
   );
 };

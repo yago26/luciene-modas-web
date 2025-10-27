@@ -35,7 +35,6 @@ export const useCarrinhoStore = create((set, get) => ({
     });
     if (res.ok) {
       await get().fetchItensCarrinho();
-      alert("Item removido do carrinho com sucesso!");
     }
     return res.ok;
   },
@@ -48,7 +47,6 @@ export const useCarrinhoStore = create((set, get) => ({
     });
     if (res.ok) {
       await get().fetchItensCarrinho();
-      alert("Item do carrinho atualizado com sucesso!");
     }
     return res.ok;
   },

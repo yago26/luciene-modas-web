@@ -11,7 +11,6 @@ export default async function ProductPage({ params }) {
   return (
     <>
       <ProductPageMain produto={produto} />
-      <h2>Produtos relacionados</h2>
     </>
   );
 }
