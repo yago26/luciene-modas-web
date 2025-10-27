@@ -1,4 +1,11 @@
+Banco de Dados
+* Apagar o atributo "estoque" de "tb_produtos" e adcionar "estoque" e "ajuste_valor" a "tb_atributos_produto" 
+* Criar uma tabela "categorias"
+* Atributos de tamanho para os produtos
+
+
 * Fazer ser obrigatório incluir letras maiúsculas e minúsculas, números e símbolos especiais
+
 * Refazer a função loadCarrinho em CarrinhoList
     - Pesa muito por conta das várias iterações que ocorrem ao buscar os produtos um por um e depois colocar as quantidades
     - // /api/itensCarrinho GET
@@ -8,5 +15,11 @@
     JOIN produtos p ON p.id = ic.id_produto
     WHERE ic.id_usuario = $1
     `);
+
 * Trocar os alerts por toast
+
 * Baixar Antd e ShadCN
+
+* Middleware funcional
+
+* Modal para excluir

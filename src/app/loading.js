@@ -1,6 +1,7 @@
+// Substituir por Spin (tá em CardProduto)
 import { Ring } from "react-css-spinners";
 
-export default function Loading() {
+export default function Loading({ min_height = "70%" }) {
   return (
     <div
       style={{
@@ -8,7 +9,7 @@ export default function Loading() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "70%",
+        minHeight: min_height,
       }}
     >
       <Ring />

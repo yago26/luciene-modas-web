@@ -1,22 +1,34 @@
-.containerProduto,
+.containerProduto {
+  text-align: center;
+}
+
 .containerLinkProduto {
   padding: 1%;
   display: flex;
   align-items: center;
+  transition: 1s;
+  gap: 5%;
 }
 
-.containerLinkProduto {
-  transition: 1s;
-  width: 70%;
-  gap: 5%;
+.containerLinkProduto span h3 {
+  text-align: left;
 }
 
 .containerQuantidadeProduto,
 .containerSelecaoProduto {
   width: 15%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.containerQuantidadeProduto :first-child {
+  background-color: tomato;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.containerQuantidadeProduto :last-child {
+  background-color: lightgreen;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 .containerLinkProduto:hover {
@@ -31,6 +43,7 @@
 .btn {
   margin-inline: 10px;
   padding: 10px;
+  border: none;
 }
 
 .checkbox {
@@ -42,10 +55,10 @@
   padding: 10px;
 }
 
-/* 
-Tabela proprietário e cliente
-Pitch de outubro
-* Problema
-* Solução
-Não tem fundamentação teórica de DAW: Detalhar a utilização das tecnologias no caso pessoal
-*/
+.btnRemover {
+  background-color: tomato;
+  color: white;
+  padding: 7.5px;
+  border-radius: 50px;
+  border: none;
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import { Alert } from "antd";
 import { create } from "zustand";
 
 export const useCarrinhoStore = create((set, get) => ({
@@ -21,8 +22,8 @@ export const useCarrinhoStore = create((set, get) => ({
     });
     if (res.ok) {
       await get().fetchItensCarrinho();
-      alert("Item adicionado ao carrinho com sucesso!");
     }
+    return res.ok;
   },
 
   // 🔹 Remover produto
@@ -36,6 +37,7 @@ export const useCarrinhoStore = create((set, get) => ({
       await get().fetchItensCarrinho();
       alert("Item removido do carrinho com sucesso!");
     }
+    return res.ok;
   },
 
   atualizarProduto: async (productId, quantity) => {
@@ -48,5 +50,10 @@ export const useCarrinhoStore = create((set, get) => ({
       await get().fetchItensCarrinho();
       alert("Item do carrinho atualizado com sucesso!");
     }
+    return res.ok;
   },
+
+  // limparCarrinho: async () => {
+
+  // }
 }));

@@ -13,8 +13,8 @@ export default async function ProductPageMain({ produto }) {
           <img
             src={produto.imagem}
             alt={!produto.sobre ? produto.nome : produto.sobre}
-            width={320}
-            height={320}
+            width={400}
+            height={400}
             style={{ objectFit: "cover" }}
           />
         </div>
