@@ -1,4 +1,4 @@
-import CarrinhoList from "@/components/CarrinhoList";
+import CarrinhoList from "@/components/carrinho/CarrinhoList";
 import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
 
 export default async function ShopCar() {

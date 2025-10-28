@@ -1,5 +1,13 @@
 .containerProduto {
+  display: flex;
+  width: 100%;
+  align-items: center;
   text-align: center;
+}
+
+.containerProduto a {
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
 }
 
 .containerLinkProduto {
@@ -12,6 +20,10 @@
 
 .containerLinkProduto span h3 {
   text-align: left;
+}
+
+.containerLinkProduto:hover {
+  scale: 1.02;
 }
 
 .containerQuantidadeProduto,
@@ -31,42 +43,10 @@
   border-bottom-right-radius: 25px;
 }
 
-.containerLinkProduto:hover {
-  scale: 1.02;
-}
-
-.containerProduto a {
-  background-color: var(--cor-principal);
-  color: var(--cor-secundaria);
-}
-
 .btn {
   margin-inline: 10px;
   padding: 10px;
   border: none;
-}
-
-.checkbox {
-  width: 30px;
-  height: 30px;
-}
-
-.containerFinalizarCompra {
-  width: 100%;
-  background-color: var(--cor-secundaria);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  padding: 40px;
-  text-align: end;
-}
-
-.containerFinalizarCompra button {
-  padding: 15px;
-  background-color: var(--cor-principal);
-  color: var(--cor-secundaria);
-  border: none;
-  border-radius: 20px;
 }
 
 .btnRemover {
@@ -75,4 +55,9 @@
   padding: 7.5px;
   border-radius: 50px;
   border: none;
+}
+
+.checkbox {
+  width: 30px;
+  height: 30px;
 }
