@@ -6,8 +6,15 @@ import style from "./carrinhoList.module.css";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { Alert } from "antd";
+import { QuestionOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
+import Loading from "@/app/loading";
 
 export default function CarrinhoList() {
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(true);
+
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [showSucessAlertRemove, setShowSucessAlertRemove] = useState(false);
 
@@ -17,6 +24,7 @@ export default function CarrinhoList() {
   const [itemsCarrinho, setItemsCarrinho] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     fetchItensCarrinho();
   }, []);
 
@@ -33,6 +41,52 @@ export default function CarrinhoList() {
       })
     );
     setItemsCarrinho(produtos); // prev serve para pegar o estado mais atual possível
+    setLoading(false);
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (itemsCarrinho.length === 0 && !loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "gray",
+          height: "50vh",
+          gap: "2%",
+        }}
+      >
+        <QuestionOutlined
+          style={{
+            fontSize: 50,
+            border: "5px solid",
+            borderRadius: "100%",
+            padding: "15px",
+          }}
+        />
+        <div style={{ textAlign: "center" }}>
+          <h2>Carrinho vazio</h2>
+          <p>Seu carrinho está vazio no momento</p>
+        </div>
+        <button
+          style={{
+            padding: "15px",
+            border: "none",
+            borderRadius: "30px",
+            backgroundColor: "var(--cor-principal)",
+            color: "var(--cor-secundaria)",
+          }}
+          onClick={() => router.push("/")}
+        >
+          Ir as compras
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -129,7 +183,9 @@ export default function CarrinhoList() {
                   <button
                     className={style.btnRemover}
                     onClick={async () => {
+                      setLoading(true);
                       await removerProduto(produto.id);
+                      setLoading(false);
 
                       setShowSucessAlertRemove(true);
                       setTimeout(() => setShowSucessAlertRemove(false), 3000);

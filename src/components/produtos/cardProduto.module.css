@@ -23,8 +23,8 @@
 
 .btnAdicionar {
   width: 100%;
-  color: white;
-  background-color: rgb(20, 20, 20);
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
   padding: 7.5px;
   transition: 0.5s;
   border: none;

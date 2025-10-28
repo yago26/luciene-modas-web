@@ -9,7 +9,7 @@ export default function Loading() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "70%",
+        height: "50vh",
       }}
     >
       <Ring />
