@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // se você tiver authOptions definido
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function getConsumidorServerSide() {
   const session = await getServerSession(authOptions);

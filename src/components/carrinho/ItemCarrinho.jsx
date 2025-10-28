@@ -7,6 +7,7 @@ import { Alert, Spin } from "antd";
 import style from "./itemCarrinho.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import { LoadingOutlined } from "@ant-design/icons";
+import Sucesso from "../toasts/Sucesso";
 
 export default function ItemCarrinho({
   produto,
@@ -114,14 +115,7 @@ export default function ItemCarrinho({
       </div>
 
       {showSucessAlertRemove && (
-        <Alert
-          style={{ position: "fixed", bottom: 10, right: 10, zIndex: 10 }}
-          message="Item removido!"
-          description="O item foi removido do carrinho com sucesso."
-          type="success"
-          showIcon
-          closable
-        />
+        <Sucesso mensagem="O item foi removido do carrinho com sucesso." />
       )}
     </>
   );

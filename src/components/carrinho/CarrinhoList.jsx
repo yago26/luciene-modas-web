@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import style from "./carrinhoList.module.css";
 import { useEffect, useState } from "react";
@@ -116,117 +115,6 @@ export default function CarrinhoList() {
             className={style.containerProduto}
           />
         ))}
-
-        {/* <table style={{ width: "100%" }}>
-          <thead style={{ borderBottom: "1px solid gray" }}>
-            <tr>
-              <th>Produto</th>
-              <th>Preço</th>
-              <th>Quantidade</th>
-              <th>Selecionar</th>
-              <th>Remover</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {itemsCarrinho?.map((produto) => (
-              <tr key={produto.id} className={style.containerProduto}>
-                <td>
-                  <Link
-                    href={`/productPage/${produto.id}`}
-                    className={style.containerLinkProduto}
-                  >
-                    <img
-                      src={produto.imagem}
-                      alt={produto.sobre}
-                      width={100}
-                      height={100}
-                    />
-                    <span>
-                      <h3>{produto.nome}</h3>
-                      <p>{produto.sobre}</p>
-                    </span>
-                  </Link>
-                </td>
-
-                <td>
-                  <p>R$ {produto.valor}</p>
-                </td>
-
-                <td className={style.containerQuantidadeProduto}>
-                  <button
-                    className={style.btn}
-                    onClick={async () => {
-                      if (produto.quantidade <= 1) {
-                        setSelecionados(
-                          selecionados.filter((p) => p.id != produto.id)
-                        );
-                        await removerProduto(produto.id);
-
-                        setShowSucessAlertRemove(true);
-                        setTimeout(() => setShowSucessAlertRemove(false), 3000);
-                      } else {
-                        atualizarProduto(produto.id, produto.quantidade - 1);
-                      }
-                    }}
-                  >
-                    -
-                  </button>
-                  <span>{produto.quantidade}</span>
-                  <button
-                    className={style.btn}
-                    onClick={async () => {
-                      await atualizarProduto(
-                        produto.id,
-                        produto.quantidade + 1
-                      );
-                    }}
-                  >
-                    +
-                  </button>
-                </td>
-
-                <td className={style.containerSelecaoProduto}>
-                  <input
-                    id={produto.id}
-                    name={produto.id}
-                    className={style.checkbox}
-                    type="checkbox"
-                    onChange={(e) => {
-                      if (selecionados.find((p) => p.id === produto.id)) {
-                        setSelecionados(
-                          selecionados.filter((p) => p.id !== produto.id)
-                        );
-                        return;
-                      }
-                      setSelecionados([...selecionados, produto]);
-                    }}
-                  />
-                </td>
-
-                <td>
-                  <button
-                    className={style.btnRemover}
-                    onClick={async () => {
-                      setLoading(true);
-                      await removerProduto(produto.id);
-                      setLoading(false);
-
-                      setShowSucessAlertRemove(true);
-                      setTimeout(() => setShowSucessAlertRemove(false), 3000);
-
-                      setSelecionados(
-                        selecionados.filter((p) => p.id !== produto.id)
-                      );
-                    }}
-                  >
-                    <X width={20} height={20} />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
       </div>
 
       <div className={style.containerFinalizarCompra}>
