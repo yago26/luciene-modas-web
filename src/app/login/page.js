@@ -11,6 +11,7 @@ export default function Login() {
   const router = useRouter();
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [errorKey, setErrorKey] = useState(0);
 
   const authConsumidor = async (form) => {
     const response = await signIn("credentials", {
@@ -27,19 +28,23 @@ export default function Login() {
       }, 1000);
     } else {
       setShowErrorAlert(true);
+      setErrorKey((k) => k + 1);
     }
   };
 
   return (
     <>
-    <SessionProvider>
-      <LoginForm onAuthConsumidor={authConsumidor} />
-      <div>
-        <button onClick={() => signIn("google")}>Login com google</button>
-      </div>
-    </SessionProvider>
-    {showSuccessAlert && <Sucesso mensagem="Autenticação bem-sucedida." />}
-    {showErrorAlert && <Erro mensagem="Credenciais inválidas." />}
+      <SessionProvider>
+        <LoginForm onAuthConsumidor={authConsumidor} />
+        <div>
+          <button onClick={() => signIn("google")}>Login com google</button>
+        </div>
+      </SessionProvider>
+
+      {showSuccessAlert && <Sucesso mensagem="Autenticação bem-sucedida." />}
+      {showErrorAlert && (
+        <Erro key={errorKey} mensagem="Credenciais inválidas." />
+      )}
     </>
   );
 }
