@@ -34,17 +34,32 @@ export default function Login() {
 
   return (
     <>
-      <SessionProvider>
-        <LoginForm onAuthConsumidor={authConsumidor} />
-        <div>
-          <button onClick={() => signIn("google")}>Login com google</button>
+      <div
+        className="containerSignIn"
+        style={{ display: "flex", justifyContent: "center", padding: "5%" }}
+      >
+        <div
+          className="containerLateral"
+          style={{
+            width: "35%",
+            padding: "2.5%",
+            backgroundColor: "var(--cor-principal)",
+            color: "white",
+          }}
+        >
+          <h2>Bem vindo(a) de volta, Consumidor!</h2>
+          <hr />
+          <p>Aproveite sua experiência</p>
         </div>
-      </SessionProvider>
+        <SessionProvider>
+          <LoginForm onAuthConsumidor={authConsumidor} />
+        </SessionProvider>
 
-      {showSuccessAlert && <Sucesso mensagem="Autenticação bem-sucedida." />}
-      {showErrorAlert && (
-        <Erro key={errorKey} mensagem="Credenciais inválidas." />
-      )}
+        {showSuccessAlert && <Sucesso mensagem="Autenticação bem-sucedida." />}
+        {showErrorAlert && (
+          <Erro key={errorKey} mensagem="Credenciais inválidas." />
+        )}
+      </div>
     </>
   );
 }

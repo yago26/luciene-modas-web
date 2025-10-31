@@ -1,21 +1,11 @@
-.containerSignIn {
-  display: flex;
-  justify-content: center;
-  padding: 5%;
-}
-
-.containerLateral {
-  width: 40%;
-  padding: 2.5%;
-  background-color: var(--cor-principal);
-  color: white;
+.formulario {
+  width: 35%;
 }
 
 .formSignIn {
   display: flex;
   flex-direction: column;
-  width: 40%;
-  padding: 2.5%;
+  margin-left: 7.5%;
 }
 
 .formSignIn h1,

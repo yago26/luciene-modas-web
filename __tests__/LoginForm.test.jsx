@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import LoginForm from "@/components/formularios/LoginForm";
 
 describe("LoginForm", () => {
-  it("renderiza sem erros", () => {
+  it("Renderiza sem erros", () => {
     render(<LoginForm />);
   });
 });

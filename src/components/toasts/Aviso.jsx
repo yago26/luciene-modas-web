@@ -2,7 +2,7 @@
 import { Alert, Flex, Progress } from "antd";
 import { useEffect, useState } from "react";
 
-export default function Sucesso({ mensagem }) {
+export default function Aviso({ mensagem }) {
   const [progress, setProgress] = useState(0);
   const [showAlert, setShowAlert] = useState(true);
 
@@ -41,9 +41,9 @@ export default function Sucesso({ mensagem }) {
       gap={0}
     >
       <Alert
-        message="Sucesso!"
+        message="Aviso!"
         description={mensagem}
-        type="success"
+        type="warning"
         showIcon
         closable
       />
@@ -51,7 +51,7 @@ export default function Sucesso({ mensagem }) {
         percent={progress}
         size="small"
         showInfo={false}
-        strokeColor="green"
+        strokeColor="yellow"
         status="active"
       />
     </Flex>
