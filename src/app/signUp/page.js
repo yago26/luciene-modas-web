@@ -2,9 +2,11 @@
 /* O padrão é estar do lado do servidor ('use server') */
 
 import SignUpForm from "@/components/formularios/SignUpForm";
+import Sucesso from "@/components/toasts/Sucesso";
 import { useRouter } from "next/navigation";
 
 export default function SignUp() {
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const router = useRouter();
 
   const addConsumidor = async (consumidor) => {
@@ -20,9 +22,10 @@ export default function SignUp() {
     const data = await res.json();
 
     if (res.ok) {
-      alert("Operação realizada com sucesso! Cadastro bem-sucedido.");
-      router.push("/login");
-      return;
+      setShowSuccessAlert(true);
+      setTimeout(() => {
+        router.push("/login");
+      }, 1000);
     } else {
       return data.error;
     }
@@ -31,6 +34,7 @@ export default function SignUp() {
   return (
     <>
       <SignUpForm onAddConsumidor={addConsumidor} />
+      {showSuccessAlert && <Sucesso mensagem="Cadastro bem-sucedido." />}
     </>
   );
 }

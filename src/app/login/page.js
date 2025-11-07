@@ -51,6 +51,7 @@ export default function Login() {
           <hr />
           <p>Aproveite sua experiência</p>
         </div>
+
         <SessionProvider>
           <LoginForm onAuthConsumidor={authConsumidor} />
         </SessionProvider>

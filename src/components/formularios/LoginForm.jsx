@@ -5,7 +5,6 @@ import style from "./loginForm.module.css";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useCarrinhoStore } from "@/app/store/carrinho";
-import { signIn } from "next-auth/react";
 import { Divider } from "antd";
 import FormasAutenticar from "./FormasAutenticar";
 
