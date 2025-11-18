@@ -4,6 +4,7 @@
 import SignUpForm from "@/components/formularios/SignUpForm";
 import Sucesso from "@/components/toasts/Sucesso";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignUp() {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);

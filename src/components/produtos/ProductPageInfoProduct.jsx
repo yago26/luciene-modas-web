@@ -3,7 +3,7 @@
 import style from "@/components/produtos/productPageInfoProduct.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import { useState } from "react";
-import { Alert, Spin } from "antd";
+import { Alert, Divider, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
 export default ({ produto, consumidor }) => {
@@ -29,7 +29,7 @@ export default ({ produto, consumidor }) => {
         <h1>{produto.nome}</h1>
         <p style={{ color: "gray" }}>ID: {produto.id}</p>
 
-        <hr />
+        <Divider style={{ borderColor: "black" }} />
 
         <h4>Descrição</h4>
         <p>{!produto.sobre ? produto.nome : produto.sobre}</p>
@@ -53,6 +53,8 @@ export default ({ produto, consumidor }) => {
 
         <h3>R$ {produto.valor}</h3>
 
+        <Divider style={{ borderColor: "black" }} />
+
         {consumidor && (
           <button
             className={style.btnAdicionar}
@@ -72,8 +74,6 @@ export default ({ produto, consumidor }) => {
             )}
           </button>
         )}
-
-        <hr />
 
         <h4>Calcular frete</h4>
         {consumidor ? (

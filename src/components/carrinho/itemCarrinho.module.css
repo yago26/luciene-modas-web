@@ -1,8 +1,11 @@
-.containerProduto {
+.containerItemCarrinho {
   display: flex;
-  width: 100%;
   align-items: center;
-  text-align: center;
+  justify-content: space-between;
+}
+
+.containerProduto {
+  width: 50%;
 }
 
 .containerProduto a {

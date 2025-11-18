@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { X } from "lucide-react";
-import { Alert, Spin } from "antd";
+import { Spin } from "antd";
 import style from "./itemCarrinho.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -23,8 +23,8 @@ export default function ItemCarrinho({
 
   return (
     <>
-      <div className={style.containerProduto}>
-        <div>
+      <div className={style.containerItemCarrinho}>
+        <div className={style.containerProduto}>
           <Link
             href={`/productPage/${produto.id}`}
             className={style.containerLinkProduto}
@@ -41,7 +41,6 @@ export default function ItemCarrinho({
             </span>
           </Link>
         </div>
-
         <div>
           <p>R$ {produto.valor}</p>
         </div>
@@ -88,6 +87,11 @@ export default function ItemCarrinho({
         </div>
         <div>
           <button
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
             className={style.btnRemover}
             onClick={async () => {
               setLoading(true);
@@ -108,7 +112,11 @@ export default function ItemCarrinho({
                 }
               />
             ) : (
-              <X width={20} height={20} />
+              <X
+                width={20}
+                height={20}
+                style={{ position: "relative", top: 1.5 }}
+              />
             )}
           </button>
         </div>

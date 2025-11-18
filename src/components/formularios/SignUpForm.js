@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import style from "./signUpForm.module.css";
 import { Eye, EyeOff } from "lucide-react";
+import Aviso from "../toasts/Aviso";
 
 export default function SignUpForm({ onAddConsumidor }) {
   const [form, setForm] = useState({
@@ -14,37 +15,44 @@ export default function SignUpForm({ onAddConsumidor }) {
 
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const [showWarningAlert, setShowWarningAlert] = useState({
+    visivel: false,
+    mensagem: "",
+  });
+  const [warningKey, setWarningKey] = useState(0);
 
   const handleSubmit = (e) => {
     /* Tira o funcionamento padrão do <form></form> */
     e.preventDefault();
 
-    if (form.senha.length < 12) {
-      return alert("A senha deve conter pelo menos 12 dígitos.");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(form.email)) {
+      setShowWarningAlert({
+        visivel: true,
+        mensagem: "Por favor, insira um e-mail válido.",
+      });
+      setWarningKey((k) => k + 1);
+      return;
+    }
+
+    if (form.senha.length < 8) {
+      setShowWarningAlert({
+        visivel: true,
+        mensagem: "A senha deve conter pelo menos 8 dígitos.",
+      });
+      setWarningKey((k) => k + 1);
+      return;
     }
 
     if (form.senha != confirmarSenha) {
-      return alert(
-        `Erro!\n O campo "senha" e "confirmar senha" estão incoerentes entre si.`
-      );
+      setShowWarningAlert({
+        visivel: true,
+        mensagem: `O campo "senha" e "confirmar senha" estão incoerentes entre si.`,
+      });
+      setWarningKey((k) => k + 1);
+      return;
     }
-
-    // const fetchEmailsUsuarios = async () => {
-    //   const response = await fetch("api/consumidores");
-    //   const data = await response.json();
-    //   return data.map((usuario) => {
-    //     usuario = usuario.email;
-    //   });
-    // };
-
-    // const emailsCadastrados = await fetchEmailsUsuarios();
-    // console.log(emailsCadastrados);
-    // for (let usuario of emailsCadastrados) {
-    //   if (form.email == usuario.email) {
-    //     setToast(`Erro!\nEmail já existente.`);
-    //     return;
-    //   }
-    // }
 
     const cepLimpo = form.cep.replace(/\D/g, "");
 
@@ -93,12 +101,6 @@ export default function SignUpForm({ onAddConsumidor }) {
               placeholder="Email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              onBlur={() => {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(form.email)) {
-                  alert("Por favor, insira um e-mail válido.");
-                }
-              }}
               minLength={12}
               // Fazer ser obrigatório incluir letras maiúsculas e minúsculas, números e símbolos especiais
               required
@@ -155,8 +157,8 @@ export default function SignUpForm({ onAddConsumidor }) {
                 type="radio"
                 name="genero"
                 id="semIdentificacao"
-                value="NULL"
-                checked={form.genero === "NULL"}
+                value="Outro"
+                checked={form.genero === "Outro"}
                 onChange={(e) => setForm({ ...form, genero: e.target.value })}
                 required
               />
@@ -207,6 +209,10 @@ export default function SignUpForm({ onAddConsumidor }) {
           <hr />
           <p>Inicie sua maravilhosa experiência na plataforma Luciene Modas</p>
         </div>
+
+        {showWarningAlert.visivel && (
+          <Aviso key={warningKey} mensagem={showWarningAlert.mensagem} />
+        )}
       </div>
     </>
   );

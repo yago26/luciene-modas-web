@@ -3,9 +3,10 @@
 import Link from "next/link";
 import style from "@/components/produtos/cardProduto.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
-import { Alert, Spin } from "antd";
+import { Spin } from "antd";
 import { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
+import Sucesso from "../toasts/Sucesso";
 
 export default function CardProduto({ produto, consumidor }) {
   const [loading, setLoading] = useState(false);
@@ -84,15 +85,7 @@ export default function CardProduto({ produto, consumidor }) {
       </div>
 
       {showSuccessAlert && (
-        <Alert
-          style={{ position: "fixed", bottom: 10, right: 10, zIndex: 10 }}
-          message="Item adicionado!"
-          description={`${nome} adicionado(a) ao carrinho com sucesso!`}
-          type="success"
-          showIcon
-          closable
-          onClose={() => setShowSuccessAlert(false)}
-        />
+        <Sucesso mensagem={`${nome} adicionado(a) ao carrinho com sucesso!`} />
       )}
     </>
   );

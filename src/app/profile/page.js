@@ -1,6 +1,7 @@
 import InformacoesConsumidor from "@/components/InformacoesConsumidor";
 
 import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
+import { Divider } from "antd";
 
 export default async function Profile() {
   const consumidor = await getConsumidorServerSide();
@@ -8,7 +9,7 @@ export default async function Profile() {
   return (
     <>
       <h1>Perfil do Usuário</h1>
-      <hr />
+      <Divider style={{ borderColor: "black" }} />
       <InformacoesConsumidor consumidor={consumidor} />
     </>
   );

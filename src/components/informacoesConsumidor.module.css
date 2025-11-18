@@ -16,6 +16,15 @@
   padding: 2%;
 }
 
-.btn {
+.containerBtn button {
   padding: 10px;
+}
+
+.btnSalvar {
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+  border-radius: 20px;
+  border: none;
+  width: 30%;
+  margin-bottom: 1.5%;
 }

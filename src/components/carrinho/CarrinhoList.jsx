@@ -8,7 +8,8 @@ import { QuestionOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
 import ItemCarrinho from "./ItemCarrinho";
-import { Alert } from "antd";
+import Erro from "../toasts/Erro";
+import { Divider } from "antd";
 
 export default function CarrinhoList() {
   const router = useRouter();
@@ -105,7 +106,7 @@ export default function CarrinhoList() {
 
   return (
     <>
-      <div>
+      <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
         {itemsCarrinho.map((produto) => (
           <ItemCarrinho
             key={produto.id}
@@ -133,6 +134,7 @@ export default function CarrinhoList() {
         </button>
       </div>
       <div>
+        <Divider style={{ borderColor: "black" }} />
         <h3>Selecionados</h3>
         {selecionados.map((p) => (
           <div key={p.id}>
@@ -142,14 +144,7 @@ export default function CarrinhoList() {
       </div>
 
       {showErrorAlert && (
-        <Alert
-          style={{ position: "fixed", bottom: 10, right: 10, zIndex: 10 }}
-          message="Erro!"
-          description="Selecione algum produto para iniciar a compra."
-          type="error"
-          showIcon
-          closable
-        />
+        <Erro mensagem="Selecione algum produto para iniciar a compra." />
       )}
     </>
   );
