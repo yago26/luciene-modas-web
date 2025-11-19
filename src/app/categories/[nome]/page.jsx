@@ -9,10 +9,14 @@ export default async ({ params }) => {
   const produtos = await response.json();
 
   const { nome } = await params;
+  let nomeFormatado = nome[0].toUpperCase() + nome.slice(1);
+  if (nomeFormatado === "Cosmeticos") {
+    nomeFormatado = "Cosméticos";
+  }
 
   return (
     <>
-      <h1>{nome}</h1>
+      <h1>{nomeFormatado}</h1>
       <div
         style={{
           display: "flex",

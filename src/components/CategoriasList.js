@@ -22,7 +22,7 @@ export default function CategoriasList() {
           </Link>
         </li>
         <li>
-          <Link href="/categories/Cosmeticos">
+          <Link href="/categories/cosmeticos">
             <div className={style.categoria}>
               <Brush size={50} />
               <p>Cosméticos</p>
