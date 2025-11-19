@@ -45,3 +45,17 @@ export async function DELETE(req, { params }) {
     );
   }
 }
+
+export async function PUT(req, { params }) {
+  // Fazer Depois
+  try {
+    const { id } = await params;
+    const { nome, sobre, valor, categoria, imagem, estoque } = await req.json();
+  } catch (error) {
+    console.log("Erro ao atualizar produto", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

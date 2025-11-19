@@ -19,7 +19,6 @@
     "next-auth": "^4.24.11",
     "pg": "^8.14.1",
     "react": "^19.0.0",
-    "react-css-spinners": "^4.0.2",
     "react-dom": "^19.0.0",
     "uuid": "^11.1.0",
     "zustand": "^5.0.6"
@@ -34,6 +33,7 @@
     "eslint-config-next": "15.2.4",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
+    "jest-fixed-jsdom": "^0.0.11",
     "ts-node": "^10.9.2"
   }
 }

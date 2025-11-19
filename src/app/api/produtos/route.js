@@ -22,12 +22,18 @@ export async function POST(req) {
 
     const valorFormatado = String(valor).replace(",", ".");
 
+    let categoriaFormatada = categoria.toLowerCase();
+
+    if (categoriaFormatada === "cosméticos") {
+      categoriaFormatada = "cosmeticos";
+    }
+
     const id = uuidv4();
 
     if (!sobre && !estoque) {
       db.query(
         "INSERT INTO tb_produtos (id, nome, valor, categoria, imagem) VALUES ($1, $2, $3, $4, $5)",
-        [id, nome, Number(valorFormatado), categoria, imagemUrl]
+        [id, nome, Number(valorFormatado), categoriaFormatada, imagemUrl]
       );
     } else if (!sobre) {
       db.query(
@@ -36,7 +42,7 @@ export async function POST(req) {
           id,
           nome.trim(),
           Number(valorFormatado),
-          categoria,
+          categoriaFormatada,
           imagemUrl,
           Number(estoque),
         ]
@@ -44,7 +50,7 @@ export async function POST(req) {
     } else if (!estoque) {
       db.query(
         "INSERT INTO tb_produtos (id, nome, sobre, valor, categoria, imagem) VALUES ($1, $2, $3, $4, $5, $6)",
-        [id, nome, sobre, Number(valorFormatado), categoria, imagemUrl]
+        [id, nome, sobre, Number(valorFormatado), categoriaFormatada, imagemUrl]
       );
     } else {
       db.query(
@@ -54,7 +60,7 @@ export async function POST(req) {
           nome,
           sobre,
           Number(valorFormatado),
-          categoria,
+          categoriaFormatada,
           imagemUrl,
           Number(estoque),
         ]

@@ -1,5 +1,5 @@
-// Substituir por Spin (tá em CardProduto)
-import { Ring } from "react-css-spinners";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export default function Loading() {
   return (
@@ -10,9 +10,17 @@ export default function Loading() {
         alignItems: "center",
         justifyContent: "center",
         height: "50vh",
+        gap: "15px",
       }}
     >
-      <Ring />
+      <Spin
+        indicator={
+          <LoadingOutlined
+            style={{ color: "white", height: "100%", fontSize: 64 }}
+            spin
+          />
+        }
+      />
       <p>Loading...</p>
     </div>
   );

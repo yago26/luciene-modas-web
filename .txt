@@ -3,6 +3,8 @@ Banco de Dados
 * Criar uma tabela "categorias"
 * Atributos de tamanho para os produtos
 
+* Criar a função de atualizar produto
+
 * Fazer ser obrigatório incluir letras maiúsculas e minúsculas, números e símbolos especiais
 
 * Refazer a função loadCarrinho em CarrinhoList
@@ -14,7 +16,5 @@ Banco de Dados
     JOIN produtos p ON p.id = ic.id_produto
     WHERE ic.id_usuario = $1
     `);
-
-* Modal para excluir
 
 * Comentários???
