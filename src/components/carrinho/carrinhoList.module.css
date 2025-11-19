@@ -1,6 +1,5 @@
 .containerFinalizarCompra {
   width: 100%;
-  background-color: var(--cor-secundaria);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -9,9 +8,10 @@
 }
 
 .containerFinalizarCompra button {
-  padding: 15px;
+  padding: 15px 20px;
   background-color: var(--cor-principal);
   color: var(--cor-secundaria);
   border: none;
   border-radius: 20px;
+  box-shadow: 2px 2px 5px black;
 }

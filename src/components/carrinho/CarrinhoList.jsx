@@ -133,6 +133,7 @@ export default function CarrinhoList() {
           Finalizar compra
         </button>
       </div>
+
       <div>
         <Divider style={{ borderColor: "black" }} />
         <h3>Selecionados</h3>

@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@vercel/blob": "^1.1.1",
-    "antd": "^5.27.6",
+    "antd": "^5.29.1",
     "bcryptjs": "^3.0.2",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.536.0",

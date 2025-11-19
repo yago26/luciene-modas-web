@@ -4,25 +4,40 @@ import { signOut } from "next-auth/react";
 import style from "./informacoesConsumidor.module.css";
 
 import { useState } from "react";
-import { Divider } from "antd";
+import { Button, Modal, Divider } from "antd";
+import Sucesso from "./toasts/Sucesso";
+import Aviso from "./toasts/Aviso";
 
 export default function Informacoesconsumidor({ consumidor }) {
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+  const [keySuccess, setKeySuccess] = useState(0);
+  const [showAlertWarning, setShowAlertWarning] = useState(false);
+  const [keyWarning, setKeyWarning] = useState(0);
+
   const [form, setForm] = useState({
     nome: consumidor.nome,
     cep: consumidor.cep,
     genero: consumidor.genero,
   });
 
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+
+  const showModal = () => {
+    setOpen(true);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
   const salvar = async () => {
     const cepLimpo = form.cep.replace(/\D/g, "");
 
     if (!form.nome || !cepLimpo || !form.genero) {
-      console.log("Campos inválidos.");
-      return alert(
-        "Erro! Campos inválidos." +
-          "\n" +
-          "Preencha todos os campos com valores antes de atualizar seu perfil."
-      );
+      setShowAlertWarning(true);
+      setKeyWarning((prev) => prev + 1);
+      return;
     }
 
     const response = await fetch(`/api/consumidores/${consumidor.id}`, {
@@ -38,7 +53,9 @@ export default function Informacoesconsumidor({ consumidor }) {
     });
 
     if (response.ok) {
-      return alert("Sucesso! Dados de perfil atualizados com êxito.");
+      setShowAlertSuccess(true);
+      setKeySuccess((prev) => prev + 1);
+      return;
     }
   };
 
@@ -47,11 +64,13 @@ export default function Informacoesconsumidor({ consumidor }) {
   };
 
   const excluirConta = async () => {
+    setConfirmLoading(true);
     await signOut({ redirect: true, callbackUrl: "/" }); // Limpa o cookie
     await fetch(`/api/consumidores/${consumidor.id}`, {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
     });
+    setConfirmLoading(false);
   };
 
   return (
@@ -142,10 +161,45 @@ export default function Informacoesconsumidor({ consumidor }) {
           Salvar
         </button>
         <div>
-          <button onClick={logout}>Logout</button>
-          <button onClick={excluirConta}>Excluir conta</button>
+          <h3>Outras ações</h3>
+          <button className={style.btnSair} onClick={logout}>
+            Sair
+          </button>
+          <Button
+            type="primary"
+            style={{ backgroundColor: "red" }}
+            onClick={showModal}
+          >
+            Excluir
+          </Button>
+          <Modal
+            title="Tem certeza que deseja excluir
+              sua conta?"
+            open={open}
+            onOk={excluirConta}
+            confirmLoading={confirmLoading}
+            onCancel={handleCancel}
+            okText="Excluir"
+            okType="danger"
+            cancelText="Cancelar"
+          >
+            <p>Essa ação não poderá ser desfeita.</p>
+          </Modal>
         </div>
       </div>
+
+      {showAlertSuccess && (
+        <Sucesso
+          key={keySuccess}
+          mensagem="Dados de perfil atualizados com êxito."
+        />
+      )}
+      {showAlertWarning && (
+        <Aviso
+          key={keyWarning}
+          mensagem="Preencha todos os campos com valores antes de atualizar seu perfil."
+        />
+      )}
     </>
   );
 }

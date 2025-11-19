@@ -8,7 +8,7 @@ export default async function Profile() {
 
   return (
     <>
-      <h1>Perfil do Usuário</h1>
+      <h1>Perfil de Usuário</h1>
       <Divider style={{ borderColor: "black" }} />
       <InformacoesConsumidor consumidor={consumidor} />
     </>
