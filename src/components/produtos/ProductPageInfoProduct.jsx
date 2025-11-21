@@ -55,7 +55,7 @@ export default ({ produto, consumidor }) => {
 
         <Divider style={{ borderColor: "black" }} />
 
-        {consumidor && (
+        {consumidor && produto.estoque > 0 && (
           <button
             className={style.btnAdicionar}
             onClick={() => (loading ? "" : handleAdd())}

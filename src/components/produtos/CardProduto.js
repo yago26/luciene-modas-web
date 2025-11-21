@@ -14,7 +14,7 @@ export default function CardProduto({ produto, consumidor }) {
 
   const { adicionarProduto } = useCarrinhoStore();
 
-  let { id, nome, sobre, valor, imagem } = produto;
+  let { id, nome, sobre, valor, imagem, estoque } = produto;
   const [reais, cents] = valor.split(".");
 
   if (nome.length > 42) {
@@ -63,7 +63,7 @@ export default function CardProduto({ produto, consumidor }) {
             <span>{cents}</span>
           </p>
         </Link>
-        {consumidor && (
+        {consumidor && estoque > 0 && (
           <button
             className={style.btnAdicionar}
             onClick={() => (loading ? "" : handleAdd())}

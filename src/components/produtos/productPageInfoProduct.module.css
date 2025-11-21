@@ -1,5 +1,9 @@
-.btnAdicionar {
+.infosProduto {
   width: 100%;
+}
+
+.btnAdicionar {
+  width: 30%;
   background-color: var(--cor-principal);
   color: var(--cor-secundaria);
   border: none;
