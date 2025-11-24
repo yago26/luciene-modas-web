@@ -126,7 +126,12 @@ export default function CarrinhoList() {
               setTimeout(() => setShowErrorAlert(false), 3000);
               return;
             }
-            router.push(`/shopCar/checkout/${selecionados}`);
+            const quantidades = selecionados.map((s) => {
+  const produto = items.find((i) => i.id_produto === s.id);
+  return produto ? produto.quantidade : 0; // Se o produto não for encontrado, retorna 0
+});
+            const ids = selecionados.map(s => s = s.id);
+            router.push(`/checkout?ids=${ids}&quantidades=${quantidades}`);
             router.refresh();
           }}
         >
@@ -139,7 +144,7 @@ export default function CarrinhoList() {
         <h3>Selecionados</h3>
         {selecionados.map((p) => (
           <div key={p.id}>
-            <p>{p.nome}</p>
+            <p>{p.nome} - {items.find((i) => i.id_produto === p.id)?.quantidade || 0}</p>
           </div>
         ))}
       </div>

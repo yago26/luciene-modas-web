@@ -1,6 +1,5 @@
 "use client";
 
-import { Alert } from "antd";
 import { create } from "zustand";
 
 export const useCarrinhoStore = create((set, get) => ({

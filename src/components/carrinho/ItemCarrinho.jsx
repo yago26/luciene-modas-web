@@ -81,7 +81,7 @@ export default function ItemCarrinho({
             className={style.checkbox}
             type="checkbox"
             onChange={(e) => {
-              onSelecionarItem(produto);
+              onSelecionarItem({id: produto.id});
             }}
           />
         </div>
