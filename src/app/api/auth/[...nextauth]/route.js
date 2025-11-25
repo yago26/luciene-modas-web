@@ -92,9 +92,6 @@ const authOptions = {
         senha: { label: "Senha", type: "password" },
       },
       async authorize(credentials) {
-        // Mantenho a lógica original de chamar a API /api/login, mas o ideal seria
-        // incorporar a lógica de verificação de senha (com bcrypt.compare) aqui
-        // para máxima eficiência, eliminando o fetch.
         const res = await fetch(`${process.env.NEXTAUTH_URL}/api/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -109,17 +106,14 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    // O 'user' agora vem populado e formatado do 'profile' ou 'authorize'
     async jwt({ token, user }) {
       if (user) {
-        // Adiciona o ID e a ROLE gerados/buscados do DB ao token JWT
         token.id = user.id;
-        token.role = user.role; // Outras propriedades úteis (e.g., nome, email)
+        token.role = user.role;
       }
       return token;
     },
     async session({ session, token }) {
-      // Injeta as propriedades do token na sessão do usuário
       if (token.id) {
         session.user.id = token.id;
         session.user.role = token.role;
