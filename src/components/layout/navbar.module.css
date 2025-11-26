@@ -78,27 +78,28 @@
   margin: 0;
   padding: 0;
   display: flex;
-  padding: 1% 10%;
+  padding: 0.5% 10%;
   align-items: center;
   justify-content: space-between;
   list-style: none;
   width: 100%;
 }
 
-.linksRapidosCategorias li {
+.linksRapidosCategorias a li {
   transition: 0.1s;
   font-size: 0.85rem;
 }
 
-.linksRapidosCategorias li a {
+.linksRapidosCategorias a {
+  padding: 1% 5%;
   text-decoration: none;
   color: gray;
 }
 
-.linksRapidosCategorias li:hover {
-  scale: 1.05;
-}
-
-.linksRapidosCategorias li a:hover {
+.linksRapidosCategorias a:hover {
   color: white;
+  background-color: #812a4d;
+  li {
+    scale: 1.05;
+  }
 }

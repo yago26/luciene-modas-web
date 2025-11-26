@@ -17,12 +17,10 @@ export default () => {
             Consumidores
             <ul>
               <li>
-                <Link href="/api/consumidores">Ver Consumidores</Link>
+                <Link href="/api/usuarios">Ver Usuários</Link>
               </li>
               <li>
-                <Link href="gerenciamento/consumidores">
-                  Deletar Consumidores
-                </Link>
+                <Link href="gerenciamento/usuarios">Deletar Usuários</Link>
               </li>
             </ul>
           </li>

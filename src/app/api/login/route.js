@@ -7,20 +7,20 @@ export async function POST(req) {
 
   try {
     const result = await db.query(
-      "SELECT * FROM tb_consumidores WHERE email = $1",
+      "SELECT * FROM tb_usuarios WHERE email = $1",
       [email]
     );
 
-    const consumidor = result.rows[0];
+    const usuario = result.rows[0];
 
-    if (!consumidor || !(await bcrypt.compare(senha, consumidor.senha))) {
+    if (!usuario || !(await bcrypt.compare(senha, usuario.senha))) {
       return NextResponse.json(
         { error: "Credenciais inválidas!" },
         { status: 401 }
       );
     }
 
-    return NextResponse.json({ consumidor }, { status: 200 });
+    return NextResponse.json({ usuario }, { status: 200 });
   } catch (error) {
     console.error("Erro ao autenticar:", error);
     return NextResponse.json(

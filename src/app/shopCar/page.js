@@ -1,9 +1,9 @@
 import CarrinhoList from "@/components/carrinho/CarrinhoList";
-import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
+import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 import { Divider } from "antd";
 
 export default async function ShopCar() {
-  const consumidor = await getConsumidorServerSide();
+  const consumidor = await getUsuarioServerSide();
 
   return (
     <>

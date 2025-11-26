@@ -28,7 +28,7 @@ export default function produtosForm() {
     // * Lida bem com dados complexos, diferente do JSON.strigify()
     formData.append("file", form.imagem);
 
-    const uploadRes = await fetch("/api/upload", {
+    const uploadRes = await fetch(`${process.env.NEXTAUTH_URL}/api/upload`, {
       method: "POST",
       body: formData,
     });
@@ -37,7 +37,7 @@ export default function produtosForm() {
     imagemUrl = url;
 
     const { nome, sobre, valor, categoria, estoque } = form;
-    await fetch("/api/produtos", {
+    await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

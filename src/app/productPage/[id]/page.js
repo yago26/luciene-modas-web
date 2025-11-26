@@ -1,4 +1,4 @@
-import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
+import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 import ProductPageInfoProduct from "@/components/produtos/ProductPageInfoProduct";
 import style from "./page.module.css";
 
@@ -9,7 +9,7 @@ export default async function ProductPage({ params }) {
   );
   const produto = await response.json();
 
-  const consumidor = await getConsumidorServerSide();
+  const consumidor = await getUsuarioServerSide();
 
   return (
     <>

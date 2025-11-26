@@ -15,7 +15,7 @@ export async function POST(req) {
 
     for (const p of produtos) {
       await db.query(
-        "INSERT INTO tb_itens_pedido (id, id_pedido, id_produto, quantidade, preco_unitario) VALUES ($1, $2, $3, $4, $5)",
+        "INSERT INTO rl_produtos_pedidos_itens_pedido (id, id_pedido, id_produto, quantidade, preco_unitario) VALUES ($1, $2, $3, $4, $5)",
         [uuidv4(), idPedido, p.id, p.quantidade, p.preco]
       );
     }

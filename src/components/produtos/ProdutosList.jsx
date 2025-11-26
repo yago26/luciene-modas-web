@@ -4,7 +4,7 @@ import CardProduto from "@/components/produtos/CardProduto";
 
 import { Suspense } from "react";
 import Loading from "@/app/loading";
-import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
+import getConsumidorServerSide from "@/lib/getUsuarioServerSide";
 
 export default async function ProdutosList() {
   const response_produtos_disponiveis = await fetch(
@@ -43,6 +43,7 @@ export default async function ProdutosList() {
           })}
         </div>
       </article>
+
       <article>
         <h2>Produtos Indisponíveis</h2>
         <div className={style.produtosPaginaInicial}>
@@ -60,6 +61,7 @@ export default async function ProdutosList() {
           })}
         </div>
       </article>
+
       <article>
         <h2>Todos os Produtos</h2>
         <div className={style.produtosPaginaInicial}>

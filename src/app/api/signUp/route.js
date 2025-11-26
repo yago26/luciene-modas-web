@@ -9,14 +9,7 @@ export async function POST(req) {
 
   try {
     // primeiramente, tente isso
-    const {
-      nome,
-      email,
-      cep,
-      genero,
-      senha,
-      role = "cliente",
-    } = await req.json(); // req é a requisição de cadastro feita pelo usuário a partir dos dados do próprio cadastro
+    const { nome, email, cep, genero, senha } = await req.json(); // req é a requisição de cadastro feita pelo usuário a partir dos dados do próprio cadastro
 
     // validação para campos vazios
     if (!nome || !email || !cep || !genero || !senha) {
@@ -24,7 +17,7 @@ export async function POST(req) {
     }
 
     const existe = await db.query(
-      "SELECT id FROM tb_consumidores WHERE email = $1",
+      "SELECT id FROM tb_usuarios WHERE email = $1",
       [email]
     );
 
@@ -36,30 +29,26 @@ export async function POST(req) {
     }
 
     const senha_hash = await bcrypt.hash(senha, 12);
-    const idConsumidor = uuidv4(); // Geração de ID único
+    const idUsuario = uuidv4(); // Geração de ID único
 
     await db.query(
-      "INSERT INTO tb_consumidores (id, nome, email, cep, genero, senha, role) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-      [idConsumidor, nome, email, cep, genero, senha_hash, role]
+      "INSERT INTO tb_usuarios (id, nome, email, cep, genero, senha, role) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [idUsuario, nome, email, cep, genero, senha_hash, "consumidor"]
     );
 
     const idCarrinho = uuidv4(); // Geração de ID único
     await db.query(
       "INSERT INTO tb_carrinhos (id, id_consumidor) VALUES ($1, $2)",
-      [idCarrinho, idConsumidor]
+      [idCarrinho, idUsuario]
     );
 
     return NextResponse.json(
-      { mensagem: "Consumidor cadastrado" },
+      { mensagem: "Usuário cadastrado" },
       { status: 201 }
     );
   } catch (error) {
     // caso a tentativa falhe, tente isso (Provavelmente não tá conectado com o Banco de Dados)
-    console.log(
-      "Erro ao adicionar novo consumidor. ",
-      error.message,
-      error.stack
-    );
+    console.log("Erro ao adicionar novo usuário. ", error.message, error.stack);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

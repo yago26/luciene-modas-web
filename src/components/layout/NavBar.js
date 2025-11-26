@@ -5,13 +5,13 @@ import SearchBar from "./SearchBar";
 
 import style from "./navbar.module.css";
 import { CircleUserRound, ShoppingCart } from "lucide-react";
-import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
+import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
 export default async function NavBar() {
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
   const produtos = await response.json();
 
-  const consumidor = await getConsumidorServerSide();
+  const consumidor = await getUsuarioServerSide();
 
   return (
     <>
@@ -55,24 +55,29 @@ export default async function NavBar() {
           </div>
 
           <ul className={style.linksRapidosCategorias}>
-            <li>
-              <Link href="/">Roupas</Link>
-            </li>
-            <li>
-              <Link href="/">Cosméticos</Link>
-            </li>
-            <li>
-              <Link href="/">Masculino</Link>
-            </li>
-            <li>
-              <Link href="/">Feminino</Link>
-            </li>
-            <li>
-              <Link href="/">Infantil</Link>
-            </li>
-            <li>
-              <Link href="/">Outros</Link>
-            </li>
+            <Link href="/categories/roupas">
+              <li>Roupas</li>
+            </Link>
+
+            <Link href="/categories/cosmeticos">
+              <li>Cosméticos</li>
+            </Link>
+
+            <Link href="/categories/masculino">
+              <li>Masculino</li>
+            </Link>
+
+            <Link href="/categories/feminino">
+              <li>Feminino</li>
+            </Link>
+
+            <Link href="/categories/infantil">
+              <li>Infantil</li>
+            </Link>
+
+            <Link href="/categories/outros">
+              <li>Outros</li>
+            </Link>
           </ul>
         </nav>
       </header>

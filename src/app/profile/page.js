@@ -1,10 +1,10 @@
 import InformacoesConsumidor from "@/components/InformacoesConsumidor";
 
-import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
+import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 import { Divider } from "antd";
 
 export default async function Profile() {
-  const consumidor = await getConsumidorServerSide();
+  const consumidor = await getUsuarioServerSide();
 
   return (
     <>

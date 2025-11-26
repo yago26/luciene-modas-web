@@ -11,15 +11,18 @@ export default function Consumidores() {
   }, []);
 
   const fetchConsumidor = async () => {
-    const response = await fetch("/api/consumidores");
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/usuarios`);
     const data = await response.json();
     setConsumidores(data);
   };
 
   const deleteConsumidor = async (id) => {
-    const response = await fetch(`/api/consumidores/${id}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/usuarios/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     if (response.ok) {
       fetchConsumidor();
     }

@@ -8,29 +8,29 @@ import bcrypt from "bcryptjs"; // Necessário para a lógica de Credenciais, se 
 
 // --- FUNÇÕES DE BANCO DE DADOS MODULARIZADAS ---
 
-async function getConsumidorByEmail(email) {
+async function getUsuarioByEmail(email) {
   try {
     const result = await db.query(
-      "SELECT id, nome, email, role, senha FROM tb_consumidores WHERE email = $1",
+      "SELECT id, nome, email, role, senha FROM tb_usuarios WHERE email = $1",
       [email]
     );
     return result.rows[0] || null;
   } catch (error) {
-    console.error("Erro ao buscar consumidor por email:", error);
+    console.error("Erro ao buscar usuário por email:", error);
     return null;
   }
 }
 
-async function createNewConsumidor(profile) {
+async function createNewUsuario(profile) {
   try {
-    const idConsumidor = uuidv4();
+    const idUsuario = uuidv4();
     const senhaAleatoria = crypto.randomUUID(); // Usa o bcrypt, que é a biblioteca que sua API de cadastro original usava
     const senha_hash = await bcrypt.hash(senhaAleatoria, 12);
-    const role = "cliente"; // 1. INSERIR CONSUMIDOR
+    const role = "consumidor";
     await db.query(
-      "INSERT INTO tb_consumidores (id, nome, email, cep, genero, senha, role) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      "INSERT INTO tb_usuarios (id, nome, email, cep, genero, senha, role) VALUES ($1, $2, $3, $4, $5, $6, $7)",
       [
-        idConsumidor,
+        idUsuario,
         profile.name || "Consumidor",
         profile.email,
         "00000000",
@@ -43,17 +43,17 @@ async function createNewConsumidor(profile) {
     const idCarrinho = uuidv4();
     await db.query(
       "INSERT INTO tb_carrinhos (id, id_consumidor) VALUES ($1, $2)",
-      [idCarrinho, idConsumidor]
+      [idCarrinho, idUsuario]
     ); // Retorna o objeto formatado para ser usado no JWT
 
     return {
-      id: idConsumidor,
+      id: idUsuario,
       name: profile.name,
       email: profile.email,
       role: role,
     };
   } catch (error) {
-    console.error("Erro ao criar novo consumidor:", error);
+    console.error("Erro ao criar novo usuário:", error);
     throw new Error("Falha no cadastro do usuário.");
   }
 }
@@ -70,17 +70,17 @@ const authOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET, // Usamos o PROFILE callback para tratar o cadastro Social de forma eficiente
       async profile(profile) {
-        let consumidor = await getConsumidorByEmail(profile.email);
-        if (!consumidor) {
+        let usuario = await getUsuarioByEmail(profile.email);
+        if (!usuario) {
           // Se não existe, cria a conta no DB e obtém os dados formatados
-          consumidor = await createNewConsumidor(profile);
+          usuario = await createNewUsuario(profile);
         } // Retorna o objeto de usuário que será passado ao callback JWT no parâmetro 'user'
 
         return {
-          id: consumidor.id,
-          name: consumidor.nome || profile.name,
-          email: consumidor.email,
-          role: consumidor.role,
+          id: usuario.id,
+          name: usuario.nome || profile.name,
+          email: usuario.email,
+          role: usuario.role,
         };
       },
     }),
@@ -101,7 +101,7 @@ const authOptions = {
           }),
         });
         const data = await res.json();
-        return res.ok && data.consumidor ? data.consumidor : null;
+        return res.ok && data.usuario ? data.usuario : null;
       },
     }),
   ],

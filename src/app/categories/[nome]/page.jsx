@@ -1,11 +1,12 @@
-import NavBar from "@/components/layout/NavBar";
 import CardProduto from "@/components/produtos/CardProduto";
 
-import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
+import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
 export default async ({ params }) => {
-  const consumidor = await getConsumidorServerSide();
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
+  const consumidor = await getUsuarioServerSide();
+  const response = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/produtos_disponiveis`
+  );
   const produtos = await response.json();
 
   const { nome } = await params;
@@ -28,14 +29,8 @@ export default async ({ params }) => {
       >
         {produtos
           .filter((produto) => {
-            if (consumidor) {
-              if (produto.categoria === nome) {
-                return produto;
-              }
-            } else {
-              if (produto.categoria === nome) {
-                return produto;
-              }
+            if (produto.categoria === nome || produto.subcategoria === nome) {
+              return produto;
             }
           })
           .map((produto) => {

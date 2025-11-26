@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
-import getConsumidorServerSide from "@/lib/getConsumidorServerSide";
+import getConsumidorServerSide from "@/lib/getUsuarioServerSide";
 import db from "@/lib/db";
 
 export async function GET() {

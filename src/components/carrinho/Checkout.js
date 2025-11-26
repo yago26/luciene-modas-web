@@ -5,7 +5,7 @@ export default () => {
   const { produtos, limparCarrinho } = useCarrinhoStore();
 
   const finalizarCompra = async () => {
-    const res = await fetch("/api/pedido", {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/pedido`, {
       method: "POST",
       body: JSON.stringify({ usuario, produtos }),
     });

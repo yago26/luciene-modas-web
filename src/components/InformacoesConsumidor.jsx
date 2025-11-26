@@ -40,17 +40,20 @@ export default function Informacoesconsumidor({ consumidor }) {
       return;
     }
 
-    const response = await fetch(`/api/consumidores/${consumidor.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nome: form.nome,
-        genero: form.genero,
-        cep: cepLimpo,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/usuarios/${consumidor.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome: form.nome,
+          genero: form.genero,
+          cep: cepLimpo,
+        }),
+      }
+    );
 
     if (response.ok) {
       setShowAlertSuccess(true);
@@ -66,7 +69,7 @@ export default function Informacoesconsumidor({ consumidor }) {
   const excluirConta = async () => {
     setConfirmLoading(true);
     await signOut({ redirect: true, callbackUrl: "/" }); // Limpa o cookie
-    await fetch(`/api/consumidores/${consumidor.id}`, {
+    await fetch(`${process.env.NEXTAUTH_URL}/api/usuarios/${consumidor.id}`, {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
     });

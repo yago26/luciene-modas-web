@@ -23,10 +23,10 @@ import db from "@/lib/db";
 
 export async function GET() {
   try {
-    const result = await db.query("SELECT * FROM tb_consumidores");
+    const result = await db.query("SELECT * FROM tb_usuarios");
     return NextResponse.json(result.rows);
   } catch (error) {
-    console.error("Erro ao listar consumidores:", error);
+    console.error("Erro ao listar usuários:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

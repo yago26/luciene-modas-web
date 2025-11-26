@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { X } from "lucide-react";
+import { Trash2, X } from "lucide-react";
 import { Spin } from "antd";
 import style from "./itemCarrinho.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
@@ -81,7 +81,7 @@ export default function ItemCarrinho({
             className={style.checkbox}
             type="checkbox"
             onChange={(e) => {
-              onSelecionarItem({id: produto.id});
+              onSelecionarItem({ id: produto.id });
             }}
           />
         </div>
@@ -112,7 +112,7 @@ export default function ItemCarrinho({
                 }
               />
             ) : (
-              <X
+              <Trash2
                 width={20}
                 height={20}
                 style={{ position: "relative", top: 1.5 }}
