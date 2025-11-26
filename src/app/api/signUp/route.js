@@ -33,7 +33,7 @@ export async function POST(req) {
 
     await db.query(
       "INSERT INTO tb_usuarios (id, nome, email, cep, genero, senha, role) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-      [idUsuario, nome, email, cep, genero, senha_hash, "consumidor"]
+      [idUsuario, nome.trim(), email, cep, genero, senha_hash, "consumidor"]
     );
 
     const idCarrinho = uuidv4(); // Geração de ID único

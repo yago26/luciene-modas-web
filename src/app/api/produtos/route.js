@@ -17,64 +17,107 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    const { nome, sobre, valor, categoria, imagemUrl, estoque } =
+    let { nome, sobre, valor, categoria, subcategoria, imagemUrl, estoque } =
       await req.json();
 
+    // --------- VALIDAÇÕES ESSENCIAIS ---------
+
+    if (!nome || typeof nome !== "string" || nome.trim().length === 0) {
+      return NextResponse.json(
+        { error: "O campo 'nome' é obrigatório e deve ser uma string válida." },
+        { status: 400 }
+      );
+    }
+
+    if (valor === undefined || valor === null) {
+      return NextResponse.json(
+        { error: "O campo 'valor' é obrigatório." },
+        { status: 400 }
+      );
+    }
+
+    // Evita erro se valor vier como número ou string ruim
     const valorFormatado = String(valor).replace(",", ".");
+    const valorNumero = Number(valorFormatado);
 
-    let categoriaFormatada = categoria.toLowerCase();
+    if (isNaN(valorNumero)) {
+      return NextResponse.json(
+        { error: "O campo 'valor' deve ser numérico." },
+        { status: 400 }
+      );
+    }
 
-    if (categoriaFormatada === "cosméticos") {
+    // --------- DEFAULTS SEGUROS ---------
+
+    if (!sobre || typeof sobre !== "string") {
+      sobre = nome;
+    }
+
+    if (!categoria || typeof categoria !== "string") {
+      categoria = "outros";
+    }
+
+    if (!subcategoria || typeof subcategoria !== "string") {
+      subcategoria = "outros";
+    }
+
+    if (estoque === undefined || estoque === null || estoque === "") {
+      estoque = 0;
+    }
+
+    const estoqueNumero = Number(estoque);
+    if (isNaN(estoqueNumero)) {
+      return NextResponse.json(
+        { error: "O campo 'estoque' deve ser numérico." },
+        { status: 400 }
+      );
+    }
+
+    // --------- NORMALIZAÇÕES ---------
+
+    let categoriaFormatada = categoria.toLowerCase().trim();
+
+    // Tratamento especial para acentos em "cosméticos"
+    if (
+      categoriaFormatada.normalize("NFD").replace(/[\u0300-\u036f]/g, "") ===
+      "cosmeticos"
+    ) {
       categoriaFormatada = "cosmeticos";
     }
 
+    const subcategoriaFormatada = subcategoria.toLowerCase().trim();
+
+    // --------- INSERÇÃO NO BANCO ---------
+
     const id = uuidv4();
 
-    if (!sobre && !estoque) {
-      db.query(
-        "INSERT INTO tb_produtos (id, nome, valor, categoria, imagem) VALUES ($1, $2, $3, $4, $5)",
-        [id, nome, Number(valorFormatado), categoriaFormatada, imagemUrl]
-      );
-    } else if (!sobre) {
-      db.query(
-        "INSERT INTO tb_produtos (id, nome, valor, categoria, imagem, estoque) VALUES ($1, $2, $3, $4, $5, $6)",
-        [
-          id,
-          nome.trim(),
-          Number(valorFormatado),
-          categoriaFormatada,
-          imagemUrl,
-          Number(estoque),
-        ]
-      );
-    } else if (!estoque) {
-      db.query(
-        "INSERT INTO tb_produtos (id, nome, sobre, valor, categoria, imagem) VALUES ($1, $2, $3, $4, $5, $6)",
-        [id, nome, sobre, Number(valorFormatado), categoriaFormatada, imagemUrl]
-      );
-    } else {
-      db.query(
-        "INSERT INTO tb_produtos (id, nome, sobre, valor, categoria, imagem, estoque) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-        [
-          id,
-          nome,
-          sobre,
-          Number(valorFormatado),
-          categoriaFormatada,
-          imagemUrl,
-          Number(estoque),
-        ]
-      );
-    }
+    await db.query(
+      `
+      INSERT INTO tb_produtos 
+        (id, nome, sobre, valor, categoria, subcategoria, imagem, estoque) 
+      VALUES 
+        ($1, $2, $3, $4, $5, $6, $7, $8)
+      `,
+      [
+        id,
+        nome.trim(),
+        sobre.trim(),
+        valorNumero,
+        categoriaFormatada,
+        subcategoriaFormatada,
+        imagemUrl || null,
+        estoqueNumero,
+      ]
+    );
 
     return NextResponse.json(
-      { mensagem: "Produto adicionado" },
+      { mensagem: "Produto adicionado com sucesso!" },
       { status: 201 }
     );
   } catch (error) {
-    console.log("Erro ao adicionar um novo produto", error);
+    console.error("Erro ao adicionar produto:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "Erro interno no servidor" },
       { status: 500 }
     );
   }
