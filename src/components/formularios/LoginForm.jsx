@@ -40,9 +40,7 @@ export default function LoginForm({ onAuthConsumidor }) {
             id="usuarioEmail"
             placeholder="Email"
             value={form.email}
-            onChange={(e) => {
-              setForm({ ...form, email: e.target.value });
-            }}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
           />
           <label htmlFor="senhaLogin">Senha</label>
@@ -54,9 +52,7 @@ export default function LoginForm({ onAuthConsumidor }) {
               id="senhaLogin"
               placeholder="Senha"
               value={form.senha}
-              onChange={(e) => {
-                setForm({ ...form, senha: e.target.value });
-              }}
+              onChange={(e) => setForm({ ...form, senha: e.target.value })}
               required
             />
             <button

@@ -2,17 +2,10 @@ import { signIn } from "next-auth/react";
 
 export default () => {
   const tamanho = 30;
+
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "5%",
-        }}
-      >
+      <div style={style.containerProvedores}>
         <button onClick={() => signIn("google")} style={style.btn}>
           <img
             src="/icones/google.svg"
@@ -48,6 +41,13 @@ export default () => {
 };
 
 const style = {
+  containerProvedores: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "5%",
+  },
   btn: {
     backgroundColor: "white",
     border: "none",

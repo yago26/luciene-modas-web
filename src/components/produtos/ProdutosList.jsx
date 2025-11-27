@@ -4,7 +4,7 @@ import CardProduto from "@/components/produtos/CardProduto";
 
 import { Suspense } from "react";
 import Loading from "@/app/loading";
-import getConsumidorServerSide from "@/lib/getUsuarioServerSide";
+import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
 export default async function ProdutosList() {
   const response_produtos_disponiveis = await fetch(
@@ -22,7 +22,7 @@ export default async function ProdutosList() {
   );
   const produtos_totais = await response_produtos.json();
 
-  const consumidor = await getConsumidorServerSide();
+  const consumidor = await getUsuarioServerSide();
 
   return (
     <>
