@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom";
 import { render, act } from "@testing-library/react";
-import Checkout from "@/components/carrinho/ItemCheckout";
+import Loading from "@/app/loading";
 
-describe("Checkout", () => {
+describe("Loading", () => {
   it("renderiza sem erros", () => {
     act(() => {
-      render(<Checkout />);
+      render(<Loading />);
     });
   });
 });

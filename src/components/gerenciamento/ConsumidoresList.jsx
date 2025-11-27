@@ -14,7 +14,7 @@ export default function ConsumidoresList({ consumidores, onDeleteConsumidor }) {
         </thead>
 
         <tbody>
-          {consumidores.map((consumidor) => (
+          {consumidores?.map((consumidor) => (
             <tr key={consumidor.id}>
               <td>{consumidor.id}</td>
               <td>{consumidor.nome}</td>
