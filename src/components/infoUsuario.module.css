@@ -1,0 +1,47 @@
+.listaInfoUsuario {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  list-style: none;
+  width: 30%;
+}
+
+.infoUsuario {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoUsuario input {
+  padding: 2%;
+}
+
+.containerBtn button {
+  padding: 10px;
+}
+
+.btnSalvar {
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+  border-radius: 20px;
+  border: none;
+  width: 30%;
+  margin-bottom: 1.5%;
+}
+
+.btnSair {
+  background-color: rgb(20, 20, 20);
+  color: white;
+  border: none;
+  border-radius: 10px;
+}
+
+.containerBtn div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.containerBtn div * {
+  width: 30%;
+}

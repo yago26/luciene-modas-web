@@ -1,8 +1,8 @@
 "use client";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 
-export default () => {
-  const { produtos, limparCarrinho } = useCarrinhoStore();
+export default ({ produtos }) => {
+  const { removerProduto } = useCarrinhoStore();
 
   const finalizarCompra = async () => {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/pedido`, {
@@ -11,7 +11,6 @@ export default () => {
     });
     if (res.ok) {
       alert("Pedido feito com sucesso!");
-      limparCarrinho();
     }
   };
 

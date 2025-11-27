@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import FormasAutenticar from "@/components/formularios/FormasAutenticar";
 
-describe("CardProduto", () => {
+describe("FormasAutenticar", () => {
   it("renderiza sem erros", () => {
     render(<FormasAutenticar />);
   });

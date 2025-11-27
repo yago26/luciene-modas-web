@@ -1,5 +1,5 @@
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
-import ProductPageInfoProduct from "@/components/produtos/ProductPageInfoProduct";
+import ProductPageInfoProduct from "@/components/produtos/ProductPageInfoProduto";
 import style from "./page.module.css";
 
 export default async function ProductPage({ params }) {

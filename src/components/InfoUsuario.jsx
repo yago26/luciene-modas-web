@@ -1,14 +1,14 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-import style from "./informacoesConsumidor.module.css";
+import style from "./infoUsuario.module.css";
 
 import { useState } from "react";
 import { Button, Modal, Divider } from "antd";
 import Sucesso from "./toasts/Sucesso";
 import Aviso from "./toasts/Aviso";
 
-export default function Informacoesconsumidor({ consumidor }) {
+export default function infoUsuario({ consumidor }) {
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [keySuccess, setKeySuccess] = useState(0);
   const [showAlertWarning, setShowAlertWarning] = useState(false);
@@ -79,8 +79,8 @@ export default function Informacoesconsumidor({ consumidor }) {
   return (
     <>
       <div>
-        <ul className={style.listaInformacoesConsumidor}>
-          <li className={style.informacaoConsumidor}>
+        <ul className={style.listaInfoUsuario}>
+          <li className={style.infoUsuario}>
             <label htmlFor="nome">Nome</label>
             <input
               id="nome"
@@ -91,11 +91,11 @@ export default function Informacoesconsumidor({ consumidor }) {
               maxLength={255}
             />
           </li>
-          <li className={style.informacaoConsumidor}>
+          <li className={style.infoUsuario}>
             <label>Email</label>
             <input disabled value={consumidor.email} />
           </li>
-          <li className={style.informacaoConsumidor}>
+          <li className={style.infoUsuario}>
             <label htmlFor="cep">CEP</label>
             <input
               id="cep"
@@ -114,7 +114,7 @@ export default function Informacoesconsumidor({ consumidor }) {
               maxLength={9}
             />
           </li>
-          <li className={style.informacaoConsumidor}>
+          <li className={style.infoUsuario}>
             <label>Gênero</label>
             <input readOnly value={form.genero} />
             <label htmlFor="masculino">

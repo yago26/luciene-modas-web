@@ -1,4 +1,4 @@
-import InformacoesConsumidor from "@/components/InformacoesConsumidor";
+import InformacoesConsumidor from "@/components/InfoUsuario";
 
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 import { Divider } from "antd";

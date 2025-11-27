@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom";
 import { render, act } from "@testing-library/react";
-import LoginForm from "@/components/formularios/LoginForm";
+import PainelGerenciamento from "@/components/gerenciamento/PainelGerenciamento";
 
-describe("LoginForm", () => {
+describe("PainelGerenciamento", () => {
   it("renderiza sem erros", () => {
     act(() => {
-      render(<LoginForm />);
+      render(<PainelGerenciamento />);
     });
   });
 });

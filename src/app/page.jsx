@@ -1,4 +1,4 @@
-import Gerenciamento from "@/components/gerenciamento/Gerenciamento";
+import Gerenciamento from "@/components/gerenciamento/PainelGerenciamento";
 import CategoriasList from "@/components/CategoriasList";
 import ProdutosList from "@/components/produtos/ProdutosList";
 

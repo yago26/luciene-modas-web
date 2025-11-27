@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom";
 import { render, act } from "@testing-library/react";
-import LoginForm from "@/components/formularios/LoginForm";
+import ItemCarrinho from "@/components/carrinho/ItemCarrinho";
 
-describe("LoginForm", () => {
+describe("ItemCarrinho", () => {
   it("renderiza sem erros", () => {
     act(() => {
-      render(<LoginForm />);
+      render(<ItemCarrinho />);
     });
   });
 });
