@@ -13,7 +13,7 @@ export default function Login() {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [errorKey, setErrorKey] = useState(0);
 
-  const authConsumidor = async (form) => {
+  const authUsuario = async (form) => {
     const response = await signIn("credentials", {
       redirect: false,
       email: form.email,
@@ -53,7 +53,7 @@ export default function Login() {
         </div>
 
         <SessionProvider>
-          <LoginForm onAuthConsumidor={authConsumidor} />
+          <LoginForm onAuthUsuario={authUsuario} />
         </SessionProvider>
 
         {showSuccessAlert && <Sucesso mensagem="Autenticação bem-sucedida." />}

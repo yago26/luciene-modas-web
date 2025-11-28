@@ -8,7 +8,7 @@ import { useCarrinhoStore } from "@/app/store/carrinho";
 import { Divider } from "antd";
 import FormasAutenticar from "./FormasAutenticar";
 
-export default function LoginForm({ onAuthConsumidor }) {
+export default function LoginForm({ onAuthUsuario }) {
   const [form, setForm] = useState({ email: "", senha: "" });
   const [isShowPassword, setIsShowPassword] = useState(false);
 
@@ -17,7 +17,7 @@ export default function LoginForm({ onAuthConsumidor }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await onAuthConsumidor(form);
+    await onAuthUsuario(form);
 
     setForm({
       email: "",

@@ -38,7 +38,7 @@ export async function POST(req) {
 
     const idCarrinho = uuidv4(); // Geração de ID único
     await db.query(
-      "INSERT INTO tb_carrinhos (id, id_consumidor) VALUES ($1, $2)",
+      "INSERT INTO tb_carrinhos (id, id_usuario) VALUES ($1, $2)",
       [idCarrinho, idUsuario]
     );
 

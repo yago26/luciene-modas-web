@@ -3,7 +3,7 @@ import CardProduto from "@/components/produtos/CardProduto";
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
 export default async ({ params }) => {
-  const consumidor = await getUsuarioServerSide();
+  const usuario = await getUsuarioServerSide();
   const response = await fetch(
     `${process.env.NEXTAUTH_URL}/api/produtos-disponiveis`
   );
@@ -38,7 +38,7 @@ export default async ({ params }) => {
               <CardProduto
                 key={produto.id}
                 produto={produto}
-                consumidor={consumidor}
+                usuario={usuario}
               />
             );
           })}

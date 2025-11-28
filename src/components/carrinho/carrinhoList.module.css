@@ -1,10 +1,8 @@
 .containerFinalizarCompra {
-  width: 100%;
   position: fixed;
   bottom: 0;
-  left: 0;
-  padding: 40px;
-  text-align: end;
+  right: 0;
+  padding: 30px;
 }
 
 .containerFinalizarCompra button {
@@ -14,4 +12,16 @@
   border: none;
   border-radius: 20px;
   box-shadow: 2px 2px 5px black;
+}
+
+.selecionado {
+  padding: 1% 2% 1% 1%;
+  scale: 0.98;
+  background-color: rgb(200, 200, 200);
+  filter: grayscale(0.2);
+  transition: 0.5s;
+}
+
+.naoSelecionado {
+  transition: 0.5s;
 }

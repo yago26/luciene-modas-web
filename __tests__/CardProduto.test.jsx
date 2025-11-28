@@ -16,14 +16,14 @@ describe("CardProduto", () => {
         categoria: "outros",
         subcategoria: "outros",
       };
-      const consumidor = {
+      const usuario = {
         id: 1,
         nome: "Consumidor",
         genero: "Outro",
         role: "consumidor",
         email: "teste@gmail.com",
       };
-      render(<CardProduto produto={produto} consumidor={consumidor} />);
+      render(<CardProduto produto={produto} usuario={usuario} />);
     });
   });
 });

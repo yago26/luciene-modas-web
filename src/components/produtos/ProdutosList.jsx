@@ -22,7 +22,7 @@ export default async function ProdutosList() {
   );
   const produtos_totais = await response_produtos.json();
 
-  const consumidor = await getUsuarioServerSide();
+  const usuario = await getUsuarioServerSide();
 
   return (
     <>
@@ -34,9 +34,7 @@ export default async function ProdutosList() {
               <Suspense key={produto.id} fallback={<Loading />}>
                 <CardProduto
                   produto={produto}
-                  consumidor={
-                    consumidor ? JSON.parse(JSON.stringify(consumidor)) : null
-                  }
+                  usuario={usuario ? JSON.parse(JSON.stringify(usuario)) : null}
                 />
               </Suspense>
             );
@@ -52,9 +50,7 @@ export default async function ProdutosList() {
               <Suspense key={produto.id} fallback={<Loading />}>
                 <CardProduto
                   produto={produto}
-                  consumidor={
-                    consumidor ? JSON.parse(JSON.stringify(consumidor)) : null
-                  }
+                  usuario={usuario ? JSON.parse(JSON.stringify(usuario)) : null}
                 />
               </Suspense>
             );
@@ -70,9 +66,7 @@ export default async function ProdutosList() {
               <Suspense key={produto.id} fallback={<Loading />}>
                 <CardProduto
                   produto={produto}
-                  consumidor={
-                    consumidor ? JSON.parse(JSON.stringify(consumidor)) : null
-                  }
+                  usuario={usuario ? JSON.parse(JSON.stringify(usuario)) : null}
                 />
               </Suspense>
             );

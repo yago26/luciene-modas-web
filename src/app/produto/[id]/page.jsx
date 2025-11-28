@@ -1,5 +1,5 @@
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
-import ProductPageInfoProduct from "@/components/produtos/ProductPageInfoProduto";
+import ProductPageInfoProduto from "@/components/produtos/ProductPageInfoProduto";
 import style from "./page.module.css";
 
 export default async function ProductPage({ params }) {
@@ -9,7 +9,7 @@ export default async function ProductPage({ params }) {
   );
   const produto = await response.json();
 
-  const consumidor = await getUsuarioServerSide();
+  const usuario = await getUsuarioServerSide();
 
   return (
     <>
@@ -24,7 +24,7 @@ export default async function ProductPage({ params }) {
             style={{ objectFit: "cover" }}
           />
         </div>
-        <ProductPageInfoProduct produto={produto} consumidor={consumidor} />
+        <ProductPageInfoProduto produto={produto} usuario={usuario} />
       </div>
     </>
   );

@@ -11,7 +11,7 @@ export default async function NavBar() {
   const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
   const produtos = await response.json();
 
-  const consumidor = await getUsuarioServerSide();
+  const usuario = await getUsuarioServerSide();
 
   return (
     <>
@@ -30,7 +30,7 @@ export default async function NavBar() {
             <SearchBar produtos={produtos} />
 
             <div>
-              {consumidor && (
+              {usuario && (
                 <div id={style.funcionalidadesAutenticadas}>
                   <Link href="/meus-pedidos">
                     <ShoppingBag size={30} color="black" />
@@ -50,7 +50,7 @@ export default async function NavBar() {
                 </div>
               )}
 
-              {!consumidor && (
+              {!usuario && (
                 <div id={style.funcionalidadesNaoAutenticadas}>
                   <Link href="/login">
                     <button className={style.signIn}>Login</button>

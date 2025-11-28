@@ -12,9 +12,9 @@ export default function PainelGerenciamento() {
             gap: "5%",
           }}
         >
-          {/* Consumidores */}
+          {/* Usuários */}
           <li>
-            Consumidores
+            Usuários
             <ul>
               <li>
                 <Link href="/api/usuarios">Ver Usuários</Link>

@@ -1,4 +1,3 @@
-import Gerenciamento from "@/components/gerenciamento/PainelGerenciamento";
 import CategoriasList from "@/components/CategoriasList";
 import ProdutosList from "@/components/produtos/ProdutosList";
 
@@ -13,7 +12,6 @@ export default async function Home() {
           justifyContent: "center",
         }}
       >
-        <Gerenciamento />
         <CategoriasList />
         <ProdutosList />
       </div>

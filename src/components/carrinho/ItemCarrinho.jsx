@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Trash2, X } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { Spin } from "antd";
 import style from "./itemCarrinho.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";

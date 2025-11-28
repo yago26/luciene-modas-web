@@ -29,7 +29,7 @@ export async function DELETE(req, { params }) {
     const { id } = await params;
     await db.query("DELETE FROM tb_usuarios WHERE id = $1", [id]);
 
-    await db.query("DELETE FROM tb_carrinhos WHERE id_consumidor = $1", [id]);
+    await db.query("DELETE FROM tb_carrinhos WHERE id_usuario = $1", [id]);
 
     return NextResponse.json(
       {

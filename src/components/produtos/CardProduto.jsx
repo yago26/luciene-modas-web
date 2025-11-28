@@ -8,7 +8,7 @@ import { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import Sucesso from "../toasts/Sucesso";
 
-export default function CardProduto({ produto, consumidor }) {
+export default function CardProduto({ produto, usuario }) {
   const [loading, setLoading] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
@@ -63,7 +63,7 @@ export default function CardProduto({ produto, consumidor }) {
             <span>{cents}</span>
           </p>
         </Link>
-        {consumidor && estoque > 0 && (
+        {usuario && estoque > 0 && (
           <button
             className={style.btnAdicionar}
             onClick={() => (loading ? "" : handleAdd())}

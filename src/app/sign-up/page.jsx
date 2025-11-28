@@ -10,14 +10,14 @@ export default function SignUp() {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const router = useRouter();
 
-  const addConsumidor = async (consumidor) => {
+  const addUsuario = async (usuario) => {
     // fetch => Uma busca na API
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/sign-up`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(consumidor),
+      body: JSON.stringify(usuario),
     });
 
     const data = await res.json();
@@ -34,7 +34,7 @@ export default function SignUp() {
 
   return (
     <>
-      <SignUpForm onAddConsumidor={addConsumidor} />
+      <SignUpForm onAddUsuario={addUsuario} />
       {showSuccessAlert && <Sucesso mensagem="Cadastro bem-sucedido." />}
     </>
   );

@@ -3,12 +3,12 @@ import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 import { Divider } from "antd";
 
 export default async function Carrinho() {
-  const consumidor = await getUsuarioServerSide();
+  const usuario = await getUsuarioServerSide();
 
   return (
     <>
       <div style={{ textAlign: "center" }}>
-        <h1>Olá, {consumidor.nome}!</h1>
+        <h1>Olá, {usuario.nome}!</h1>
         <h2>Esse é o seu Carrinho de Compras</h2>
       </div>
       <Divider style={{ borderColor: "black" }} />

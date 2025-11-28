@@ -8,16 +8,16 @@ import { Button, Modal, Divider } from "antd";
 import Sucesso from "./toasts/Sucesso";
 import Aviso from "./toasts/Aviso";
 
-export default function infoUsuario({ consumidor }) {
+export default function infoUsuario({ usuario }) {
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [keySuccess, setKeySuccess] = useState(0);
   const [showAlertWarning, setShowAlertWarning] = useState(false);
   const [keyWarning, setKeyWarning] = useState(0);
 
   const [form, setForm] = useState({
-    nome: consumidor.nome,
-    cep: consumidor.cep,
-    genero: consumidor.genero,
+    nome: usuario.nome,
+    cep: usuario.cep,
+    genero: usuario.genero,
   });
 
   const [open, setOpen] = useState(false);
@@ -41,7 +41,7 @@ export default function infoUsuario({ consumidor }) {
     }
 
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/usuarios/${consumidor.id}`,
+      `${process.env.NEXTAUTH_URL}/api/usuarios/${usuario.id}`,
       {
         method: "PUT",
         headers: {
@@ -69,7 +69,7 @@ export default function infoUsuario({ consumidor }) {
   const excluirConta = async () => {
     setConfirmLoading(true);
     await signOut({ redirect: true, callbackUrl: "/" }); // Limpa o cookie
-    await fetch(`${process.env.NEXTAUTH_URL}/api/usuarios/${consumidor.id}`, {
+    await fetch(`${process.env.NEXTAUTH_URL}/api/usuarios/${usuario.id}`, {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
     });
@@ -93,7 +93,7 @@ export default function infoUsuario({ consumidor }) {
           </li>
           <li className={style.infoUsuario}>
             <label>Email</label>
-            <input disabled value={consumidor.email} />
+            <input disabled value={usuario.email} />
           </li>
           <li className={style.infoUsuario}>
             <label htmlFor="cep">CEP</label>

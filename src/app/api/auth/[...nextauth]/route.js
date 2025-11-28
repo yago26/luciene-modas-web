@@ -42,7 +42,7 @@ async function createNewUsuario(profile) {
 
     const idCarrinho = uuidv4();
     await db.query(
-      "INSERT INTO tb_carrinhos (id, id_consumidor) VALUES ($1, $2)",
+      "INSERT INTO tb_carrinhos (id, id_usuario) VALUES ($1, $2)",
       [idCarrinho, idUsuario]
     ); // Retorna o objeto formatado para ser usado no JWT
 

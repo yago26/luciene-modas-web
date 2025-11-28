@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Alert, Divider, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
-export default ({ produto, consumidor }) => {
+export default ({ produto, usuario }) => {
   const [loading, setLoading] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
@@ -55,7 +55,7 @@ export default ({ produto, consumidor }) => {
 
         <Divider style={{ borderColor: "black" }} />
 
-        {consumidor && produto.estoque > 0 && (
+        {usuario && produto.estoque > 0 && (
           <button
             className={style.btnAdicionar}
             onClick={() => (loading ? "" : handleAdd())}
@@ -76,8 +76,8 @@ export default ({ produto, consumidor }) => {
         )}
 
         <h4>Calcular frete</h4>
-        {consumidor ? (
-          <input placeholder="Digite seu CEP" value={consumidor.cep} disabled />
+        {usuario ? (
+          <input placeholder="Digite seu CEP" value={usuario.cep} disabled />
         ) : (
           <input
             placeholder="Digite seu CEP"

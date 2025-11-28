@@ -1,16 +1,16 @@
 import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
-import getConsumidorServerSide from "@/lib/getUsuarioServerSide";
+import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 import db from "@/lib/db";
 
 export async function GET() {
   try {
-    const consumidor = await getConsumidorServerSide();
-    const idConsumidor = consumidor?.id;
+    const usuario = await getUsuarioServerSide();
+    const idUsuario = usuario?.id;
 
     const carrinhos = await db.query(
-      "SELECT * FROM tb_carrinhos WHERE id_consumidor = $1",
-      [idConsumidor]
+      "SELECT * FROM tb_carrinhos WHERE id_usuario = $1",
+      [idUsuario]
     );
     const carrinho = carrinhos.rows[0];
     if (!carrinho?.id) {
@@ -42,11 +42,11 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    const consumidor = await getConsumidorServerSide();
-    const idConsumidor = consumidor?.id;
-    if (!idConsumidor) {
+    const usuario = await getUsuarioServerSide();
+    const idUsuario = usuario?.id;
+    if (!idUsuario) {
       return NextResponse.json(
-        { error: "Consumidor não encontrado" },
+        { error: "Usuário não encontrado" },
         { status: 400 }
       );
     }
@@ -57,8 +57,8 @@ export async function POST(req) {
     }
 
     const carrinhos = await db.query(
-      "SELECT * FROM tb_carrinhos WHERE id_consumidor = $1",
-      [idConsumidor]
+      "SELECT * FROM tb_carrinhos WHERE id_usuario = $1",
+      [idUsuario]
     );
 
     const carrinho = carrinhos.rows[0];
@@ -98,11 +98,11 @@ export async function POST(req) {
 
 export async function PUT(req) {
   try {
-    const consumidor = await getConsumidorServerSide();
-    const idConsumidor = consumidor?.id;
-    if (!idConsumidor) {
+    const usuario = await getUsuarioServerSide();
+    const idUsuario = usuario?.id;
+    if (!idUsuario) {
       return NextResponse.json(
-        { error: "Consumidor não encontrado" },
+        { error: "Usuário não encontrado" },
         { status: 400 }
       );
     }
@@ -113,8 +113,8 @@ export async function PUT(req) {
     }
 
     const carrinhos = await db.query(
-      "SELECT * FROM tb_carrinhos WHERE id_consumidor = $1",
-      [idConsumidor]
+      "SELECT * FROM tb_carrinhos WHERE id_usuario = $1",
+      [idUsuario]
     );
 
     const carrinho = carrinhos.rows[0];
@@ -161,11 +161,11 @@ export async function PUT(req) {
 
 export async function DELETE(req) {
   try {
-    const consumidor = await getConsumidorServerSide();
-    const idConsumidor = consumidor?.id;
-    if (!idConsumidor) {
+    const usuario = await getUsuarioServerSide();
+    const idUsuario = usuario?.id;
+    if (!idUsuario) {
       return NextResponse.json(
-        { error: "Consumidor não encontrado" },
+        { error: "Usuário não encontrado" },
         { status: 400 }
       );
     }
@@ -179,8 +179,8 @@ export async function DELETE(req) {
     }
 
     const carrinhos = await db.query(
-      "SELECT * FROM tb_carrinhos WHERE id_consumidor = $1",
-      [idConsumidor]
+      "SELECT * FROM tb_carrinhos WHERE id_usuario = $1",
+      [idUsuario]
     );
 
     const carrinho = carrinhos.rows[0];

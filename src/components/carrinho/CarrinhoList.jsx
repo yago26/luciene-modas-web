@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
 import ItemCarrinho from "./ItemCarrinho";
 import Erro from "../toasts/Erro";
-import { Divider } from "antd";
 
 export default function CarrinhoList() {
   const router = useRouter();
@@ -110,13 +109,21 @@ export default function CarrinhoList() {
     <>
       <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
         {itemsCarrinho.map((produto) => (
-          <ItemCarrinho
+          <div
             key={produto.id}
-            produto={produto}
-            onSelecionarItem={selecionarItem}
-            onRemoverSelecionado={removerSelecionado}
-            className={style.containerProduto}
-          />
+            className={
+              selecionados.find((s) => s.id == produto.id)
+                ? style.selecionado
+                : style.naoSelecionado
+            }
+          >
+            <ItemCarrinho
+              className={style.containerProduto}
+              produto={produto}
+              onSelecionarItem={selecionarItem}
+              onRemoverSelecionado={removerSelecionado}
+            />
+          </div>
         ))}
       </div>
 

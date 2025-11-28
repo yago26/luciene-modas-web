@@ -4,7 +4,7 @@ import style from "./signUpForm.module.css";
 import { Eye, EyeOff } from "lucide-react";
 import Aviso from "../toasts/Aviso";
 
-export default function SignUpForm({ onAddConsumidor }) {
+export default function SignUpForm({ onAddUsuario }) {
   const [form, setForm] = useState({
     nome: "",
     email: "",
@@ -56,7 +56,7 @@ export default function SignUpForm({ onAddConsumidor }) {
 
     const cepLimpo = form.cep.replace(/\D/g, "");
 
-    onAddConsumidor({
+    onAddUsuario({
       nome: form.nome,
       email: form.email,
       cep: cepLimpo,
@@ -205,7 +205,7 @@ export default function SignUpForm({ onAddConsumidor }) {
         </form>
 
         <div className={style.containerLateral}>
-          <h2>Bem vindo(a), Novo Usuário!</h2>
+          <h2>Bem vindo(a), Novo Consumidor!</h2>
           <hr />
           <p>Inicie sua maravilhosa experiência na plataforma Luciene Modas</p>
         </div>
