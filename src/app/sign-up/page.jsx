@@ -12,7 +12,7 @@ export default function SignUp() {
 
   const addConsumidor = async (consumidor) => {
     // fetch => Uma busca na API
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/signUp`, {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/sign-up`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

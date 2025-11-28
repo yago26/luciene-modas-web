@@ -2,7 +2,7 @@ import CarrinhoList from "@/components/carrinho/CarrinhoList";
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 import { Divider } from "antd";
 
-export default async function ShopCar() {
+export default async function Carrinho() {
   const consumidor = await getUsuarioServerSide();
 
   return (

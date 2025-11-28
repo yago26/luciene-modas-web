@@ -14,7 +14,7 @@ export default function CategoriasList() {
     <div>
       <ul className={style.containerCategorias}>
         <li>
-          <Link href="/categories/roupas">
+          <Link href="/categoria/roupas">
             <div className={style.categoria}>
               <Shirt size={50} />
               <p>Roupas</p>
@@ -22,7 +22,7 @@ export default function CategoriasList() {
           </Link>
         </li>
         <li>
-          <Link href="/categories/cosmeticos">
+          <Link href="/categoria/cosmeticos">
             <div className={style.categoria}>
               <Brush size={50} />
               <p>Cosméticos</p>
@@ -30,7 +30,7 @@ export default function CategoriasList() {
           </Link>
         </li>
         <li>
-          <Link href="/categories/masculino">
+          <Link href="/categoria/masculino">
             <div className={style.categoria}>
               <Mars size={50} />
               <p>Masculino</p>
@@ -38,7 +38,7 @@ export default function CategoriasList() {
           </Link>
         </li>
         <li>
-          <Link href="/categories/feminino">
+          <Link href="/categoria/feminino">
             <div className={style.categoria}>
               <VenusIcon size={50} />
               <p>Feminino</p>
@@ -46,7 +46,7 @@ export default function CategoriasList() {
           </Link>
         </li>
         <li>
-          <Link href="/categories/infantil">
+          <Link href="/categoria/infantil">
             <div className={style.categoria}>
               <Baby size={50} />
               <p>Infantil</p>
@@ -54,7 +54,7 @@ export default function CategoriasList() {
           </Link>
         </li>
         <li>
-          <Link href="/categories/outros">
+          <Link href="/categoria/outros">
             <div className={style.categoria}>
               <EllipsisIcon size={50} />
               <p>Outros</p>

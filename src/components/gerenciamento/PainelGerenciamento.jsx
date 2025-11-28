@@ -52,7 +52,7 @@ export default function PainelGerenciamento() {
                 <Link href="/api/carrinhos">Ver Carrinhos</Link>
               </li>
               <li>
-                <Link href="/api/itensCarrinho">Ver Itens dos Carrinhos</Link>
+                <Link href="/api/itens-carrinho">Ver Itens dos Carrinhos</Link>
               </li>
               <li>
                 <Link href="/">Ver Itens de um Carrinho Específico</Link>
@@ -79,4 +79,4 @@ export default function PainelGerenciamento() {
       </div>
     </>
   );
-};
+}

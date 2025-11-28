@@ -4,7 +4,7 @@ import Image from "next/image";
 import SearchBar from "./SearchBar";
 
 import style from "./navbar.module.css";
-import { CircleUserRound, ShoppingCart } from "lucide-react";
+import { CircleUserRound, Menu, ShoppingBag, ShoppingCart } from "lucide-react";
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
 export default async function NavBar() {
@@ -32,11 +32,20 @@ export default async function NavBar() {
             <div>
               {consumidor && (
                 <div id={style.funcionalidadesAutenticadas}>
-                  <Link href="/shopCar">
+                  <Link href="/meus-pedidos">
+                    <ShoppingBag size={30} color="black" />
+                  </Link>
+
+                  <Link href="/carrinho">
                     <ShoppingCart size={30} color="black" />
                   </Link>
-                  <Link href="/profile">
+
+                  <Link href="/perfil">
                     <CircleUserRound size={30} color="black" />
+                  </Link>
+
+                  <Link href="/">
+                    <Menu size={30} color="black" />
                   </Link>
                 </div>
               )}
@@ -46,7 +55,7 @@ export default async function NavBar() {
                   <Link href="/login">
                     <button className={style.signIn}>Login</button>
                   </Link>
-                  <Link href="/signUp">
+                  <Link href="/sign-up">
                     <button className={style.signUp}>Sign Up</button>
                   </Link>
                 </div>
@@ -55,27 +64,27 @@ export default async function NavBar() {
           </div>
 
           <ul className={style.linksRapidosCategorias}>
-            <Link href="/categories/roupas">
+            <Link href="/categoria/roupas">
               <li>Roupas</li>
             </Link>
 
-            <Link href="/categories/cosmeticos">
+            <Link href="/categoria/cosmeticos">
               <li>Cosméticos</li>
             </Link>
 
-            <Link href="/categories/masculino">
+            <Link href="/categoria/masculino">
               <li>Masculino</li>
             </Link>
 
-            <Link href="/categories/feminino">
+            <Link href="/categoria/feminino">
               <li>Feminino</li>
             </Link>
 
-            <Link href="/categories/infantil">
+            <Link href="/categoria/infantil">
               <li>Infantil</li>
             </Link>
 
-            <Link href="/categories/outros">
+            <Link href="/categoria/outros">
               <li>Outros</li>
             </Link>
           </ul>

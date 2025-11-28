@@ -73,7 +73,7 @@ export default function LoginForm({ onAuthConsumidor }) {
 
         <div>
           <p style={{ textAlign: "center" }}>
-            Não possui uma conta? <Link href="./signUp">Cadastre-se</Link>
+            Não possui uma conta? <Link href="./sign-up">Cadastre-se</Link>
           </p>
         </div>
       </form>

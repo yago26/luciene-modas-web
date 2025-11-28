@@ -8,12 +8,12 @@ import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
 export default async function ProdutosList() {
   const response_produtos_disponiveis = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/produtos_disponiveis`
+    `${process.env.NEXTAUTH_URL}/api/produtos-disponiveis`
   );
   const produtos_disponiveis = await response_produtos_disponiveis.json();
 
   const response_produtos_indisponiveis = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/produtos_indisponiveis`
+    `${process.env.NEXTAUTH_URL}/api/produtos-indisponiveis`
   );
   const produtos_indisponiveis = await response_produtos_indisponiveis.json();
 

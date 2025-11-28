@@ -6,10 +6,12 @@ export default async function middleware(req) {
   const { pathname } = req.nextUrl; // pathname é a url
 
   const publics =
-    pathname.startsWith("/login") || pathname.startsWith("/signUp");
+    pathname.startsWith("/login") || pathname.startsWith("/sign-up");
 
   const publics_auth =
-    pathname.startsWith("/profile") || pathname.startsWith("/shopCar");
+    pathname.startsWith("/perfil") ||
+    pathname.startsWith("/carrinho") ||
+    pathname.startsWith("/checkout");
 
   const privates = pathname.startsWith("/admin");
 
@@ -20,7 +22,7 @@ export default async function middleware(req) {
   }
 
   if (token && publics) {
-    const url = new URL("/profile", req.url);
+    const url = new URL("/perfil", req.url);
     url.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(url);
   }
@@ -37,10 +39,11 @@ export default async function middleware(req) {
 
 export const config = {
   matcher: [
-    "/profile/:path*",
-    "/shopCar/:path*",
+    "/perfil/:path*",
+    "/carrinho/:path*",
+    "/checkout/:path*",
     "/login/:path*",
-    "/signUp/:path*",
+    "/sign-up/:path*",
     "/admin/:path*",
   ],
 };

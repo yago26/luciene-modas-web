@@ -5,7 +5,7 @@ import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 export default async ({ params }) => {
   const consumidor = await getUsuarioServerSide();
   const response = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/produtos_disponiveis`
+    `${process.env.NEXTAUTH_URL}/api/produtos-disponiveis`
   );
   const produtos = await response.json();
 

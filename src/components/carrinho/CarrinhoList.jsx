@@ -83,7 +83,7 @@ export default function CarrinhoList() {
           }}
         />
         <div style={{ textAlign: "center" }}>
-          <h2>Carrinho vazio</h2>
+          <h2>Carrinho vazio!</h2>
           <p>
             Seu carrinho está vazio no momento, adicione produtos para
             <br />
@@ -120,39 +120,28 @@ export default function CarrinhoList() {
         ))}
       </div>
 
-      <div className={style.containerFinalizarCompra}>
-        <button
-          onClick={() => {
-            if (selecionados.length <= 0) {
-              setShowErrorAlert(true);
-              setTimeout(() => setShowErrorAlert(false), 3000);
-              return;
-            }
-            const quantidades = selecionados.map((s) => {
-              const produto = items.find((i) => i.id_produto === s.id);
-              return produto ? produto.quantidade : 0; // Se o produto não for encontrado, retorna 0
-            });
-            const ids = selecionados.map((s) => (s = s.id));
-            router.push(`/checkout?ids=${ids}&quantidades=${quantidades}`);
-            router.refresh();
-          }}
-        >
-          Finalizar compra
-        </button>
-      </div>
-
-      <div>
-        <Divider style={{ borderColor: "black" }} />
-        <h3>Selecionados</h3>
-        {selecionados.map((p) => (
-          <div key={p.id}>
-            <p>
-              {p.nome} -{" "}
-              {items.find((i) => i.id_produto === p.id)?.quantidade || 0}
-            </p>
-          </div>
-        ))}
-      </div>
+      {selecionados.length > 0 && (
+        <div className={style.containerFinalizarCompra}>
+          <button
+            onClick={() => {
+              if (selecionados.length <= 0) {
+                setShowErrorAlert(true);
+                setTimeout(() => setShowErrorAlert(false), 3000);
+                return;
+              }
+              const quantidades = selecionados.map((s) => {
+                const produto = items.find((i) => i.id_produto === s.id);
+                return produto ? produto.quantidade : 0; // Se o produto não for encontrado, retorna 0
+              });
+              const ids = selecionados.map((s) => (s = s.id));
+              router.push(`/checkout?ids=${ids}&quantidades=${quantidades}`);
+              router.refresh();
+            }}
+          >
+            Finalizar compra
+          </button>
+        </div>
+      )}
 
       {showErrorAlert && (
         <Erro mensagem="Selecione algum produto para iniciar a compra." />

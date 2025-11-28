@@ -7,7 +7,7 @@ import { Spin } from "antd";
 import { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import Sucesso from "../toasts/Sucesso";
-  
+
 export default function CardProduto({ produto, consumidor }) {
   const [loading, setLoading] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -37,7 +37,7 @@ export default function CardProduto({ produto, consumidor }) {
   return (
     <>
       <div className={style.produto}>
-        <Link className={style.ancora} href={`/productPage/${id}`}>
+        <Link className={style.ancora} href={`/produto/${id}`}>
           <img
             src={imagem}
             alt={sobre}
