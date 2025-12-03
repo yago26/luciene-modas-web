@@ -1,8 +1,10 @@
 "use client";
 /* O padrão é estar do lado do servidor ('use server') */
 
+import style from "./page.module.css";
 import SignUpForm from "@/components/formularios/SignUpForm";
 import Sucesso from "@/components/toasts/Sucesso";
+import { Divider } from "antd";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -34,7 +36,15 @@ export default function SignUp() {
 
   return (
     <>
-      <SignUpForm onAddUsuario={addUsuario} />
+      <div className={style.containerSignUp}>
+        <SignUpForm onAddUsuario={addUsuario} />
+        <div className={style.containerLateral}>
+          <h2>Bem vindo(a), Novo Usuário!</h2>
+          <Divider style={{ borderColor: "white" }} />
+          <p>Inicie sua maravilhosa experiência na plataforma Luciene Modas</p>
+        </div>
+      </div>
+
       {showSuccessAlert && <Sucesso mensagem="Cadastro bem-sucedido." />}
     </>
   );

@@ -20,7 +20,7 @@ export default function PainelGerenciamento() {
                 <Link href="/api/usuarios">Ver Usuários</Link>
               </li>
               <li>
-                <Link href="gerenciamento/usuarios">Deletar Usuários</Link>
+                <Link href="admin/usuarios">Deletar Usuários</Link>
               </li>
             </ul>
           </li>
@@ -33,7 +33,7 @@ export default function PainelGerenciamento() {
                 <Link href="/api/produtos">Ver Produtos</Link>
               </li>
               <li>
-                <Link href="gerenciamento/produtos">Gerenciar produtos</Link>
+                <Link href="admin/produtos">Gerenciar produtos</Link>
               </li>
               <li>
                 <Link href="/">Ver Imagens dos Produtos</Link>

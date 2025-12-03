@@ -1,0 +1,12 @@
+.containerSignUp {
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+}
+
+.containerLateral {
+  width: 35%;
+  padding: 2.5%;
+  background-color: var(--cor-principal);
+  color: white;
+}

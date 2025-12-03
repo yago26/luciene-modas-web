@@ -1,0 +1,11 @@
+.formAdicionarProdutos {
+  display: flex;
+  flex-direction: column;
+  gap: 1%;
+  width: 30%;
+}
+
+.formAdicionarProdutos input,
+.formAdicionarProdutos button {
+  padding: 2%;
+}

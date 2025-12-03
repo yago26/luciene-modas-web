@@ -36,7 +36,6 @@ export async function POST(req) {
       );
     }
 
-    // Evita erro se valor vier como número ou string ruim
     const valorFormatado = String(valor).replace(",", ".");
     const valorNumero = Number(valorFormatado);
 
@@ -77,7 +76,6 @@ export async function POST(req) {
 
     let categoriaFormatada = categoria.toLowerCase().trim();
 
-    // Tratamento especial para acentos em "cosméticos"
     if (
       categoriaFormatada.normalize("NFD").replace(/[\u0300-\u036f]/g, "") ===
       "cosmeticos"

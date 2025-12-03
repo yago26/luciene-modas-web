@@ -13,7 +13,11 @@ export default async function middleware(req) {
     pathname.startsWith("/carrinho") ||
     pathname.startsWith("/checkout");
 
-  const privates = pathname.startsWith("/admin");
+  if (token && publics) {
+    const url = new URL("/perfil", req.url);
+    url.searchParams.set("callbackUrl", pathname);
+    return NextResponse.redirect(url);
+  }
 
   if (!token && publics_auth) {
     const url = new URL("/login", req.url);
@@ -21,18 +25,14 @@ export default async function middleware(req) {
     return NextResponse.redirect(url);
   }
 
-  if (token && publics) {
-    const url = new URL("/perfil", req.url);
-    url.searchParams.set("callbackUrl", pathname);
-    return NextResponse.redirect(url);
-  }
+  const privates = pathname.startsWith("/admin");
 
   if (privates) {
     if (!token) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
-    if (token.role !== "admin") {
-      return NextResponse.redirect(new URL("/login", req.url));
+    if (token.role !== "administrador") {
+      return NextResponse.redirect(new URL("/", req.url));
     }
   }
 }

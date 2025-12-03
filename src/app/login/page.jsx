@@ -1,5 +1,6 @@
 "use client";
 
+import style from "./page.module.css";
 import LoginForm from "@/components/formularios/LoginForm";
 import Erro from "@/components/toasts/Erro";
 import Sucesso from "@/components/toasts/Sucesso";
@@ -35,19 +36,8 @@ export default function Login() {
 
   return (
     <>
-      <div
-        className="containerSignIn"
-        style={{ display: "flex", justifyContent: "center", padding: "5%" }}
-      >
-        <div
-          className="containerLateral"
-          style={{
-            width: "35%",
-            padding: "2.5%",
-            backgroundColor: "var(--cor-principal)",
-            color: "white",
-          }}
-        >
+      <div className={style.containerSignIn}>
+        <div className={style.containerLateral}>
           <h2>Bem vindo(a) de volta, Usuário!</h2>
           <Divider style={{ borderColor: "white" }} />
           <p>Aproveite sua experiência</p>
@@ -56,12 +46,12 @@ export default function Login() {
         <SessionProvider>
           <LoginForm onAuthUsuario={authUsuario} />
         </SessionProvider>
-
-        {showSuccessAlert && <Sucesso mensagem="Autenticação bem-sucedida." />}
-        {showErrorAlert && (
-          <Erro key={errorKey} mensagem="Credenciais inválidas." />
-        )}
       </div>
+
+      {showSuccessAlert && <Sucesso mensagem="Autenticação bem-sucedida." />}
+      {showErrorAlert && (
+        <Erro key={errorKey} mensagem="Credenciais inválidas." />
+      )}
     </>
   );
 }
