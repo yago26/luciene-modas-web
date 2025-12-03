@@ -16,12 +16,15 @@ export default function Loading() {
       <Spin
         indicator={
           <LoadingOutlined
-            style={{ color: "white", height: "100%", fontSize: 64 }}
+            style={{
+              color: "var(--cor-principal)",
+              height: "100%",
+              fontSize: 48,
+            }}
             spin
           />
         }
       />
-      <p>Loading...</p>
     </div>
   );
 }

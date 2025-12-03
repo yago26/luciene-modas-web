@@ -30,6 +30,11 @@ a {
   text-decoration: none;
 }
 
+button {
+  transition: 0.5s;
+}
+
 button:hover {
   cursor: pointer;
+  scale: 1.05;
 }

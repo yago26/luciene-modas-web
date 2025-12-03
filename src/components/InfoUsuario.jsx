@@ -4,15 +4,21 @@ import { signOut } from "next-auth/react";
 import style from "./infoUsuario.module.css";
 
 import { useState } from "react";
-import { Button, Modal, Divider } from "antd";
+import { Button, Modal, Divider, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import Sucesso from "./toasts/Sucesso";
 import Aviso from "./toasts/Aviso";
+import Erro from "./toasts/Erro";
 
 export default function infoUsuario({ usuario }) {
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [keySuccess, setKeySuccess] = useState(0);
   const [showAlertWarning, setShowAlertWarning] = useState(false);
   const [keyWarning, setKeyWarning] = useState(0);
+  const [showAlertError, setShowAlertError] = useState(false);
+  const [keyError, setKeyError] = useState(0);
+
+  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
     nome: usuario.nome,
@@ -32,6 +38,7 @@ export default function infoUsuario({ usuario }) {
   };
 
   const salvar = async () => {
+    setLoading(true);
     const cepLimpo = form.cep.replace(/\D/g, "");
 
     if (!form.nome || !cepLimpo || !form.genero) {
@@ -41,7 +48,7 @@ export default function infoUsuario({ usuario }) {
     }
 
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL}/api/usuarios/${usuario.id}`,
+      `${process.env.NEXTAUTH_URL || ""}/api/usuarios/${usuario.id}`,
       {
         method: "PUT",
         headers: {
@@ -55,11 +62,16 @@ export default function infoUsuario({ usuario }) {
       }
     );
 
+    setLoading(false);
+
     if (response.ok) {
       setShowAlertSuccess(true);
       setKeySuccess((prev) => prev + 1);
       return;
     }
+
+    setShowAlertError(true);
+    setKeyError((prev) => prev + 1);
   };
 
   const logout = async () => {
@@ -69,10 +81,13 @@ export default function infoUsuario({ usuario }) {
   const excluirConta = async () => {
     setConfirmLoading(true);
     await signOut({ redirect: true, callbackUrl: "/" }); // Limpa o cookie
-    await fetch(`${process.env.NEXTAUTH_URL}/api/usuarios/${usuario.id}`, {
-      method: "DELETE",
-      headers: { "Content-type": "application/json" },
-    });
+    await fetch(
+      `${process.env.NEXTAUTH_URL || ""}/api/usuarios/${usuario.id}`,
+      {
+        method: "DELETE",
+        headers: { "Content-type": "application/json" },
+      }
+    );
     setConfirmLoading(false);
   };
 
@@ -161,7 +176,18 @@ export default function infoUsuario({ usuario }) {
 
       <div className={style.containerBtn}>
         <button className={style.btnSalvar} onClick={salvar}>
-          Salvar
+          {loading ? (
+            <Spin
+              indicator={
+                <LoadingOutlined
+                  style={{ color: "white", height: "100%" }}
+                  spin
+                />
+              }
+            />
+          ) : (
+            "Salvar"
+          )}
         </button>
         <div>
           <h3>Outras ações</h3>
@@ -201,6 +227,12 @@ export default function infoUsuario({ usuario }) {
         <Aviso
           key={keyWarning}
           mensagem="Preencha todos os campos com valores antes de atualizar seu perfil."
+        />
+      )}
+      {showAlertError && (
+        <Erro
+          key={keyError}
+          mensagem="Ocorreu algum erro na atualização do seu perfil."
         />
       )}
     </>

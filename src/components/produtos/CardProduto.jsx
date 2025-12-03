@@ -37,7 +37,7 @@ export default function CardProduto({ produto, usuario }) {
   return (
     <>
       <div className={style.produto}>
-        <Link className={style.ancora} href={`/produto/${id}`}>
+        <Link className={style.ancora} href={`/produtos/${id}`}>
           <img
             src={imagem}
             alt={sobre}

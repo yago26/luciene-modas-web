@@ -1,6 +1,6 @@
 "use client";
 
-import style from "@/components/produtos/productPageInfoProduto.module.css";
+import style from "@/components/produtos/infoProduto.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import { useState } from "react";
 import { Alert, Divider, Spin } from "antd";

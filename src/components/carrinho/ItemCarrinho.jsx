@@ -26,7 +26,7 @@ export default function ItemCarrinho({
       <div className={style.containerItemCarrinho}>
         <div className={style.containerProduto}>
           <Link
-            href={`/productPage/${produto.id}`}
+            href={`/produtos/${produto.id}`}
             className={style.containerLinkProduto}
           >
             <img

@@ -3,6 +3,7 @@ import { useState } from "react";
 import style from "./signUpForm.module.css";
 import { Eye, EyeOff } from "lucide-react";
 import Aviso from "../toasts/Aviso";
+import { Divider } from "antd";
 
 export default function SignUpForm({ onAddUsuario }) {
   const [form, setForm] = useState({
@@ -197,7 +198,7 @@ export default function SignUpForm({ onAddUsuario }) {
           </div>
           <div className={style.finalizarCadastro}>
             <button type="submit">Cadastrar</button>
-            <hr />
+            <Divider style={{ borderColor: "black" }} />
             <p>
               Já possui uma conta? <Link href="./login">Login</Link>
             </p>
@@ -205,8 +206,8 @@ export default function SignUpForm({ onAddUsuario }) {
         </form>
 
         <div className={style.containerLateral}>
-          <h2>Bem vindo(a), Novo Consumidor!</h2>
-          <hr />
+          <h2>Bem vindo(a), Novo Usuário!</h2>
+          <Divider style={{ borderColor: "white" }} />
           <p>Inicie sua maravilhosa experiência na plataforma Luciene Modas</p>
         </div>
 

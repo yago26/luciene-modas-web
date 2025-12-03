@@ -4,11 +4,11 @@ import { useCarrinhoStore } from "@/app/store/carrinho";
 import style from "./carrinhoList.module.css";
 import { useEffect, useState } from "react";
 
-import { QuestionOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
 import ItemCarrinho from "./ItemCarrinho";
 import Erro from "../toasts/Erro";
+import NotFound from "../layout/NotFound";
 
 export default function CarrinhoList() {
   const router = useRouter();
@@ -62,46 +62,11 @@ export default function CarrinhoList() {
 
   if (itemsCarrinho.length === 0 && !loading) {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "gray",
-          height: "50vh",
-          gap: "2%",
-        }}
-      >
-        <QuestionOutlined
-          style={{
-            fontSize: 50,
-            border: "5px solid",
-            borderRadius: "100%",
-            padding: "15px",
-          }}
-        />
-        <div style={{ textAlign: "center" }}>
-          <h2>Carrinho vazio!</h2>
-          <p>
-            Seu carrinho está vazio no momento, adicione produtos para
-            <br />
-            poder realizar uma compra.
-          </p>
-        </div>
-        <button
-          style={{
-            padding: "15px",
-            border: "none",
-            borderRadius: "30px",
-            backgroundColor: "var(--cor-principal)",
-            color: "var(--cor-secundaria)",
-          }}
-          onClick={() => router.push("/")}
-        >
-          Ir as compras
-        </button>
-      </div>
+      <NotFound
+        titulo="Carrinho vazio!"
+        mensagem="Seu carrinho está vazio no momento, adicione produtos para poder
+          realizar uma compra."
+      />
     );
   }
 

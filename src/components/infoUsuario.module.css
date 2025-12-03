@@ -16,10 +16,6 @@
   padding: 2%;
 }
 
-.containerBtn button {
-  padding: 10px;
-}
-
 .btnSalvar {
   background-color: var(--cor-principal);
   color: var(--cor-secundaria);
@@ -27,6 +23,7 @@
   border: none;
   width: 30%;
   margin-bottom: 1.5%;
+  padding: 10px;
 }
 
 .btnSair {
@@ -34,6 +31,7 @@
   color: white;
   border: none;
   border-radius: 10px;
+  padding: 10px;
 }
 
 .containerBtn div {

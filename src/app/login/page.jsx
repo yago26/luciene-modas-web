@@ -6,6 +6,7 @@ import Sucesso from "@/components/toasts/Sucesso";
 import { SessionProvider, signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Divider } from "antd";
 
 export default function Login() {
   const router = useRouter();
@@ -47,8 +48,8 @@ export default function Login() {
             color: "white",
           }}
         >
-          <h2>Bem vindo(a) de volta, Consumidor!</h2>
-          <hr />
+          <h2>Bem vindo(a) de volta, Usuário!</h2>
+          <Divider style={{ borderColor: "white" }} />
           <p>Aproveite sua experiência</p>
         </div>
 

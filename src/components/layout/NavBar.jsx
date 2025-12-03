@@ -4,7 +4,7 @@ import Image from "next/image";
 import SearchBar from "./SearchBar";
 
 import style from "./navbar.module.css";
-import { CircleUserRound, Menu, ShoppingBag, ShoppingCart } from "lucide-react";
+import { CircleUserRound, Menu, Package, ShoppingCart } from "lucide-react";
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
 export default async function NavBar() {
@@ -33,7 +33,7 @@ export default async function NavBar() {
               {usuario && (
                 <div id={style.funcionalidadesAutenticadas}>
                   <Link href="/meus-pedidos">
-                    <ShoppingBag size={30} color="black" />
+                    <Package size={30} color="black" />
                   </Link>
 
                   <Link href="/carrinho">
@@ -64,27 +64,27 @@ export default async function NavBar() {
           </div>
 
           <ul className={style.linksRapidosCategorias}>
-            <Link href="/categoria/roupas">
+            <Link href="/categorias/roupas">
               <li>Roupas</li>
             </Link>
 
-            <Link href="/categoria/cosmeticos">
+            <Link href="/categorias/cosmeticos">
               <li>Cosméticos</li>
             </Link>
 
-            <Link href="/categoria/masculino">
+            <Link href="/categorias/masculino">
               <li>Masculino</li>
             </Link>
 
-            <Link href="/categoria/feminino">
+            <Link href="/categorias/feminino">
               <li>Feminino</li>
             </Link>
 
-            <Link href="/categoria/infantil">
+            <Link href="/categorias/infantil">
               <li>Infantil</li>
             </Link>
 
-            <Link href="/categoria/outros">
+            <Link href="/categorias/outros">
               <li>Outros</li>
             </Link>
           </ul>

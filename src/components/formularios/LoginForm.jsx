@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import { Divider } from "antd";
-import FormasAutenticar from "./FormasAutenticar";
+import ProvedoresNextAuth from "./ProvedoresNextAuth";
 
 export default function LoginForm({ onAuthUsuario }) {
   const [form, setForm] = useState({ email: "", senha: "" });
@@ -69,7 +69,7 @@ export default function LoginForm({ onAuthUsuario }) {
           <Divider style={{ borderColor: "black" }}>ou</Divider>
         </div>
 
-        <FormasAutenticar />
+        <ProvedoresNextAuth />
 
         <div>
           <p style={{ textAlign: "center" }}>

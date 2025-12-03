@@ -61,7 +61,7 @@ export default function SearchBar({ produtos }) {
               key={produto.id}
               value={produto.nome}
               onMouseDown={() => {
-                router.push(`/produto/${produto.id}`);
+                router.push(`/produtos/${produto.id}`);
               }}
             >
               {produto.nome}
