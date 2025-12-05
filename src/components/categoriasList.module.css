@@ -7,6 +7,15 @@
   margin: 0;
 }
 
+.containerCategorias li {
+  width: 8%;
+  transition: 0.5s;
+}
+
+.containerCategorias li:hover {
+  scale: 1.05;
+}
+
 .categoria {
   padding: 10px;
   border-radius: 10px;
@@ -17,8 +26,4 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.containerCategorias li {
-  width: 8%;
 }

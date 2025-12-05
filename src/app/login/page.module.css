@@ -1,12 +1,16 @@
-.containerSignIn {
+.containerLogin {
   display: flex;
   justify-content: center;
-  padding: 5%;
+  gap: 7.5%;
 }
 
-.containerLateral {
+.containerLateralEsquerda {
   width: 35%;
   padding: 2.5%;
   background-color: var(--cor-principal);
-  color: white;
+  color: var(--cor-secundaria);
+}
+
+.containerLateralDireita {
+  width: 35%;
 }

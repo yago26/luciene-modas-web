@@ -1,8 +1,7 @@
 export default () => {
   return (
     <aside>
-      <h2>Resumo da compra</h2>
-      <p>Barra lateral direita</p>
+      <h3>Resumo</h3>
     </aside>
   );
 };

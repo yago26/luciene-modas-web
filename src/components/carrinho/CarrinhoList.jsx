@@ -17,43 +17,61 @@ export default function CarrinhoList() {
 
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
-  const [selecionados, setSelecionados] = useState([]);
+  const [selecionados, setSelecionados] = useState(new Set());
   const { items, fetchItensCarrinho } = useCarrinhoStore();
   const [itemsCarrinho, setItemsCarrinho] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    fetchItensCarrinho();
+    async function carregar() {
+      setLoading(true);
+      await fetchItensCarrinho();
+    }
+    carregar();
   }, []);
 
   useEffect(() => {
-    loadCarrinho();
+    if (items.length > 0) {
+      loadCarrinho();
+    }
   }, [items]);
 
   async function loadCarrinho() {
-    const produtos = await Promise.all(
-      items.map(async (item) => {
-        const res = await fetch(
-          `${process.env.NEXTAUTH_URL || ""}/api/produtos/${item.id_produto}`
-        );
-        const data = await res.json();
-        return { ...data, quantidade: item.quantidade };
-      })
-    );
-    setItemsCarrinho(produtos);
-    setLoading(false);
+    try {
+      setLoading(true);
+
+      const produtos = await Promise.all(
+        items.map(async (item) => {
+          const res = await fetch(
+            `${process.env.NEXTAUTH_URL || ""}/api/produtos/${item.id_produto}`
+          );
+          const data = await res.json();
+          return { ...data, quantidade: item.quantidade };
+        })
+      );
+
+      produtos.sort((a, b) => a.nome.localeCompare(b.nome));
+
+      setItemsCarrinho(produtos);
+    } finally {
+      setLoading(false);
+    }
   }
 
   function selecionarItem(produto) {
-    if (selecionados.find((p) => p.id === produto.id)) {
-      setSelecionados(selecionados.filter((p) => p.id !== produto.id));
-      return;
-    }
-    setSelecionados([...selecionados, produto]);
+    setSelecionados((prev) => {
+      const novo = new Set(prev);
+      if (novo.has(produto.id)) novo.delete(produto.id);
+      else novo.add(produto.id);
+      return novo;
+    });
   }
 
   function removerSelecionado(id) {
-    setSelecionados(selecionados.filter((p) => p.id !== id));
+    setSelecionados((prev) => {
+      const novo = new Set(prev);
+      novo.delete(id);
+      return novo;
+    });
   }
 
   if (loading) {
@@ -77,7 +95,7 @@ export default function CarrinhoList() {
           <div
             key={produto.id}
             className={
-              selecionados.find((s) => s.id == produto.id)
+              selecionados.has(produto.id)
                 ? style.selecionado
                 : style.naoSelecionado
             }
@@ -92,22 +110,21 @@ export default function CarrinhoList() {
         ))}
       </div>
 
-      {selecionados.length > 0 && (
+      {selecionados.size > 0 && (
         <div className={style.containerFinalizarCompra}>
           <button
             onClick={() => {
-              if (selecionados.length <= 0) {
+              if (selecionados.size <= 0) {
                 setShowErrorAlert(true);
                 setTimeout(() => setShowErrorAlert(false), 3000);
                 return;
               }
-              const quantidades = selecionados.map((s) => {
+              const quantidades = [...selecionados].map((s) => {
                 const produto = items.find((i) => i.id_produto === s.id);
                 return produto ? produto.quantidade : 0; // Se o produto não for encontrado, retorna 0
               });
-              const ids = selecionados.map((s) => (s = s.id));
+              const ids = [...selecionados].map((s) => (s = s.id));
               router.push(`/checkout?ids=${ids}&quantidades=${quantidades}`);
-              router.refresh();
             }}
           >
             Finalizar compra

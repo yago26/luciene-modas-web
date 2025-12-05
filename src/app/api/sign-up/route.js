@@ -9,17 +9,16 @@ export async function POST(req) {
 
   try {
     // primeiramente, tente isso
-    const { nome, email, cep, genero, senha } = await req.json(); // req é a requisição de cadastro feita pelo usuário a partir dos dados do próprio cadastro
+    const { nome, email, senha } = await req.json(); // req é a requisição de cadastro feita pelo usuário a partir dos dados do próprio cadastro
 
     // validação para campos vazios
-    if (!nome || !email || !cep || !genero || !senha) {
+    if (!nome || !email || !senha) {
       return NextResponse.json({ error: "Dados inválidos" }, { status: 400 });
     }
 
-    const existe = await db.query(
-      "SELECT id FROM tb_usuarios WHERE email = $1",
-      [email]
-    );
+    const existe = await db.query("SELECT id FROM usuarios WHERE email = $1", [
+      email,
+    ]);
 
     if (existe.rowCount > 0) {
       return NextResponse.json(
@@ -32,15 +31,15 @@ export async function POST(req) {
     const idUsuario = uuidv4(); // Geração de ID único
 
     await db.query(
-      "INSERT INTO tb_usuarios (id, nome, email, cep, genero, senha, role) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-      [idUsuario, nome.trim(), email, cep, genero, senha_hash, "consumidor"]
+      "INSERT INTO usuarios (id, nome, email, senha, role) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [idUsuario, nome.trim(), email, senha_hash, "consumidor"]
     );
 
     const idCarrinho = uuidv4();
-    await db.query(
-      "INSERT INTO tb_carrinhos (id, id_usuario) VALUES ($1, $2)",
-      [idCarrinho, idUsuario]
-    );
+    await db.query("INSERT INTO carrinhos (id, id_usuario) VALUES ($1, $2)", [
+      idCarrinho,
+      idUsuario,
+    ]);
 
     return NextResponse.json(
       { mensagem: "Usuário cadastrado" },

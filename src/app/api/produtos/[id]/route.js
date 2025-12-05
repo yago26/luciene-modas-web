@@ -4,9 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
   try {
     const { id } = await params;
-    const result = await db.query("SELECT * FROM tb_produtos WHERE id = $1", [
-      id,
-    ]);
+    const result = await db.query("SELECT * FROM produtos WHERE id = $1", [id]);
 
     if (!result) {
       return NextResponse.json(
@@ -32,7 +30,7 @@ export async function DELETE(req, { params }) {
     const { id } = await params;
     const { url } = await req.json();
 
-    db.query("DELETE FROM tb_produtos WHERE id = $1", [id]);
+    db.query("DELETE FROM produtos WHERE id = $1", [id]);
 
     await del(url);
 
@@ -130,7 +128,7 @@ export async function PUT(req, { params }) {
     valores.push(id);
 
     const query = `
-      UPDATE tb_produtos
+      UPDATE produtos
       SET ${campos.join(", ")}
       WHERE id = $${contador}
     `;

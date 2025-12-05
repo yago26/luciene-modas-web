@@ -46,6 +46,20 @@
   border-bottom-right-radius: 25px;
 }
 
+.valor {
+  font-weight: bold;
+  color: var(--cor-principal);
+  font-size: 1.1rem;
+}
+
+.quantidade {
+  border: none;
+  padding: 10px;
+  display: inline;
+  width: min-content;
+  outline: none;
+}
+
 .btn {
   margin-inline: 10px;
   padding: 10px;

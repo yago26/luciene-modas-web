@@ -53,7 +53,7 @@ export default async function NavBar() {
               {!usuario && (
                 <div id={style.funcionalidadesNaoAutenticadas}>
                   <Link href="/login">
-                    <button className={style.signIn}>Login</button>
+                    <button className={style.login}>Login</button>
                   </Link>
                   <Link href="/sign-up">
                     <button className={style.signUp}>Sign Up</button>

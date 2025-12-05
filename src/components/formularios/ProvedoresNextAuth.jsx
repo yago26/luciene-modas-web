@@ -13,27 +13,24 @@ export default () => {
             width={tamanho}
             height={tamanho}
           />
-          Entrar com Google
         </button>
 
-        <button onClick={() => signIn("google")} style={style.btn}>
+        <button onClick={() => alert("Função indisponível.")} style={style.btn}>
           <img
             src="/icones/instagram.svg"
             alt="Logo do Instagram"
             width={tamanho}
             height={tamanho}
           />
-          Entrar com Instagram
         </button>
 
-        <button onClick={() => signIn("google")} style={style.btn}>
+        <button onClick={() => alert("Função indisponível.")} style={style.btn}>
           <img
             src="/icones/facebook.svg"
             alt="Logo do Google"
             width={tamanho}
             height={tamanho}
           />
-          Entrar com Facebook
         </button>
       </div>
     </>
@@ -43,20 +40,18 @@ export default () => {
 const style = {
   containerProvedores: {
     display: "flex",
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     gap: "5%",
+    marginBlock: "15px",
   },
   btn: {
-    backgroundColor: "white",
-    border: "none",
+    backgroundColor: "transparent",
+    boxShadow: "1px 1px 5px black",
+    borderRadius: "30px",
     display: "flex",
-    width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    padding: "5px",
-    margin: "5px",
-    gap: "15px",
+    padding: "10px",
   },
 };

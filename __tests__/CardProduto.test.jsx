@@ -19,7 +19,6 @@ describe("CardProduto", () => {
       const usuario = {
         id: 1,
         nome: "Consumidor",
-        genero: "Outro",
         role: "consumidor",
         email: "teste@gmail.com",
       };

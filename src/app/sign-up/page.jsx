@@ -5,6 +5,7 @@ import style from "./page.module.css";
 import SignUpForm from "@/components/formularios/SignUpForm";
 import Sucesso from "@/components/toasts/Sucesso";
 import { Divider } from "antd";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -37,8 +38,14 @@ export default function SignUp() {
   return (
     <>
       <div className={style.containerSignUp}>
-        <SignUpForm onAddUsuario={addUsuario} />
-        <div className={style.containerLateral}>
+        <div className={style.containerLateralEsquerda}>
+          <SignUpForm onAddUsuario={addUsuario} />
+          <Divider style={{ borderColor: "black" }}>ou</Divider>
+          <p className={style.linkLogin}>
+            Já possui uma conta? <Link href="./login">Login</Link>
+          </p>
+        </div>
+        <div className={style.containerLateralDireita}>
           <h2>Bem vindo(a), Novo Usuário!</h2>
           <Divider style={{ borderColor: "white" }} />
           <p>Inicie sua maravilhosa experiência na plataforma Luciene Modas</p>

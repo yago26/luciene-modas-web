@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export async function GET() {
   try {
-    const result = await db.query("SELECT * FROM tb_produtos");
+    const result = await db.query("SELECT * FROM produtos");
     return NextResponse.json(result.rows);
   } catch (error) {
     console.log("Erro ao listar produtos", error);
@@ -61,7 +61,7 @@ export async function POST(req) {
     }
 
     if (estoque === undefined || estoque === null || estoque === "") {
-      estoque = 0;
+      estoque = 1;
     }
 
     const estoqueNumero = Number(estoque);
@@ -91,7 +91,7 @@ export async function POST(req) {
 
     await db.query(
       `
-      INSERT INTO tb_produtos 
+      INSERT INTO produtos 
         (id, nome, sobre, valor, categoria, subcategoria, imagem, estoque) 
       VALUES 
         ($1, $2, $3, $4, $5, $6, $7, $8)

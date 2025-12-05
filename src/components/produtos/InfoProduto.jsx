@@ -3,8 +3,9 @@
 import style from "@/components/produtos/infoProduto.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import { useState } from "react";
-import { Alert, Divider, Spin } from "antd";
+import { Divider, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import Sucesso from "../toasts/Sucesso";
 
 export default ({ produto, usuario }) => {
   const [loading, setLoading] = useState(false);
@@ -27,11 +28,10 @@ export default ({ produto, usuario }) => {
     <>
       <div className={style.infosProduto}>
         <h1>{produto.nome}</h1>
-        <p style={{ color: "gray" }}>ID: {produto.id}</p>
 
         <Divider style={{ borderColor: "black" }} />
 
-        <h4>Descrição</h4>
+        <h3>Descrição</h3>
         <p>{!produto.sobre ? produto.nome : produto.sobre}</p>
 
         <h4 style={{ color: "gray" }}>Lembrete: Atributos</h4>
@@ -49,9 +49,9 @@ export default ({ produto, usuario }) => {
         <input type="radio" />
         <p style={{ color: "gray", marginLeft: "20px" }}>Para cosméticos</p>
 
-        <p>Estoque: {produto.estoque}</p>
-
-        <h3>R$ {produto.valor}</h3>
+        <p className={style.valor}>
+          R$ {String(produto.valor).replace(".", ",")}
+        </p>
 
         <Divider style={{ borderColor: "black" }} />
 
@@ -64,7 +64,7 @@ export default ({ produto, usuario }) => {
               <Spin
                 indicator={
                   <LoadingOutlined
-                    style={{ color: "white", height: "100%" }}
+                    style={{ color: "white", height: "100%", fontSize: 15 }}
                     spin
                   />
                 }
@@ -75,39 +75,41 @@ export default ({ produto, usuario }) => {
           </button>
         )}
 
-        <h4>Calcular frete</h4>
-        {usuario ? (
-          <input placeholder="Digite seu CEP" value={usuario.cep} disabled />
-        ) : (
-          <input
-            placeholder="Digite seu CEP"
-            value={cep}
-            onChange={(e) => {
-              let value = e.target.value.replace(/\D/g, ""); // remove tudo que não é número
-              if (value.length > 8) value = value.slice(0, 8); // limita a 8 dígitos
-
-              // Aplica a formatação do CEP automaticamente
-              if (value.length > 5) {
-                value = value.replace(/(\d{5})(\d{1,3})/, "$1-$2");
-              }
-
-              setCep(value);
-            }}
-            maxLength={9}
-          />
-        )}
-        <button>Consultar</button>
+        <div className={style.containerFrete}>
+          <h2>Calcular frete</h2>
+          <div>
+            {usuario ? (
+              <input
+                value={usuario.cep || ""}
+                placeholder="Altere seu CEP no perfil."
+                disabled
+              />
+            ) : (
+              <input
+                value={cep || ""}
+                placeholder="Digite seu CEP"
+                onChange={(e) => {
+                  let value = e.target.value.replace(/\D/g, ""); // remove tudo que não é número
+                  if (value.length > 8) value = value.slice(0, 8); // limita a 8 dígitos
+                  // Aplica a formatação do CEP automaticamente
+                  if (value.length > 5) {
+                    value = value.replace(/(\d{5})(\d{1,3})/, "$1-$2");
+                  }
+                  setCep(value);
+                }}
+                maxLength={9}
+              />
+            )}
+            <button onClick={() => alert("Função indisponível.")}>
+              Consultar
+            </button>
+          </div>
+        </div>
       </div>
 
       {showSuccessAlert && (
-        <Alert
-          style={{ position: "fixed", bottom: 10, right: 10, zIndex: 10 }}
-          message="Item adicionado!"
-          description={`${produto.nome} adicionado(a) ao carrinho com sucesso!`}
-          type="success"
-          showIcon
-          closable
-          onClose={() => setShowSuccessAlert(false)}
+        <Sucesso
+          mensagem={`${produto.nome} adicionado(a) ao carrinho com sucesso!`}
         />
       )}
     </>

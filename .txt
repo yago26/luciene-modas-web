@@ -1,9 +1,7 @@
 Banco de Dados
-* Apagar o atributo "estoque" de "tb_produtos" e adcionar "estoque" e "ajuste_valor" a "tb_atributos_produto"
+* Apagar o atributo "estoque" de "produtos" e adicionar "estoque" e "ajuste_valor" a "atributos_produto"
 * Criar uma tabela "categorias"
 * Atributos de tamanho para os produtos
-
-* Criar a função de atualizar produto
 
 * Fazer ser obrigatório incluir letras maiúsculas e minúsculas, números e símbolos especiais
 

@@ -19,9 +19,8 @@ export default function ConsumidoresList({ consumidores, onDeleteConsumidor }) {
               <td>{consumidor.id}</td>
               <td>{consumidor.nome}</td>
               <td>{consumidor.email}</td>
-              <td>{consumidor.cep}</td>
-              <td>{consumidor.genero}</td>
               <td>{consumidor.senha}</td>
+              <td>{consumidor.cep}</td>
               <td>
                 <button
                   style={{

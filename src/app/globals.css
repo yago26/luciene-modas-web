@@ -3,6 +3,7 @@
 :root {
   --cor-principal: #97315a;
   --cor-secundaria: #fff;
+  --cor-terciaria: goldenrod;
 }
 
 * {
@@ -30,11 +31,6 @@ a {
   text-decoration: none;
 }
 
-button {
-  transition: 0.5s;
-}
-
 button:hover {
   cursor: pointer;
-  scale: 1.05;
 }

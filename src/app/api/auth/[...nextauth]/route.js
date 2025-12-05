@@ -11,7 +11,7 @@ import bcrypt from "bcryptjs"; // Necessário para a lógica de Credenciais, se 
 async function getUsuarioByEmail(email) {
   try {
     const result = await db.query(
-      "SELECT id, nome, email, role, senha FROM tb_usuarios WHERE email = $1",
+      "SELECT id, nome, email, role, senha FROM usuarios WHERE email = $1",
       [email]
     );
     return result.rows[0] || null;
@@ -28,23 +28,22 @@ async function createNewUsuario(profile) {
     const senha_hash = await bcrypt.hash(senhaAleatoria, 12);
     const role = "consumidor";
     await db.query(
-      "INSERT INTO tb_usuarios (id, nome, email, cep, genero, senha, role) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      "INSERT INTO usuarios (id, nome, email, cep, senha, role) VALUES ($1, $2, $3, $4, $5, $6)",
       [
         idUsuario,
         profile.name || "Consumidor",
         profile.email,
         "00000000",
-        "Outro", // Valor padrão
         senha_hash,
         role,
       ]
     ); // 2. INSERIR CARRINHO ASSOCIADO
 
     const idCarrinho = uuidv4();
-    await db.query(
-      "INSERT INTO tb_carrinhos (id, id_usuario) VALUES ($1, $2)",
-      [idCarrinho, idUsuario]
-    ); // Retorna o objeto formatado para ser usado no JWT
+    await db.query("INSERT INTO carrinhos (id, id_usuario) VALUES ($1, $2)", [
+      idCarrinho,
+      idUsuario,
+    ]); // Retorna o objeto formatado para ser usado no JWT
 
     return {
       id: idUsuario,

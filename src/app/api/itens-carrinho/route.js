@@ -9,7 +9,7 @@ export async function GET() {
     const idUsuario = usuario?.id;
 
     const carrinhos = await db.query(
-      "SELECT * FROM tb_carrinhos WHERE id_usuario = $1",
+      "SELECT * FROM carrinhos WHERE id_usuario = $1",
       [idUsuario]
     );
     const carrinho = carrinhos.rows[0];
@@ -26,7 +26,7 @@ export async function GET() {
     }
 
     const result = await db.query(
-      "SELECT * FROM rl_carrinhos_produtos_itens_carrinho WHERE id_carrinho = $1",
+      "SELECT * FROM itens_carrinho WHERE id_carrinho = $1",
       [idCarrinho]
     );
 
@@ -57,7 +57,7 @@ export async function POST(req) {
     }
 
     const carrinhos = await db.query(
-      "SELECT * FROM tb_carrinhos WHERE id_usuario = $1",
+      "SELECT * FROM carrinhos WHERE id_usuario = $1",
       [idUsuario]
     );
 
@@ -74,15 +74,15 @@ export async function POST(req) {
     const id = uuidv4();
 
     await db.query(
-      `INSERT INTO rl_carrinhos_produtos_itens_carrinho (id, id_carrinho, id_produto, quantidade) 
+      `INSERT INTO itens_carrinho (id, id_carrinho, id_produto, quantidade) 
        VALUES ($1, $2, $3, $4) 
        ON CONFLICT (id_carrinho, id_produto) 
-       DO UPDATE SET quantidade = rl_carrinhos_produtos_itens_carrinho.quantidade + EXCLUDED.quantidade;`,
+       DO UPDATE SET quantidade = itens_carrinho.quantidade + EXCLUDED.quantidade;`,
       [id, idCarrinho, idProduto, quantidade]
     );
 
     const result = await db.query(
-      "SELECT * FROM rl_carrinhos_produtos_itens_carrinho WHERE id_carrinho = $1",
+      "SELECT * FROM itens_carrinho WHERE id_carrinho = $1",
       [idCarrinho]
     );
 
@@ -113,7 +113,7 @@ export async function PUT(req) {
     }
 
     const carrinhos = await db.query(
-      "SELECT * FROM tb_carrinhos WHERE id_usuario = $1",
+      "SELECT * FROM carrinhos WHERE id_usuario = $1",
       [idUsuario]
     );
 
@@ -130,13 +130,13 @@ export async function PUT(req) {
     if (quantidade < 1) {
       // 🔹 Deleta o item se quantidade menor que 1
       await db.query(
-        "DELETE FROM rl_carrinhos_produtos_itens_carrinho WHERE id_carrinho = $1 AND id_produto = $2",
+        "DELETE FROM itens_carrinho WHERE id_carrinho = $1 AND id_produto = $2",
         [idCarrinho, idProduto]
       );
     } else {
       // 🔹 Atualiza a quantidade normalmente
       await db.query(
-        `UPDATE rl_carrinhos_produtos_itens_carrinho 
+        `UPDATE itens_carrinho 
          SET quantidade = $1 
          WHERE id_carrinho = $2 AND id_produto = $3`,
         [quantidade, idCarrinho, idProduto]
@@ -145,7 +145,7 @@ export async function PUT(req) {
 
     // Retorna o carrinho atualizado
     const result = await db.query(
-      "SELECT * FROM rl_carrinhos_produtos_itens_carrinho WHERE id_carrinho = $1",
+      "SELECT * FROM itens_carrinho WHERE id_carrinho = $1",
       [idCarrinho]
     );
 
@@ -179,7 +179,7 @@ export async function DELETE(req) {
     }
 
     const carrinhos = await db.query(
-      "SELECT * FROM tb_carrinhos WHERE id_usuario = $1",
+      "SELECT * FROM carrinhos WHERE id_usuario = $1",
       [idUsuario]
     );
 
@@ -194,12 +194,12 @@ export async function DELETE(req) {
     const idCarrinho = carrinho.id;
 
     await db.query(
-      "DELETE FROM rl_carrinhos_produtos_itens_carrinho WHERE id_carrinho = $1 AND id_produto = $2",
+      "DELETE FROM itens_carrinho WHERE id_carrinho = $1 AND id_produto = $2",
       [idCarrinho, idProduto]
     );
 
     const result = await db.query(
-      "SELECT * FROM rl_carrinhos_produtos_itens_carrinho WHERE id_carrinho = $1",
+      "SELECT * FROM itens_carrinho WHERE id_carrinho = $1",
       [idCarrinho]
     );
 

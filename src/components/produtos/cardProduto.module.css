@@ -1,24 +1,38 @@
 .produto {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 20px;
 
   width: 18%;
   text-align: center;
   transition: 0.5s;
   padding: 20px;
   margin-block: 1%;
-  background-color: lightgray;
-  border-radius: 10px;
-}
-
-.ancora {
-  color: black;
-  text-decoration: none;
+  background-color: whitesmoke;
+  border-radius: 5px;
 }
 
 .produto:hover {
-  scale: 1.05;
+  box-shadow: 1px 1px 5px gray;
+}
+
+.nome {
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.valor {
+  color: var(--cor-principal);
+  font-weight: bold;
+  font-size: 1.25rem;
+  display: flex;
+  justify-content: start;
+}
+
+.ancora {
+  text-decoration: none;
 }
 
 .btnAdicionar {
@@ -26,12 +40,10 @@
   background-color: var(--cor-principal);
   color: var(--cor-secundaria);
   padding: 7.5px;
-  transition: 0.5s;
   border: none;
   border-radius: 5px;
 }
 
 .btnAdicionar:hover {
   cursor: pointer;
-  scale: 1.05;
 }

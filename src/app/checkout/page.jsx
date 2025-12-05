@@ -5,7 +5,6 @@ import { Divider } from "antd";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCarrinhoStore } from "@/app/store/carrinho";
-import ResumoCompra from "@/components/carrinho/ResumoCompra";
 
 export default function CheckoutPage() {
   const { removerProduto } = useCarrinhoStore();
@@ -55,7 +54,6 @@ export default function CheckoutPage() {
       {produtos?.map((produto) => (
         <ItemCheckout key={produto.id} produto={produto} />
       ))}
-      <ResumoCompra />
       <Divider style={{ borderColor: "black" }} />
 
       <button onClick={finalizarCompra}>Finalizar pedido</button>

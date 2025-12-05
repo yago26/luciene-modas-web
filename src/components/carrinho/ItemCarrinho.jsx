@@ -8,18 +8,59 @@ import style from "./itemCarrinho.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 import { LoadingOutlined } from "@ant-design/icons";
 import Sucesso from "../toasts/Sucesso";
+import Aviso from "../toasts/Aviso";
 
 export default function ItemCarrinho({
   produto,
   onSelecionarItem,
   onRemoverSelecionado,
 }) {
+  if (produto.estoque <= 0) {
+    return;
+  }
+
   const [loading, setLoading] = useState(false);
   const [quantidade, setQuantidade] = useState(produto.quantidade);
+  const [quantidadeAnterior, setQuantidadeAnterior] = useState(
+    produto.quantidade
+  );
+
+  const [showWarningAlert, setShowWarningAlert] = useState(false);
+  const [keyWarning, setKeyWarning] = useState(0);
 
   const [showSucessAlertRemove, setShowSucessAlertRemove] = useState(false);
 
   const { atualizarProduto, removerProduto } = useCarrinhoStore();
+
+  const handleEvent = async (e) => {
+    if (e.target.value === "") {
+      setQuantidade(produto.quantidade);
+      return;
+    }
+    if (e.target.value > 0) {
+      const novaQuantidade = e.target.value;
+      setQuantidade(novaQuantidade);
+      await atualizarProduto(produto.id, novaQuantidade);
+      return;
+    }
+    if (e.target.value >= produto.estoque) {
+      setQuantidade(produto.estoque);
+      setShowWarningAlert(true);
+      setKeyWarning((prev) => prev + 1);
+      await atualizarProduto(produto.id, produto.estoque);
+      setShowWarningAlert(false);
+      return;
+    }
+  };
+
+  const handleDelete = async () => {
+    setLoading(true);
+    await removerProduto(produto.id);
+    onRemoverSelecionado(produto.id);
+    setLoading(false);
+    setShowSucessAlertRemove(true);
+    setTimeout(() => setShowSucessAlertRemove(false), 3000);
+  };
 
   return (
     <>
@@ -41,9 +82,7 @@ export default function ItemCarrinho({
             </span>
           </Link>
         </div>
-        <div>
-          <p>R$ {produto.valor}</p>
-        </div>
+
         <div className={style.containerQuantidadeProduto}>
           <button
             className={style.btn}
@@ -53,19 +92,44 @@ export default function ItemCarrinho({
                 await removerProduto(produto.id);
                 setShowSucessAlertRemove(true);
                 setTimeout(() => setShowSucessAlertRemove(false), 3000);
-              } else {
-                const novaQuantidade = quantidade - 1;
-                setQuantidade(novaQuantidade);
-                atualizarProduto(produto.id, novaQuantidade);
+                return;
               }
+              const novaQuantidade = quantidade - 1;
+              setQuantidade(novaQuantidade);
+              atualizarProduto(produto.id, novaQuantidade);
             }}
           >
             -
           </button>
-          <span>{quantidade}</span>
+          <input
+            className={style.quantidade}
+            type="number"
+            value={quantidade}
+            onChange={(e) => setQuantidade(e.target.value)}
+            onFocus={() => setQuantidadeAnterior(quantidade)}
+            onBlur={async (e) => {
+              const novoValor = e.target.value;
+              if (novoValor == quantidadeAnterior) return;
+              await handleEvent(e);
+            }}
+            onKeyDown={async (e) => {
+              if (e.key === "Enter") {
+                await handleEvent(e);
+              }
+            }}
+          />
+          {produto.estoque}
           <button
             className={style.btn}
             onClick={async () => {
+              if (quantidade >= produto.estoque) {
+                setQuantidade(produto.estoque);
+                setShowWarningAlert(true);
+                setKeyWarning((prev) => prev + 1);
+                await atualizarProduto(produto.id, produto.estoque);
+                setShowWarningAlert(false);
+                return;
+              }
               const novaQuantidade = quantidade + 1;
               setQuantidade(novaQuantidade);
               await atualizarProduto(produto.id, novaQuantidade);
@@ -93,14 +157,7 @@ export default function ItemCarrinho({
               justifyContent: "center",
             }}
             className={style.btnRemover}
-            onClick={async () => {
-              setLoading(true);
-              await removerProduto(produto.id);
-              setLoading(false);
-              setShowSucessAlertRemove(true);
-              setTimeout(() => setShowSucessAlertRemove(false), 3000);
-              onRemoverSelecionado(produto.id);
-            }}
+            onClick={async () => (loading ? "" : handleDelete())}
           >
             {loading ? (
               <Spin
@@ -120,10 +177,20 @@ export default function ItemCarrinho({
             )}
           </button>
         </div>
+
+        <div>
+          <p className={style.valor}>R$ {produto.valor}</p>
+        </div>
       </div>
 
       {showSucessAlertRemove && (
         <Sucesso mensagem="O item foi removido do carrinho com sucesso." />
+      )}
+      {showWarningAlert && (
+        <Aviso
+          key={keyWarning}
+          mensagem={`O máximo disponível de "${produto.nome}" com esses atributos são ${produto.estoque} unidade(s)`}
+        />
       )}
     </>
   );

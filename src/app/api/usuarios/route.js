@@ -23,7 +23,7 @@ import db from "@/lib/db";
 
 export async function GET() {
   try {
-    const result = await db.query("SELECT * FROM tb_usuarios");
+    const result = await db.query("SELECT * FROM usuarios");
     return NextResponse.json(result.rows);
   } catch (error) {
     console.error("Erro ao listar usuários:", error);

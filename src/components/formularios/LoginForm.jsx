@@ -1,12 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import style from "./loginForm.module.css";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { useCarrinhoStore } from "@/app/store/carrinho";
-import { Divider } from "antd";
-import ProvedoresNextAuth from "./ProvedoresNextAuth";
 
 export default function LoginForm({ onAuthUsuario }) {
   const [form, setForm] = useState({ email: "", senha: "" });
@@ -28,11 +25,13 @@ export default function LoginForm({ onAuthUsuario }) {
   };
 
   return (
-    <div className={style.formulario}>
-      <form onSubmit={handleSubmit} className={style.formSignIn}>
-        <h1>Login</h1>
-        <div className={style.dadosAutenticacao}>
-          <label htmlFor="usuarioEmail">Email</label>
+    <form onSubmit={handleSubmit} className={style.formulario}>
+      <h1>Login</h1>
+
+      <div>
+        <label htmlFor="usuarioEmail">Email</label>
+        <div className={style.containerEmail}>
+          <Mail className={style.icone} />
           <input
             className="campoEntradaEmailLogin"
             type="email"
@@ -43,40 +42,42 @@ export default function LoginForm({ onAuthUsuario }) {
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
           />
-          <label htmlFor="senhaLogin">Senha</label>
-          <div className={style.containerSenhaLogin}>
-            <input
-              className="campoEntradaSenhaLogin"
-              type={isShowPassword ? "text" : "password"}
-              name="senha-login"
-              id="senhaLogin"
-              placeholder="Senha"
-              value={form.senha}
-              onChange={(e) => setForm({ ...form, senha: e.target.value })}
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setIsShowPassword(!isShowPassword)}
-              aria-label={isShowPassword ? "Ocultar senha" : "Mostrar senha"}
-            >
-              {isShowPassword ? <Eye /> : <EyeOff />}
-            </button>
-          </div>
         </div>
-        <div className={style.finalizarAutenticacao}>
-          <button type="submit">Entrar</button>
-          <Divider style={{ borderColor: "black" }}>ou</Divider>
-        </div>
+      </div>
 
-        <ProvedoresNextAuth />
+      <div>
+        <label htmlFor="senhaLogin">Senha</label>
 
-        <div>
-          <p style={{ textAlign: "center" }}>
-            Não possui uma conta? <Link href="./sign-up">Cadastre-se</Link>
-          </p>
+        <div className={style.containerSenha}>
+          <Lock className={style.icone} />
+          <input
+            className="campoEntradaSenhaLogin"
+            type={isShowPassword ? "text" : "password"}
+            name="senha-login"
+            id="senhaLogin"
+            placeholder="Senha"
+            value={form.senha}
+            onChange={(e) => setForm({ ...form, senha: e.target.value })}
+            required
+          />
+
+          <button
+            type="button"
+            onClick={() => setIsShowPassword(!isShowPassword)}
+            aria-label={isShowPassword ? "Ocultar senha" : "Mostrar senha"}
+          >
+            {isShowPassword ? (
+              <Eye className={style.iconeAtivo} />
+            ) : (
+              <EyeOff className={style.icone} />
+            )}
+          </button>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <button className={style.btnEntrar} type="submit">
+        Entrar
+      </button>
+    </form>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { Alert, Flex, Progress } from "antd";
 import { useState, useEffect } from "react";
+import style from "./style.module.css";
 
 export default function Erro({ mensagem }) {
   const [showAlert, setShowAlert] = useState(true);
@@ -15,16 +16,12 @@ export default function Erro({ mensagem }) {
       clearInterval(timer);
       setShowAlert(false);
     }, 3000);
-  }, [mensagem]);
+  }, []);
 
   if (!showAlert) return null;
 
   return (
-    <Flex
-      vertical
-      style={{ position: "fixed", bottom: 10, right: 10, zIndex: 10 }}
-      gap={0}
-    >
+    <Flex className={style.animados} vertical gap={0}>
       <Alert message="Erro!" description={mensagem} type="error" showIcon />
       <Progress
         percent={progress}

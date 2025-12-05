@@ -1,44 +1,59 @@
 .formulario {
-  width: 35%;
-}
-
-.formSignIn {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 7.5%;
+  gap: 10px;
 }
 
-.formSignIn h1,
-.finalizarAutenticacao p {
+.formulario h1 {
   text-align: center;
 }
 
-.dadosAutenticacao {
+.containerEmail,
+.containerSenha {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 30px;
+  input {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+  }
+}
+.containerEmail {
+  padding: 9px 15px;
 }
 
-.dadosAutenticacao input {
-  padding: 2%;
-  width: 100%;
+.containerSenha {
+  padding: 5px 15px;
+  button {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+  }
 }
 
-.genero {
-  margin: 0;
-  padding: 0;
+.btnEntrar {
+  margin-top: 10px;
+  padding: 15px;
+  color: var(--cor-secundaria);
+  background-color: var(--cor-terciaria);
+  border: none;
+  border-radius: 20px;
 }
 
-.finalizarAutenticacao {
-  margin-top: 15px;
+.icone {
+  color: gray;
 }
 
-.finalizarAutenticacao button {
-  width: 100%;
-  padding: 2%;
-  margin-bottom: 5px;
+.icone:not(:last-child) {
+  margin-right: 10px;
 }
 
-.containerSenhaLogin {
-  display: flex;
+.iconeAtivo {
+  color: black;
 }

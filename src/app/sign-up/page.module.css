@@ -2,9 +2,18 @@
   display: flex;
   justify-content: center;
   padding: 5%;
+  gap: 7.5%;
 }
 
-.containerLateral {
+.containerLateralEsquerda {
+  width: 35%;
+}
+
+.linkLogin {
+  text-align: center;
+}
+
+.containerLateralDireita {
   width: 35%;
   padding: 2.5%;
   background-color: var(--cor-principal);

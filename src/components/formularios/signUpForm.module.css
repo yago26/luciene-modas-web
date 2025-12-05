@@ -1,44 +1,59 @@
-.formSignUp {
+.formulario {
   display: flex;
   flex-direction: column;
-  width: 35%;
-  padding: 2.5%;
+  width: 100%;
+  gap: 10px;
 }
 
-.formSignUp h1,
-.finalizarCadastro p {
+.formulario h1 {
   text-align: center;
 }
 
-.dadosCadastro {
+.containerDado,
+.containerSenha {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 30px;
+  input {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+  }
+}
+.containerDado {
+  padding: 9px 15px;
 }
 
-.dadosCadastro input {
-  padding: 2%;
+.containerSenha {
+  padding: 5px 15px;
+  button {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+  }
 }
 
-.genero {
-  margin: 0;
-  padding: 0;
+.btnCadastrar {
+  margin-top: 10px;
+  padding: 15px;
+  color: var(--cor-secundaria);
+  background-color: var(--cor-terciaria);
+  border: none;
+  border-radius: 20px;
 }
 
-.finalizarCadastro {
-  margin-top: 15px;
+.icone {
+  color: gray;
 }
 
-.finalizarCadastro button {
-  width: 100%;
-  padding: 2%;
-  margin-bottom: 5px;
+.icone:not(:last-child) {
+  margin-right: 10px;
 }
 
-.containerSenhaSignUp {
-  display: flex;
-}
-
-.containerSenhaSignUp input {
-  width: 100%;
+.iconeAtivo {
+  color: black;
 }

@@ -17,9 +17,9 @@ export default function CardProduto({ produto, usuario }) {
   let { id, nome, sobre, valor, imagem, estoque } = produto;
   const [reais, cents] = valor.split(".");
 
-  if (nome.length > 42) {
+  if (nome.length > 63) {
     nome = nome.split("");
-    nome.length = 39;
+    nome.length = 60;
     nome.push("...");
     nome = nome.join().replaceAll(",", "");
   }
@@ -37,7 +37,7 @@ export default function CardProduto({ produto, usuario }) {
   return (
     <>
       <div className={style.produto}>
-        <Link className={style.ancora} href={`/produtos/${id}`}>
+        <Link href={`/produtos/${id}`}>
           <img
             src={imagem}
             alt={sobre}
@@ -45,22 +45,10 @@ export default function CardProduto({ produto, usuario }) {
             height={150}
             style={{ objectFit: "cover" }}
           />
-          <h4
-            style={{
-              minHeight: "2rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "5px",
-            }}
-          >
-            {nome}
-          </h4>
-          <p style={{ color: "gray" }}>{produto.id}</p>
+          <h4 className={style.nome}>{nome}</h4>
 
-          <p style={{ textAlign: "right" }}>
-            <span style={{ fontSize: "1.3rem" }}>R$ {reais}</span>,
-            <span>{cents}</span>
+          <p className={style.valor}>
+            <span>R$ {reais}</span>,<span>{cents}</span>
           </p>
         </Link>
         {usuario && estoque > 0 && (
@@ -72,7 +60,7 @@ export default function CardProduto({ produto, usuario }) {
               <Spin
                 indicator={
                   <LoadingOutlined
-                    style={{ color: "white", height: "100%" }}
+                    style={{ color: "white", height: "100%", fontSize: 16 }}
                     spin
                   />
                 }

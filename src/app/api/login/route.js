@@ -6,10 +6,9 @@ export async function POST(req) {
   const { email, senha } = await req.json();
 
   try {
-    const result = await db.query(
-      "SELECT * FROM tb_usuarios WHERE email = $1",
-      [email]
-    );
+    const result = await db.query("SELECT * FROM usuarios WHERE email = $1", [
+      email,
+    ]);
 
     const usuario = result.rows[0];
 

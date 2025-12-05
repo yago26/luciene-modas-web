@@ -1,0 +1,28 @@
+@keyframes transicao {
+  0% {
+    bottom: -200;
+    opacity: 0;
+  }
+  20% {
+    bottom: 10;
+    opacity: 1;
+  }
+  80% {
+    bottom: 10;
+    opacity: 1;
+  }
+  100% {
+    bottom: -200;
+    opacity: 0;
+  }
+}
+
+.animados {
+  width: 30%;
+  position: fixed;
+  right: 10;
+  z-index: 11;
+  animation-name: transicao;
+  animation-duration: 3s;
+  animation-timing-function: ease;
+}

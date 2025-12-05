@@ -2,6 +2,12 @@
   width: 100%;
 }
 
+.valor {
+  color: var(--cor-principal);
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
 .btnAdicionar {
   width: 30%;
   background-color: var(--cor-principal);
@@ -10,4 +16,26 @@
   border-radius: 25px;
   padding: 10px;
   margin-bottom: 15px;
+}
+
+.containerFrete {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 30%;
+}
+
+.containerFrete input {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding: 8px;
+}
+
+.containerFrete button {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: var(--cor-terciaria);
+  color: var(--cor-secundaria);
+  border: none;
+  padding: 9px;
 }
