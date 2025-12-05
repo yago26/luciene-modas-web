@@ -80,6 +80,7 @@ export default ({ produto, usuario }) => {
           <div>
             {usuario ? (
               <input
+                className={style.cep}
                 value={usuario.cep || ""}
                 placeholder="Altere seu CEP no perfil."
                 disabled
@@ -87,6 +88,7 @@ export default ({ produto, usuario }) => {
             ) : (
               <input
                 value={cep || ""}
+                className={style.cep}
                 placeholder="Digite seu CEP"
                 onChange={(e) => {
                   let value = e.target.value.replace(/\D/g, ""); // remove tudo que não é número

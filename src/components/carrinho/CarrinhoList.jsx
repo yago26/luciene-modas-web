@@ -32,6 +32,7 @@ export default function CarrinhoList() {
   useEffect(() => {
     if (items.length > 0) {
       loadCarrinho();
+      setSelecionados(new Set());
     }
   }, [items]);
 
@@ -45,7 +46,11 @@ export default function CarrinhoList() {
             `${process.env.NEXTAUTH_URL || ""}/api/produtos/${item.id_produto}`
           );
           const data = await res.json();
-          return { ...data, quantidade: item.quantidade };
+          return {
+            ...data,
+            quantidade:
+              item.quantidade > data.estoque ? data.estoque : item.quantidade,
+          };
         })
       );
 

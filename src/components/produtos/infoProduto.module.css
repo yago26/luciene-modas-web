@@ -25,7 +25,8 @@
   width: 30%;
 }
 
-.containerFrete input {
+.cep {
+  border: 1px solid gray;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   padding: 8px;

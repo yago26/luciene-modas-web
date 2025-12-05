@@ -12,7 +12,7 @@ export default function CardProduto({ produto, usuario }) {
   const [loading, setLoading] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
-  const { adicionarProduto } = useCarrinhoStore();
+  const { items, adicionarProduto, atualizarProduto } = useCarrinhoStore();
 
   let { id, nome, sobre, valor, imagem, estoque } = produto;
   const [reais, cents] = valor.split(".");
