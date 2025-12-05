@@ -63,7 +63,8 @@ const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
-    // maxAge: 60,
+    maxAge: 3 * 60 * 60,
+    updateAge: 20 * 60,
   },
   providers: [
     GoogleProvider({

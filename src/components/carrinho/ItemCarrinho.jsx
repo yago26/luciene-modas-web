@@ -33,17 +33,12 @@ export default function ItemCarrinho({
   const { atualizarProduto, removerProduto } = useCarrinhoStore();
 
   const handleEvent = async (e) => {
-    if (e.target.value === "") {
+    const valor = e.target.value.replace(/[^0-9]/g, "");
+    if (valor === "") {
       setQuantidade(produto.quantidade);
       return;
     }
-    if (e.target.value > 0) {
-      const novaQuantidade = e.target.value;
-      setQuantidade(novaQuantidade);
-      await atualizarProduto(produto.id, novaQuantidade);
-      return;
-    }
-    if (e.target.value >= produto.estoque) {
+    if (valor >= produto.estoque) {
       setQuantidade(produto.estoque);
       setShowWarningAlert(true);
       setKeyWarning((prev) => prev + 1);
@@ -51,6 +46,8 @@ export default function ItemCarrinho({
       setShowWarningAlert(false);
       return;
     }
+    setQuantidade(valor);
+    await atualizarProduto(produto.id, valor);
   };
 
   const handleDelete = async () => {
@@ -103,7 +100,7 @@ export default function ItemCarrinho({
           </button>
           <input
             className={style.quantidade}
-            type="number"
+            type="text"
             value={quantidade}
             onChange={(e) => setQuantidade(e.target.value)}
             onFocus={() => setQuantidadeAnterior(quantidade)}
@@ -118,7 +115,6 @@ export default function ItemCarrinho({
               }
             }}
           />
-          {produto.estoque}
           <button
             className={style.btn}
             onClick={async () => {

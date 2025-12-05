@@ -56,7 +56,8 @@
   border: none;
   padding: 10px;
   display: inline;
-  width: min-content;
+  width: 30%;
+  text-align: center;
   outline: none;
 }
 
