@@ -2,46 +2,40 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 
 .containerProduto {
-  width: 50%;
-}
-
-.containerProduto a {
-  background-color: var(--cor-principal);
-  color: var(--cor-secundaria);
-}
-
-.containerLinkProduto {
-  padding: 1%;
   display: flex;
   align-items: center;
-  transition: 1s;
-  gap: 5%;
-}
-
-.containerLinkProduto span h3 {
-  text-align: left;
-}
-
-.containerLinkProduto:hover {
-  scale: 1.02;
+  gap: 20px;
+  width: 40%;
 }
 
 .containerQuantidadeProduto,
-.containerSelecaoProduto {
+.containerSelecaoProduto,
+.containerExcluir,
+.containerValor {
   width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerLinkProduto {
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+  padding: 1%;
 }
 
 .containerQuantidadeProduto :first-child {
-  background-color: tomato;
+  background-color: var(--cor-terciaria);
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
 }
 
 .containerQuantidadeProduto :last-child {
-  background-color: lightgreen;
+  background-color: var(--cor-principal);
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
 }
@@ -54,17 +48,18 @@
 
 .quantidade {
   border: none;
-  padding: 10px;
   display: inline;
   width: 30%;
+  padding: 12px 10px;
   text-align: center;
   outline: none;
 }
 
 .btn {
-  margin-inline: 10px;
-  padding: 10px;
+  padding: 10px 15px;
   border: none;
+  color: var(--cor-secundaria);
+  font-size: medium;
 }
 
 .btnRemover {

@@ -19,6 +19,8 @@ export default function ItemCarrinho({
     return;
   }
 
+  const valor = String(produto.valor).replace(".", ",");
+
   const [loading, setLoading] = useState(false);
   const [quantidade, setQuantidade] = useState(produto.quantidade);
   const [quantidadeAnterior, setQuantidadeAnterior] = useState(
@@ -63,21 +65,19 @@ export default function ItemCarrinho({
     <>
       <div className={style.containerItemCarrinho}>
         <div className={style.containerProduto}>
-          <Link
-            href={`/produtos/${produto.id}`}
-            className={style.containerLinkProduto}
-          >
+          <Link href={`/produtos/${produto.id}`}>
             <img
               src={produto.imagem}
               alt={produto.sobre || produto.nome}
-              width={100}
-              height={100}
+              width={130}
+              height={130}
             />
-            <span>
-              <h3>{produto.nome}</h3>
-              <p>{produto.sobre}</p>
-            </span>
           </Link>
+          <div>
+            <Link href={`/produtos/${produto.id}`}>
+              <h3>{produto.nome}</h3>
+            </Link>
+          </div>
         </div>
 
         <div className={style.containerQuantidadeProduto}>
@@ -134,6 +134,7 @@ export default function ItemCarrinho({
             +
           </button>
         </div>
+
         <div className={style.containerSelecaoProduto}>
           <input
             id={produto.id}
@@ -145,7 +146,8 @@ export default function ItemCarrinho({
             }}
           />
         </div>
-        <div>
+
+        <div className={style.containerExcluir}>
           <button
             style={{
               display: "flex",
@@ -174,8 +176,8 @@ export default function ItemCarrinho({
           </button>
         </div>
 
-        <div>
-          <p className={style.valor}>R$ {produto.valor}</p>
+        <div className={style.containerValor}>
+          <p className={style.valor}>R$ {valor}</p>
         </div>
       </div>
 

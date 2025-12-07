@@ -11,6 +11,8 @@ export default ({ produto, usuario }) => {
   const [loading, setLoading] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
+  const valor = String(produto.valor).replace(".", ",");
+
   const [cep, setCep] = useState("");
   const { adicionarProduto } = useCarrinhoStore();
 
@@ -49,9 +51,7 @@ export default ({ produto, usuario }) => {
         <input type="radio" />
         <p style={{ color: "gray", marginLeft: "20px" }}>Para cosméticos</p>
 
-        <p className={style.valor}>
-          R$ {String(produto.valor).replace(".", ",")}
-        </p>
+        <p className={style.valor}>R$ {valor}</p>
 
         <Divider style={{ borderColor: "black" }} />
 
@@ -76,7 +76,7 @@ export default ({ produto, usuario }) => {
         )}
 
         <div className={style.containerFrete}>
-          <h2>Calcular frete</h2>
+          <h2>Estimar frete</h2>
           <div>
             {usuario ? (
               <input

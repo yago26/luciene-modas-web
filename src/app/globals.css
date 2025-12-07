@@ -34,3 +34,29 @@ a {
 button:hover {
   cursor: pointer;
 }
+
+h1,
+h2,
+h3 {
+  color: var(--cor-terciaria);
+}
+
+/* Estilo para toda a barra */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Estilo para a fundo */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Estilo para a parte que você arrasta */
+::-webkit-scrollbar-thumb {
+  background: var(--cor-terciaria);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgb(194, 146, 25);
+}

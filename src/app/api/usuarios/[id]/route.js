@@ -25,6 +25,15 @@ export async function GET(req, { params }) {
 export async function DELETE(req, { params }) {
   try {
     const { id } = await params;
+
+    const result = await db.query("SELECT * FROM usuarios WHERE id = $1", [id]);
+    if (result.rows.length === 0) {
+      return NextResponse.json(
+        { error: "Usuário não encontrado" },
+        { status: 404 }
+      );
+    }
+
     await db.query("DELETE FROM usuarios WHERE id = $1", [id]);
 
     await db.query("DELETE FROM carrinhos WHERE id_usuario = $1", [id]);

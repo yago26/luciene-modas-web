@@ -5,19 +5,17 @@ import { create } from "zustand";
 export const useCarrinhoStore = create((set, get) => ({
   items: [],
 
-  // 🔹 Busca carrinho do DB do usuário logado
   fetchItensCarrinho: async () => {
     const res = await fetch(`/api/itens-carrinho`);
     const data = await res.json();
     set({ items: data.items });
   },
 
-  // 🔹 Adicionar produto
-  adicionarProduto: async (productId, quantity = 1) => {
+  adicionarProduto: async (id_produto, quantidade = 1) => {
     const res = await fetch(`/api/itens-carrinho`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idProduto: productId, quantidade: quantity }),
+      body: JSON.stringify({ idProduto: id_produto, quantidade: quantidade }),
     });
     if (res.ok) {
       await get().fetchItensCarrinho();
@@ -25,12 +23,11 @@ export const useCarrinhoStore = create((set, get) => ({
     return res.ok;
   },
 
-  // 🔹 Remover produto
-  removerProduto: async (productId) => {
+  removerProduto: async (id_produto) => {
     const res = await fetch(`/api/itens-carrinho`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idProduto: productId }),
+      body: JSON.stringify({ idProduto: id_produto }),
     });
     if (res.ok) {
       await get().fetchItensCarrinho();
@@ -38,19 +35,15 @@ export const useCarrinhoStore = create((set, get) => ({
     return res.ok;
   },
 
-  atualizarProduto: async (productId, quantity) => {
+  atualizarProduto: async (id_produto, quantidade) => {
     const res = await fetch(`/api/itens-carrinho`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idProduto: productId, quantidade: quantity }),
+      body: JSON.stringify({ idProduto: id_produto, quantidade: quantidade }),
     });
     if (res.ok) {
       await get().fetchItensCarrinho();
     }
     return res.ok;
   },
-
-  // limparCarrinho: async () => {
-
-  // }
 }));

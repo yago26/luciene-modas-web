@@ -29,15 +29,16 @@ export default function LoginForm({ onAuthUsuario }) {
       <h1>Login</h1>
 
       <div>
-        <label htmlFor="usuarioEmail">Email</label>
         <div className={style.containerEmail}>
           <Mail className={style.icone} />
           <input
+            autoComplete="off"
+            aria-label="E-mail"
             className="campoEntradaEmailLogin"
             type="email"
             name="usuario-email"
             id="usuarioEmail"
-            placeholder="Email"
+            placeholder="E-mail"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
@@ -46,11 +47,11 @@ export default function LoginForm({ onAuthUsuario }) {
       </div>
 
       <div>
-        <label htmlFor="senhaLogin">Senha</label>
-
         <div className={style.containerSenha}>
           <Lock className={style.icone} />
           <input
+            autoComplete="off"
+            aria-label="Senha"
             className="campoEntradaSenhaLogin"
             type={isShowPassword ? "text" : "password"}
             name="senha-login"

@@ -9,7 +9,7 @@ export default function Footer() {
         <div>
           <Link href="/">
             <Image
-              src="/favicon/fundo-vinho/android-chrome-192x192.png"
+              src="/favicon/fundo-vinho/android-chrome-512x512.png"
               alt="Logo marca Luciene Modas - Roupas e Cosméticos"
               width={96}
               height={96}

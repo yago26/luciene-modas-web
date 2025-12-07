@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1% 10%;
-  background-color: var(--cor-secundaria);
+  background-color: var(--cor-principal);
 }
 
 .linksRapidos {
@@ -34,31 +34,40 @@
   transition: 0.1s;
 }
 
-#funcionalidadesAutenticadas {
+#funcionalidadesAutenticadas,
+#funcionalidadesNaoAutenticadas {
   display: flex;
-  gap: 20%;
+}
+
+#funcionalidadesAutenticadas {
+  gap: 20px;
 }
 
 #funcionalidadesNaoAutenticadas {
-  display: flex;
   gap: 10px;
+}
+
+.icone {
+  width: 30px;
+  height: 30px;
+  color: var(--cor-terciaria);
+}
+
+.login,
+.signUp {
+  background-color: transparent;
+  padding: 5px 10px;
+  color: var(--cor-terciaria);
+  transition: 0.1s;
 }
 
 .login {
   border: none;
-  background-color: transparent;
-  padding: 5px 10px;
-  color: gray;
-  transition: 0.1s;
 }
 
 .signUp {
-  background-color: transparent;
   border-radius: 5px;
-  padding: 5px 10px;
-  border: 1px gray solid;
-  color: gray;
-  transition: 0.1s;
+  border: 1px var(--cor-terciaria) solid;
 }
 
 .linksRapidos a:hover {
@@ -74,13 +83,12 @@
 }
 
 .linksRapidosCategorias {
-  background-color: var(--cor-principal);
+  background-color: #80264a;
   margin: 0;
-  padding: 0;
   display: flex;
-  padding: 0.5% 10%;
+  padding: 0 10%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   list-style: none;
   width: 100%;
 }
@@ -91,14 +99,14 @@
 }
 
 .linksRapidosCategorias a {
-  padding: 1% 5%;
+  padding: 1.5% 5%;
   text-decoration: none;
-  color: gray;
+  color: white;
 }
 
 .linksRapidosCategorias a:hover {
-  color: white;
-  background-color: #812a4d;
+  color: var(--cor-terciaria);
+  background-color: #702040;
   li {
     scale: 1.05;
   }

@@ -2,8 +2,10 @@ import { useState } from "react";
 import style from "./signUpForm.module.css";
 import { Eye, EyeOff, UserRound, Mail, Lock, LockOpen } from "lucide-react";
 import Aviso from "../toasts/Aviso";
+import { Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
-export default function SignUpForm({ onAddUsuario }) {
+export default function SignUpForm({ onAddUsuario, loading }) {
   const [form, setForm] = useState({
     nome: "",
     email: "",
@@ -72,10 +74,11 @@ export default function SignUpForm({ onAddUsuario }) {
         <h1>Sign Up</h1>
 
         <div>
-          <label htmlFor="nome">Nome</label>
           <div className={style.containerDado}>
             <UserRound className={style.icone} />
             <input
+              aria-label="Nome"
+              autoComplete="off"
               className="campoEntradaNome"
               type="text"
               name="nome-usuario"
@@ -90,30 +93,30 @@ export default function SignUpForm({ onAddUsuario }) {
         </div>
 
         <div>
-          <label htmlFor="email">Email</label>
           <div className={style.containerDado}>
             <Mail className={style.icone} />
             <input
+              autoComplete="off"
+              aria-label="E-mail"
               className="campoEntradaEmail"
               type="email"
               name="email-usuario"
               id="email"
-              placeholder="Email"
+              placeholder="E-mail"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               minLength={11}
-              // Fazer ser obrigatório incluir letras maiúsculas e minúsculas, números e símbolos especiais
               required
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="senhaCadastro">Senha</label>
-
           <div className={style.containerSenha}>
             <Lock className={style.icone} />
             <input
+              autoComplete="off"
+              aria-label="Senha"
               className="campoEntradaSenhaCadastro"
               type={isShowPassword ? "text" : "password"}
               name="senha-cadastro"
@@ -125,22 +128,24 @@ export default function SignUpForm({ onAddUsuario }) {
             />
             <button
               type="button"
+              style={{ outline: "none" }}
               onClick={() => setIsShowPassword(!isShowPassword)}
             >
               {isShowPassword ? (
-                <Eye className={style.iconeAtivo} />
+                <Eye aria-label="Mostrar senha" className={style.iconeAtivo} />
               ) : (
-                <EyeOff className={style.icone} />
+                <EyeOff aria-label="Esconder senha" className={style.icone} />
               )}
             </button>
           </div>
         </div>
 
         <div>
-          <label htmlFor="confirmarSenhaCadastro">Confirmar senha</label>
           <div className={style.containerDado}>
             <LockOpen className={style.icone} />
             <input
+              autoComplete="off"
+              aria-label="Confirmar senha"
               className="campoEntradaconfirmarSenhaCadastro"
               type="text"
               name="confirmar-senha-cadastro"
@@ -153,8 +158,19 @@ export default function SignUpForm({ onAddUsuario }) {
           </div>
         </div>
 
-        <button className={style.btnCadastrar} type="submit">
-          Cadastrar
+        <button className={style.btnCadastrar} type={loading ? "" : "submit"}>
+          {loading ? (
+            <Spin
+              indicator={
+                <LoadingOutlined
+                  style={{ color: "white", height: "100%", fontSize: 16 }}
+                  spin
+                />
+              }
+            />
+          ) : (
+            "Cadastrar"
+          )}
         </button>
       </form>
 

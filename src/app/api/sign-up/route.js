@@ -31,7 +31,7 @@ export async function POST(req) {
     const idUsuario = uuidv4(); // Geração de ID único
 
     await db.query(
-      "INSERT INTO usuarios (id, nome, email, senha, role) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      "INSERT INTO usuarios (id, nome, email, senha, role) VALUES ($1, $2, $3, $4, $5)",
       [idUsuario, nome.trim(), email, senha_hash, "consumidor"]
     );
 

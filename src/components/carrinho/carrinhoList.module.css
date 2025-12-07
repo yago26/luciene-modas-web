@@ -1,3 +1,34 @@
+.containerCarrinho {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+
+.itens,
+.resumoCompra {
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px gray;
+}
+
+.itens {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 70%;
+  padding: 30px;
+}
+
+.resumoCompra {
+  position: sticky;
+  overflow: auto;
+  height: min-content;
+  max-height: 75%;
+
+  top: 22.5%;
+  width: 30%;
+  padding: 30px;
+}
+
 .containerFinalizarCompra {
   position: fixed;
   bottom: 0;
@@ -7,7 +38,7 @@
 
 .containerFinalizarCompra button {
   padding: 15px 20px;
-  background-color: var(--cor-principal);
+  background-color: var(--cor-terciaria);
   color: var(--cor-secundaria);
   border: none;
   border-radius: 20px;

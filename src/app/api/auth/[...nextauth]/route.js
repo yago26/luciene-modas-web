@@ -28,15 +28,8 @@ async function createNewUsuario(profile) {
     const senha_hash = await bcrypt.hash(senhaAleatoria, 12);
     const role = "consumidor";
     await db.query(
-      "INSERT INTO usuarios (id, nome, email, cep, senha, role) VALUES ($1, $2, $3, $4, $5, $6)",
-      [
-        idUsuario,
-        profile.name || "Consumidor",
-        profile.email,
-        "00000000",
-        senha_hash,
-        role,
-      ]
+      "INSERT INTO usuarios (id, nome, email, senha, role) VALUES ($1, $2, $3, $4, $5)",
+      [idUsuario, profile.name || "Consumidor", profile.email, senha_hash, role]
     ); // 2. INSERIR CARRINHO ASSOCIADO
 
     const idCarrinho = uuidv4();

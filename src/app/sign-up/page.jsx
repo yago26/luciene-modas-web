@@ -5,17 +5,18 @@ import style from "./page.module.css";
 import SignUpForm from "@/components/formularios/SignUpForm";
 import Sucesso from "@/components/toasts/Sucesso";
 import { Divider } from "antd";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SignUp() {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const addUsuario = async (usuario) => {
+    setLoading(true);
     // fetch => Uma busca na API
-    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/sign-up`, {
+    const res = await fetch(`${process.env.NEXTAUTH_URL || ""}/api/sign-up`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,11 +26,16 @@ export default function SignUp() {
 
     const data = await res.json();
 
+    setLoading(false);
+
     if (res.ok) {
       setShowSuccessAlert(true);
-      setTimeout(() => {
-        router.push("/login");
-      }, 1000);
+      await signIn("credentials", {
+        email: usuario.email,
+        senha: usuario.senha,
+        redirect: true,
+        callbackUrl: "/perfil",
+      });
     } else {
       return data.error;
     }
@@ -39,7 +45,7 @@ export default function SignUp() {
     <>
       <div className={style.containerSignUp}>
         <div className={style.containerLateralEsquerda}>
-          <SignUpForm onAddUsuario={addUsuario} />
+          <SignUpForm onAddUsuario={addUsuario} loading={loading} />
           <Divider style={{ borderColor: "black" }}>ou</Divider>
           <p className={style.linkLogin}>
             Já possui uma conta? <Link href="./login">Login</Link>

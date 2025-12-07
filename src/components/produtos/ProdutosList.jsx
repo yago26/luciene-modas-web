@@ -21,7 +21,7 @@ export default async function ProdutosList() {
         <div className={style.produtosPaginaInicial}>
           {produtos.map((produto) => {
             return (
-              <Suspense key={produto.id} fallback={<Loading />}>
+              <Suspense key={`1-${produto.id}`} fallback={<Loading />}>
                 <CardProduto
                   produto={produto}
                   usuario={usuario ? JSON.parse(JSON.stringify(usuario)) : null}
@@ -31,7 +31,7 @@ export default async function ProdutosList() {
           })}
           {produtos.map((produto) => {
             return (
-              <Suspense key={produto.id} fallback={<Loading />}>
+              <Suspense key={`2-${produto.id}`} fallback={<Loading />}>
                 <CardProduto
                   produto={produto}
                   usuario={usuario ? JSON.parse(JSON.stringify(usuario)) : null}
@@ -41,7 +41,7 @@ export default async function ProdutosList() {
           })}
           {produtos.map((produto) => {
             return (
-              <Suspense key={produto.id} fallback={<Loading />}>
+              <Suspense key={`3-${produto.id}`} fallback={<Loading />}>
                 <CardProduto
                   produto={produto}
                   usuario={usuario ? JSON.parse(JSON.stringify(usuario)) : null}

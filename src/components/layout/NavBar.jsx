@@ -20,7 +20,7 @@ export default async function NavBar() {
           <div className={style.barraFuncionalidades}>
             <Link href="/">
               <Image
-                src="/favicon/fundo-branco/android-chrome-192x192.png"
+                src="/favicon/fundo-vinho/android-chrome-192x192.png"
                 alt="Logo marca Luciene Modas - Roupas e Cosméticos"
                 width={60}
                 height={60}
@@ -33,19 +33,19 @@ export default async function NavBar() {
               {usuario && (
                 <div id={style.funcionalidadesAutenticadas}>
                   <Link href="/meus-pedidos">
-                    <Package size={30} color="black" />
+                    <Package className={style.icone} />
                   </Link>
 
                   <Link href="/carrinho">
-                    <ShoppingCart size={30} color="black" />
+                    <ShoppingCart className={style.icone} />
                   </Link>
 
                   <Link href="/perfil">
-                    <CircleUserRound size={30} color="black" />
+                    <CircleUserRound className={style.icone} />
                   </Link>
 
                   <Link href="/">
-                    <Menu size={30} color="black" />
+                    <Menu className={style.icone} />
                   </Link>
                 </div>
               )}

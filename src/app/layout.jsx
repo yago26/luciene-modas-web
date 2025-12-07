@@ -13,9 +13,15 @@ export default function RootLayout({ children }) {
     <html lang="pt-br">
       <body>
         <NavBar />
-        <div style={{ padding: "12% 10% 5% 10%" }}>{children}</div>
+        <div style={style.container}>{children}</div>
         <Footer />
       </body>
     </html>
   );
 }
+
+const style = {
+  container: {
+    padding: "12% 10% 5% 10%",
+  },
+};
