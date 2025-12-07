@@ -101,7 +101,11 @@ export default function Checkout() {
       <Button
         type="primary"
         size="large"
-        style={{ width: "100%", fontSize: "18px" }}
+        style={{
+          width: "100%",
+          fontSize: "18px",
+          background: "var(--cor-principal)",
+        }}
         onClick={() => setIsModalOpen(true)}
       >
         Finalizar pedido
@@ -115,7 +119,7 @@ export default function Checkout() {
           <Button key="cancel" onClick={() => setIsModalOpen(false)}>
             Cancelar
           </Button>,
-          <Button type="primary" key="pay">
+          <Button style={{ backgroundColor: "green" }} type="primary" key="pay">
             Pagar Agora
           </Button>,
         ]}

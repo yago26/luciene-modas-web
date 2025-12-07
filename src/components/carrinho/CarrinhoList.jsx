@@ -88,7 +88,7 @@ export default function CarrinhoList() {
 
   if (loading) return <Loading />;
 
-  if (itemsCarrinho.length === 0) {
+  if (itemsCarrinho.length == 0) {
     return (
       <NotFound
         titulo="Carrinho vazio!"
@@ -132,21 +132,15 @@ export default function CarrinhoList() {
           <Divider style={{ borderColor: "black" }} />
 
           {!(selecionadosArray.length > 0) ? (
-            <p style={{ color: "gray" }}>Selecione produtos para compra.</p>
+            <p style={{ color: "gray" }}>
+              Selecione produtos para realizar a compra.
+            </p>
           ) : (
             <div style={{ marginBottom: "20px" }}>
               {selecionadosArray.map((p) => (
-                <div
-                  key={p.id}
-                  style={{
-                    marginBottom: "10px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontSize: "0.95rem",
-                  }}
-                >
+                <div key={p.id} className={style.itemResumoCompra}>
                   <span>
-                    {p.nome} ({p.quantidade} × R${" "}
+                    {p.nome} <br /> ({p.quantidade} × R${" "}
                     {Number(p.valor).toFixed(2).replace(".", ",")})
                   </span>
 
@@ -160,8 +154,6 @@ export default function CarrinhoList() {
               ))}
             </div>
           )}
-
-          <Divider style={{ borderColor: "black" }} />
 
           <p style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
             Subtotal:{" "}
