@@ -1,5 +1,6 @@
 import NavBar from "@/components/layout/NavBar";
 import Footer from "@/components/layout/Footer";
+import "antd/dist/reset.css";
 import "./globals.css";
 
 export const metadata = {

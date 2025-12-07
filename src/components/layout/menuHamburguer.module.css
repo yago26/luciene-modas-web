@@ -1,0 +1,44 @@
+.menu :global(.ant-drawer-body) {
+  background-color: var(--cor-terciaria);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+.menu :global(.ant-drawer-header) {
+  background-color: rgb(202, 149, 16);
+  border-bottom: none;
+}
+
+.menu :global(.ant-drawer-title) {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.menu :global(.ant-drawer-close) {
+  color: white !important;
+}
+
+.containerMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.itemMenu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  padding: 10px;
+  border: none;
+  color: white;
+  transition: 0.2s;
+}
+
+.itemMenu:hover {
+  opacity: 0.7;
+  background-color: rgb(197, 148, 25);
+}

@@ -15,7 +15,7 @@ export default async function ProductPage({ params }) {
     <>
       <div className={style.containerInfosProduto}>
         <div className={style.imagensProduto}>
-          <div>Imagens laterais</div>
+          {/* <div>Imagens laterais</div> */}
           <img
             src={produto.imagem}
             alt={!produto.sobre ? produto.nome : produto.sobre}

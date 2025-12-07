@@ -22,7 +22,7 @@ export default function Erro({ mensagem }) {
 
   return (
     <Flex className={style.animados} vertical gap={0}>
-      <Alert message="Erro!" description={mensagem} type="error" showIcon />
+      <Alert title="Erro!" description={mensagem} type="error" showIcon />
       <Progress
         percent={progress}
         size="small"

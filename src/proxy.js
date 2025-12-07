@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-export default async function middleware(req) {
+export default async function proxy(req) {
   const token = await getToken({ req, secret: process.env.AUTH_SECRET }); // pega o token com base na requisição e compara com os tokens gerados com o sistema
   const { pathname } = req.nextUrl; // pathname é a url
 

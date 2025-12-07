@@ -1,74 +1,59 @@
 "use client";
 
-import style from "./searchBar.module.css";
 import { useState, useEffect } from "react";
+import { AutoComplete, Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
 
 export default function SearchBar({ produtos }) {
   const [valorPesquisa, setValorPesquisa] = useState("");
-  const [produtosFiltrados, setProdutosFiltrados] = useState(produtos);
-  const [isInputFocus, setIsInputFocus] = useState(false);
-
-  useEffect(() => {
-    // Utilizado quando queremos renderizar as telas novamente com base em algum estado de uma variável
-    if (valorPesquisa === "") {
-      setProdutosFiltrados(produtos);
-      return;
-    }
-
-    const filtrados = produtos.filter((produto) =>
-      produto.nome.toLowerCase().includes(valorPesquisa.trim().toLowerCase())
-    );
-    setProdutosFiltrados(filtrados);
-  }, [valorPesquisa]);
+  const [options, setOptions] = useState([]);
 
   const router = useRouter();
 
-  const handleSumit = (e) => {
-    if (e) e.preventDefault();
-    router.push(`/pesquisa`);
+  useEffect(() => {
+    if (!valorPesquisa.trim()) {
+      setOptions([]);
+      return;
+    }
+
+    const filtrados = produtos
+      .filter((produto) =>
+        produto.nome.toLowerCase().includes(valorPesquisa.trim().toLowerCase())
+      )
+      .map((produto) => ({
+        value: produto.nome,
+        label: produto.nome,
+        id: produto.id,
+      }));
+
+    setOptions(filtrados);
+  }, [valorPesquisa]);
+
+  const handleSelect = (_, option) => {
+    router.push(`/produtos/${option.id}`);
+  };
+
+  const handleSubmit = () => {
+    router.push(`/pesquisar?nome=${valorPesquisa}`);
   };
 
   return (
-    <>
-      <form onSubmit={handleSumit} className={style.contentSearchBar}>
-        <div className={style.searchBar}>
-          <div className={style.lupaPesquisa}>
-            <Search size={24} />
-          </div>
-
-          <input
-            className={style.inputPesquisa}
-            type="search"
-            name="input-pesquisa"
-            id="inputPesquisa"
-            placeholder="Buscar produtos"
-            autoComplete="off"
-            value={valorPesquisa} // ← Adicionado
-            onFocus={() => setIsInputFocus(true)}
-            onBlur={() => setIsInputFocus(false)}
-            onChange={(e) => setValorPesquisa(e.target.value)}
-          />
-        </div>
-        <div
-          className={`${style.options} ${
-            isInputFocus ? style.showOptions : style.hiddenOptions
-          }`}
-        >
-          {produtosFiltrados.map((produto) => (
-            <button
-              key={produto.id}
-              value={produto.nome}
-              onMouseDown={() => {
-                router.push(`/produtos/${produto.id}`);
-              }}
-            >
-              {produto.nome}
-            </button>
-          ))}
-        </div>
-      </form>
-    </>
+    <AutoComplete
+      options={options}
+      style={{ width: "100%", maxWidth: 450 }}
+      onSelect={handleSelect}
+      onSearch={(text) => setValorPesquisa(text)}
+    >
+      <Input
+        size="large"
+        placeholder="Buscar produtos"
+        value={valorPesquisa}
+        onChange={(e) => setValorPesquisa(e.target.value)}
+        onPressEnter={handleSubmit}
+        prefix={<SearchOutlined style={{ fontSize: 20, color: "#555" }} />}
+        allowClear
+      />
+    </AutoComplete>
   );
 }

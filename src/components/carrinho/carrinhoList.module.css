@@ -4,18 +4,21 @@
   gap: 20px;
 }
 
-.itens,
+.containerProdutos,
 .resumoCompra {
   border-radius: 10px;
   box-shadow: 1px 1px 10px gray;
+  padding: 30px;
+  h2 {
+    color: var(--cor-principal);
+  }
 }
 
-.itens {
+.produtos {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 70%;
-  padding: 30px;
+  width: 100%;
 }
 
 .resumoCompra {
@@ -23,26 +26,20 @@
   overflow: auto;
   height: min-content;
   max-height: 75%;
-
   top: 22.5%;
   width: 30%;
-  padding: 30px;
 }
 
-.containerFinalizarCompra {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  padding: 30px;
-}
-
-.containerFinalizarCompra button {
-  padding: 15px 20px;
-  background-color: var(--cor-terciaria);
-  color: var(--cor-secundaria);
-  border: none;
-  border-radius: 20px;
-  box-shadow: 2px 2px 5px black;
+.containerRealizarCompra {
+  button {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: var(--cor-terciaria);
+    color: var(--cor-secundaria);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 1px 1px 10px gray;
+  }
 }
 
 .selecionado {

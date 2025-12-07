@@ -48,13 +48,14 @@ h3 {
 
 /* Estilo para a fundo */
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #5f1b36;
 }
 
 /* Estilo para a parte que você arrasta */
 ::-webkit-scrollbar-thumb {
   background: var(--cor-terciaria);
   border-radius: 0;
+  border-radius: 15px;
 }
 
 ::-webkit-scrollbar-thumb:active {

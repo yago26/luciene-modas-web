@@ -23,7 +23,7 @@ export default function Aviso({ mensagem }) {
   return (
     <Flex className={style.animados} vertical gap={0}>
       <Alert
-        message="Aviso!"
+        title="Aviso!"
         description={mensagem}
         type="warning"
         showIcon

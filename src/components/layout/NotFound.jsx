@@ -3,7 +3,7 @@
 import { QuestionOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-export default ({ titulo, mensagem, caminho = "/" }) => {
+export default ({ titulo, mensagem, caminho }) => {
   const router = useRouter();
   return (
     <div
@@ -29,18 +29,20 @@ export default ({ titulo, mensagem, caminho = "/" }) => {
         <h2>{titulo}</h2>
         <p>{mensagem}</p>
       </div>
-      <button
-        style={{
-          padding: "15px",
-          border: "none",
-          borderRadius: "30px",
-          backgroundColor: "var(--cor-principal)",
-          color: "var(--cor-secundaria)",
-        }}
-        onClick={() => router.push(caminho)}
-      >
-        Ir as compras
-      </button>
+      {caminho && (
+        <button
+          style={{
+            padding: "15px",
+            border: "none",
+            borderRadius: "30px",
+            backgroundColor: "var(--cor-principal)",
+            color: "var(--cor-secundaria)",
+          }}
+          onClick={() => router.push(caminho)}
+        >
+          Ir as compras
+        </button>
+      )}
     </div>
   );
 };

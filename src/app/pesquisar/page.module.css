@@ -1,0 +1,60 @@
+.containerPesquisa {
+  display: flex;
+  gap: 5%;
+}
+.containerFiltros,
+.containerResultados {
+  box-shadow: 1px 1px 10px gray;
+  padding: 30px;
+  h2 {
+    color: var(--cor-principal);
+  }
+}
+
+.containerFiltros {
+  position: sticky;
+  overflow: auto;
+  height: min-content;
+  max-height: 75%;
+  top: 22.5%;
+  width: 25%;
+}
+
+.containerResultados {
+  width: 75%;
+}
+
+.listaCategoria,
+.listaSubcategoria {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 20px;
+  li {
+    display: flex;
+    align-items: center;
+    gap: 2.5px;
+  }
+}
+
+.valores {
+  display: flex;
+  flex-direction: column;
+  input {
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    background-color: transparent;
+    margin-block: 5px 15px;
+  }
+}
+
+.btnLimparFiltros {
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 30px;
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+}

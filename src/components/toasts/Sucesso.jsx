@@ -23,7 +23,7 @@ export default function Sucesso({ mensagem }) {
   return (
     <Flex className={style.animados} vertical gap={0}>
       <Alert
-        message="Sucesso!"
+        title="Sucesso!"
         description={mensagem}
         type="success"
         showIcon

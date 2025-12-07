@@ -6,9 +6,12 @@ import SearchBar from "./SearchBar";
 import style from "./navbar.module.css";
 import { CircleUserRound, Menu, Package, ShoppingCart } from "lucide-react";
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
+import MenuHamburguer from "./MenuHamburguer";
 
 export default async function NavBar() {
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/produtos`);
+  const response = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/produtos-disponiveis`
+  );
   const produtos = await response.json();
 
   const usuario = await getUsuarioServerSide();
@@ -44,9 +47,7 @@ export default async function NavBar() {
                     <CircleUserRound className={style.icone} />
                   </Link>
 
-                  <Link href="/">
-                    <Menu className={style.icone} />
-                  </Link>
+                  <MenuHamburguer />
                 </div>
               )}
 

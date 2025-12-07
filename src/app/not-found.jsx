@@ -6,6 +6,7 @@ export default () => {
       <NotFound
         titulo="Página não encontrada"
         mensagem="Essa página não existe, volte para a tela inicial."
+        caminho="/"
       />
     </>
   );

@@ -36,8 +36,8 @@ export default ({ produto, usuario }) => {
         <h3>Descrição</h3>
         <p>{!produto.sobre ? produto.nome : produto.sobre}</p>
 
-        <h4 style={{ color: "gray" }}>Lembrete: Atributos</h4>
-        {/* Manipular mais decentemente os atributos no banco de dados */}
+        {/* <h4 style={{ color: "gray" }}>Lembrete: Atributos</h4>
+        Manipular mais decentemente os atributos no banco de dados
 
         <p>
           Selecione a opção de <strong>tamanho (PP, P, M, G, GG)</strong>
@@ -49,7 +49,7 @@ export default ({ produto, usuario }) => {
           Selecione a opção de <strong>volume</strong>
         </p>
         <input type="radio" />
-        <p style={{ color: "gray", marginLeft: "20px" }}>Para cosméticos</p>
+        <p style={{ color: "gray", marginLeft: "20px" }}>Para cosméticos</p> */}
 
         <p className={style.valor}>R$ {valor}</p>
 
@@ -81,7 +81,7 @@ export default ({ produto, usuario }) => {
             {usuario ? (
               <input
                 className={style.cep}
-                value={usuario.cep || ""}
+                value={usuario.cep.replace(/(\d{5})(\d{1,3})/, "$1-$2") || ""}
                 placeholder="Altere seu CEP no perfil."
                 disabled
               />
