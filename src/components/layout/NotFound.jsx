@@ -40,7 +40,7 @@ export default ({ titulo, mensagem, caminho }) => {
           }}
           onClick={() => router.push(caminho)}
         >
-          Ir as compras
+          Ir às compras
         </button>
       )}
     </div>

@@ -1,4 +1,4 @@
-import CategoriasList from "@/components/CategoriasList";
+import CategoriasList from "@/components/layout/CategoriasList";
 import ProdutosList from "@/components/produtos/ProdutosList";
 import style from "./page.module.css";
 

@@ -76,7 +76,7 @@ export default ({ produto, usuario }) => {
         )}
 
         <div className={style.containerFrete}>
-          <h2>Estimar frete</h2>
+          <h2>Estimar o frete</h2>
           <div>
             {usuario ? (
               <input
