@@ -7,6 +7,12 @@ export async function GET() {
   try {
     const usuario = await getUsuarioServerSide();
     const idUsuario = usuario?.id;
+    if (!idUsuario) {
+      return NextResponse.json(
+        { error: "Usuário não encontrado" },
+        { status: 400 }
+      );
+    }
 
     const carrinhos = await db.query(
       "SELECT * FROM carrinhos WHERE id_usuario = $1",
@@ -128,13 +134,11 @@ export async function PUT(req) {
     const idCarrinho = carrinho.id;
 
     if (quantidade < 1) {
-      // 🔹 Deleta o item se quantidade menor que 1
       await db.query(
         "DELETE FROM itens_carrinho WHERE id_carrinho = $1 AND id_produto = $2",
         [idCarrinho, idProduto]
       );
     } else {
-      // 🔹 Atualiza a quantidade normalmente
       await db.query(
         `UPDATE itens_carrinho 
          SET quantidade = $1 
@@ -143,7 +147,6 @@ export async function PUT(req) {
       );
     }
 
-    // Retorna o carrinho atualizado
     const result = await db.query(
       "SELECT * FROM itens_carrinho WHERE id_carrinho = $1",
       [idCarrinho]
