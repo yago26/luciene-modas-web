@@ -11,6 +11,7 @@ import Sucesso from "../toasts/Sucesso";
 import Aviso from "../toasts/Aviso";
 
 export default function ItemCarrinho({
+  selecionados,
   produto,
   onSelecionarItem,
   onRemoverSelecionado,
@@ -140,6 +141,7 @@ export default function ItemCarrinho({
             id={produto.id}
             name={produto.id}
             className={style.checkbox}
+            checked={selecionados.has(produto.id)}
             type="checkbox"
             onChange={(e) => {
               onSelecionarItem({ id: produto.id });

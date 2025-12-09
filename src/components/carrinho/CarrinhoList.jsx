@@ -14,6 +14,7 @@ export default function CarrinhoList() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
+  const [loadingCarregar, setLoadingCarregar] = useState(true);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const [selecionados, setSelecionados] = useState(new Set());
@@ -23,23 +24,28 @@ export default function CarrinhoList() {
 
   useEffect(() => {
     async function carregar() {
-      setLoading(true);
+      setLoadingCarregar(true);
       await fetchItensCarrinho();
+      setLoadingCarregar(false);
     }
     carregar();
   }, []);
 
   useEffect(() => {
-    if (items.length > 0) {
-      loadCarrinho();
-      setSelecionados(new Set());
+    if (loadingCarregar) return;
+
+    if (items.length === 0) {
+      setItemsCarrinho([]);
+      setLoading(false);
+      return;
     }
-  }, [items]);
+
+    loadCarrinho();
+  }, [items, loadingCarregar]);
 
   async function loadCarrinho() {
     try {
       setLoading(true);
-
       const produtos = await Promise.all(
         items.map(async (item) => {
           const res = await fetch(
@@ -57,6 +63,8 @@ export default function CarrinhoList() {
 
       produtos.sort((a, b) => a.nome.localeCompare(b.nome));
       setItemsCarrinho(produtos);
+    } catch (error) {
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -86,18 +94,6 @@ export default function CarrinhoList() {
     0
   );
 
-  if (loading) return <Loading />;
-
-  if (itemsCarrinho.length == 0) {
-    return (
-      <NotFound
-        titulo="Carrinho vazio!"
-        mensagem="Seu carrinho está vazio no momento, adicione produtos para continuar."
-        caminho="/"
-      />
-    );
-  }
-
   return (
     <>
       <div className={style.containerCarrinho}>
@@ -107,22 +103,33 @@ export default function CarrinhoList() {
           <Divider style={{ borderColor: "black" }} />
 
           <div className={style.produtos}>
-            {itemsCarrinho.map((produto) => (
-              <div
-                key={produto.id}
-                className={
-                  selecionados.has(produto.id)
-                    ? style.selecionado
-                    : style.naoSelecionado
-                }
-              >
-                <ItemCarrinho
-                  produto={produto}
-                  onSelecionarItem={() => selecionarItem(produto.id)}
-                  onRemoverSelecionado={() => removerSelecionado(produto.id)}
-                />
-              </div>
-            ))}
+            {loading ? (
+              <Loading />
+            ) : itemsCarrinho.length == 0 ? (
+              <NotFound
+                titulo="Carrinho vazio!"
+                mensagem="Seu carrinho está vazio no momento, adicione produtos para continuar."
+                caminho="/"
+              />
+            ) : (
+              itemsCarrinho.map((produto) => (
+                <div
+                  key={produto.id}
+                  className={
+                    selecionados.has(produto.id)
+                      ? style.selecionado
+                      : style.naoSelecionado
+                  }
+                >
+                  <ItemCarrinho
+                    selecionados={selecionados}
+                    produto={produto}
+                    onSelecionarItem={() => selecionarItem(produto.id)}
+                    onRemoverSelecionado={() => removerSelecionado(produto.id)}
+                  />
+                </div>
+              ))
+            )}
           </div>
         </div>
 
