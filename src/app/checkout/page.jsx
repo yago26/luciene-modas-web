@@ -2,16 +2,18 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Modal, Button, Card } from "antd";
+import { Modal, Button, Card, Divider } from "antd";
+import Loading from "../loading";
 
 export default function Checkout() {
   const searchParams = useSearchParams();
 
   const [produtos, setProdutos] = useState([]);
-  const [produtosCompra, setProdutosCompra] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const idsParam = searchParams.get("ids");
     const quantidadesParam = searchParams.get("quantidades");
 
@@ -31,7 +33,6 @@ export default function Checkout() {
       );
 
       const produtosValidos = resultados.filter((p) => p !== null);
-      setProdutos(produtosValidos);
 
       // Agora que produtos foram obtidos, montar produtosCompra:
       const listaCompra = produtosValidos.map((produto, index) => ({
@@ -40,13 +41,14 @@ export default function Checkout() {
         subtotal: (produto.valor * quantidades[index]).toFixed(2),
       }));
 
-      setProdutosCompra(listaCompra);
+      setProdutos(listaCompra);
     }
 
     buscarProdutos();
+    setLoading(false);
   }, [searchParams]);
 
-  const subtotalGeral = produtosCompra.reduce(
+  const subtotalGeral = produtos.reduce(
     (acc, item) => acc + Number(item.subtotal),
     0
   );
@@ -54,13 +56,26 @@ export default function Checkout() {
   const frete = 19.9;
   const total = subtotalGeral + frete;
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div style={{ padding: "2rem" }}>
       <h1>Checkout</h1>
 
-      <Card style={{ marginTop: "1rem", marginBottom: "1.5rem" }}>
-        <h2>Produtos</h2>
-        {produtosCompra.map((item) => (
+      <div
+        style={{
+          padding: "30px",
+          backgroundColor: "var(--cor-secundaria)",
+          borderRadius: "10px",
+          marginTop: "1rem",
+          marginBottom: "1.5rem",
+        }}
+      >
+        <h2 style={{ color: "var(--cor-principal)" }}>Produtos</h2>
+        <Divider style={{ borderColor: "black" }} />
+        {produtos.map((item) => (
           <div
             key={item.id}
             style={{
@@ -71,12 +86,18 @@ export default function Checkout() {
             }}
           >
             <div>
+              <img
+                src={item.imagem}
+                alt={item.sobre || item.nome}
+                width={100}
+                height={100}
+              />
               <strong>{item.nome}</strong>
               <p>Quantidade: {item.quantidade}</p>
             </div>
 
             <div style={{ textAlign: "right" }}>
-              <p>Preço: R$ {Number(item.valor).toFixed(2)}</p>
+              <p>Preço unitário: R$ {Number(item.valor).toFixed(2)}</p>
               <p>
                 Subtotal: <strong>R$ {item.subtotal}</strong>
               </p>
@@ -92,11 +113,13 @@ export default function Checkout() {
           <p>
             Frete: <strong>R$ {frete.toFixed(2)}</strong>
           </p>
-          <h3>
-            Total: <strong>R$ {total.toFixed(2)}</strong>
+          <Divider style={{ borderColor: "black" }} />
+          <h3 style={{ color: "black" }}>
+            Total:{" "}
+            <strong style={{ color: "green" }}>R$ {total.toFixed(2)}</strong>
           </h3>
         </div>
-      </Card>
+      </div>
 
       <Button
         type="primary"
@@ -112,24 +135,23 @@ export default function Checkout() {
       </Button>
 
       <Modal
-        title="Pagamento"
+        title="Finalização de pedido"
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={[
           <Button key="cancel" onClick={() => setIsModalOpen(false)}>
             Cancelar
           </Button>,
-          <Button style={{ backgroundColor: "green" }} type="primary" key="pay">
-            Pagar Agora
+          <Button
+            style={{ backgroundColor: "green" }}
+            type="primary"
+            key="finalizar pedido"
+          >
+            Finalizar pedido
           </Button>,
         ]}
       >
-        <p>Escolha uma forma de pagamento:</p>
-        <ul>
-          <li>Pix</li>
-          <li>Boleto</li>
-          <li>Cartão de Crédito</li>
-        </ul>
+        <p>Tem certeza que deseja finalizar o pedido?</p>
       </Modal>
     </div>
   );

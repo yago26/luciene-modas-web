@@ -103,7 +103,14 @@ export default function ItemCarrinho({
             className={style.quantidade}
             type="text"
             value={quantidade}
-            onChange={(e) => setQuantidade(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value <= produto.estoque)
+                setQuantidade(e.target.value);
+              else {
+                setShowWarningAlert(true);
+                setKeyWarning((prev) => prev + 1);
+              }
+            }}
             onFocus={() => setQuantidadeAnterior(quantidade)}
             onBlur={async (e) => {
               const novoValor = e.target.value;
@@ -120,14 +127,11 @@ export default function ItemCarrinho({
             className={style.btn}
             onClick={async () => {
               if (quantidade >= produto.estoque) {
-                setQuantidade(produto.estoque);
                 setShowWarningAlert(true);
                 setKeyWarning((prev) => prev + 1);
-                await atualizarProduto(produto.id, produto.estoque);
-                setShowWarningAlert(false);
                 return;
               }
-              const novaQuantidade = quantidade + 1;
+              const novaQuantidade = Number(quantidade + 1);
               setQuantidade(novaQuantidade);
               await atualizarProduto(produto.id, novaQuantidade);
             }}

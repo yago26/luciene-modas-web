@@ -2,9 +2,44 @@ import db from "@/lib/db";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
-export async function GET() {
+export async function GET(req) {
   try {
-    const result = await db.query("SELECT * FROM produtos");
+    const { searchParams } = new URL(req.url);
+
+    let conditions = [];
+    let values = [];
+    let index = 1;
+
+    const categoria = searchParams.get("categoria");
+    const subcategoria = searchParams.get("subcategoria");
+    const estoque = searchParams.get("estoque");
+
+    if (categoria) {
+      conditions.push(`categoria = $${index++}`);
+      values.push(categoria);
+    }
+
+    if (subcategoria) {
+      conditions.push(`subcategoria = $${index++}`);
+      values.push(subcategoria);
+    }
+
+    if (estoque) {
+      if (estoque === "disponivel") {
+        conditions.push(`estoque > 0`);
+      }
+      if (estoque === "indisponivel") {
+        conditions.push(`estoque = 0`);
+      }
+    }
+
+    let query = "SELECT * FROM produtos";
+
+    if (conditions.length > 0) {
+      query += " WHERE " + conditions.join(" AND ");
+    }
+
+    const result = await db.query(query, values);
     return NextResponse.json(result.rows);
   } catch (error) {
     console.log("Erro ao listar produtos", error);

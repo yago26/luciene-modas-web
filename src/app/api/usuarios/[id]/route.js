@@ -61,14 +61,6 @@ export async function PUT(req, { params }) {
     const { nome, cep, estado, cidade, bairro, rua, numero, complemento } =
       body;
 
-    // Nome é obrigatório
-    if (!nome) {
-      return NextResponse.json(
-        { error: "O campo 'nome' é obrigatório." },
-        { status: 400 }
-      );
-    }
-
     // Montar atualização dinâmica
     const campos = [];
     const valores = [];
@@ -76,6 +68,12 @@ export async function PUT(req, { params }) {
 
     // Só adiciona ao SQL se o valor existir
     if (nome !== undefined) {
+      if (!nome) {
+        return NextResponse.json(
+          { error: "O campo 'nome' é obrigatório." },
+          { status: 400 }
+        );
+      }
       campos.push(`nome = $${contador}`);
       valores.push(nome);
       contador++;

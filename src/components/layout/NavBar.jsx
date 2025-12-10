@@ -7,13 +7,9 @@ import style from "./navbar.module.css";
 import { CircleUserRound, Package, ShoppingCart } from "lucide-react";
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 import MenuHamburguer from "./MenuHamburguer";
+import NavBarCategoriasList from "./NavBarCategoriasList";
 
 export default async function NavBar() {
-  const response = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/produtos-disponiveis`
-  );
-  const produtos = await response.json();
-
   const usuario = await getUsuarioServerSide();
 
   return (
@@ -29,7 +25,7 @@ export default async function NavBar() {
             />
           </Link>
 
-          <SearchBar produtos={produtos} />
+          <SearchBar />
 
           <div>
             {usuario && (
@@ -63,31 +59,7 @@ export default async function NavBar() {
           </div>
         </div>
 
-        <ul className={style.linksRapidosCategorias}>
-          <Link href="/categorias/roupas">
-            <li>Roupas</li>
-          </Link>
-
-          <Link href="/categorias/cosmeticos">
-            <li>Cosméticos</li>
-          </Link>
-
-          <Link href="/categorias/masculino">
-            <li>Masculino</li>
-          </Link>
-
-          <Link href="/categorias/feminino">
-            <li>Feminino</li>
-          </Link>
-
-          <Link href="/categorias/infantil">
-            <li>Infantil</li>
-          </Link>
-
-          <Link href="/categorias/outros">
-            <li>Outros</li>
-          </Link>
-        </ul>
+        <NavBarCategoriasList />
       </nav>
     </>
   );

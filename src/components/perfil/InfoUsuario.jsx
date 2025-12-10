@@ -50,38 +50,7 @@ export default function infoUsuario({ usuario }) {
 
   const { cidades, buscarCEP, loadingCep } = useEndereco(form, setForm);
 
-  const salvar = async () => {
-    const cepLimpo = form.cep.replace(/\D/g, "");
-
-    if (!form.nome) {
-      setShowAlertWarning({
-        mensagem:
-          "Preencha o campo 'Nome' com um valor válido antes de atualizar seu perfil.",
-        visivel: true,
-      });
-      setKeyWarning((prev) => prev + 1);
-      return;
-    }
-
-    const response = await fetch(
-      `${process.env.NEXTAUTH_URL || ""}/api/usuarios/${usuario.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nome: form.nome,
-          cep: cepLimpo,
-          cidade: form.cidade,
-          bairro: form.bairro,
-          rua: form.rua,
-          numero: form.numero,
-          complemento: form.complemento,
-        }),
-      }
-    );
-
+  const salvar = (response) => {
     if (response.ok) {
       setShowAlertSuccess(true);
       setKeySuccess((prev) => prev + 1);
@@ -94,14 +63,56 @@ export default function infoUsuario({ usuario }) {
 
   const salvarDadosPessoais = async () => {
     setLoadingSalvarDadosPessoais(true);
-    await salvar();
+    if (!form.nome) {
+      setShowAlertWarning({
+        mensagem:
+          "Preencha o campo 'Nome' com um valor válido antes de atualizar seu perfil.",
+        visivel: true,
+      });
+      setKeyWarning((prev) => prev + 1);
+      setLoadingSalvarDadosPessoais(false);
+      return;
+    }
+
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL || ""}/api/usuarios/${usuario.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome: form.nome,
+        }),
+      }
+    );
     setLoadingSalvarDadosPessoais(false);
+    salvar(response);
   };
 
   const salvarEndereco = async () => {
     setLoadingSalvarEndereco(true);
-    await salvar();
+    const cepLimpo = form.cep.replace(/\D/g, "");
+
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL || ""}/api/usuarios/${usuario.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cep: cepLimpo,
+          cidade: form.cidade,
+          bairro: form.bairro,
+          rua: form.rua,
+          numero: form.numero,
+          complemento: form.complemento,
+        }),
+      }
+    );
     setLoadingSalvarEndereco(false);
+    salvar(response);
   };
 
   return (
@@ -118,6 +129,7 @@ export default function infoUsuario({ usuario }) {
                   id="nome"
                   type="text"
                   placeholder="Nome"
+                  autoComplete="off"
                   value={form.nome || ""}
                   onChange={(e) => setForm({ ...form, nome: e.target.value })}
                   maxLength={255}
@@ -325,7 +337,7 @@ export default function infoUsuario({ usuario }) {
 
       {showAlertError && (
         <Erro
-          key={`error-${keyError}`}
+          key={`e-${keyError}`}
           mensagem="Ocorreu algum erro na atualização do seu perfil."
         />
       )}

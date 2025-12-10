@@ -57,7 +57,11 @@ export default () => {
           okType="danger"
           cancelText="Cancelar"
         >
-          <p>Essa ação não poderá ser desfeita.</p>
+          <p>
+            Essa ação{" "}
+            <span style={{ color: "red", fontWeight: "bold" }}>NÃO</span> poderá
+            ser <span style={{ fontWeight: "bold" }}>desfeita</span>!
+          </p>
         </Modal>
         <button className={`${style.btn} ${style.btnSair}`} onClick={logout}>
           <LogOut />

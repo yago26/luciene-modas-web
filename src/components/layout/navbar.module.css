@@ -81,33 +81,3 @@
   cursor: pointer;
   scale: 1.05;
 }
-
-.linksRapidosCategorias {
-  background-color: #80264a;
-  margin: 0;
-  display: flex;
-  padding: 0 10%;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
-  width: 100%;
-}
-
-.linksRapidosCategorias a li {
-  transition: 0.1s;
-  font-size: 0.85rem;
-}
-
-.linksRapidosCategorias a {
-  padding: 1.5% 5%;
-  text-decoration: none;
-  color: white;
-}
-
-.linksRapidosCategorias a:hover {
-  color: var(--cor-terciaria);
-  background-color: #702040;
-  li {
-    scale: 1.05;
-  }
-}

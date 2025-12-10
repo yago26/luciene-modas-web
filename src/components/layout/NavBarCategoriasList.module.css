@@ -1,0 +1,38 @@
+.linksRapidosCategorias {
+  background-color: #80264a;
+  margin: 0;
+  display: flex;
+  padding: 0 10%;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  width: 100%;
+}
+
+.linksRapidosCategorias li {
+  text-align: center;
+  width: 100%;
+  transition: 0.1s;
+  font-size: 0.85rem;
+}
+
+.linksRapidosCategorias li a {
+  display: block;
+  padding: 20px 0;
+  text-decoration: none;
+  color: white;
+}
+
+.linksRapidosCategorias li:hover {
+  background-color: #702040;
+  a {
+    color: var(--cor-terciaria);
+  }
+}
+
+.ativo {
+  background-color: #702040;
+  a {
+    color: var(--cor-terciaria) !important;
+  }
+}

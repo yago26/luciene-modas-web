@@ -6,7 +6,10 @@ export default () => {
   return (
     <>
       <div style={style.containerProvedores}>
-        <button onClick={() => signIn("google")} style={style.btn}>
+        <button
+          onClick={() => signIn("google", { redirect: true, callbackUrl: "/" })}
+          style={style.btn}
+        >
           <img
             src="/icones/google.svg"
             alt="Logo do Google"

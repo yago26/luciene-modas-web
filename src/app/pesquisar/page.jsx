@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Card, Row, Col, Empty, Divider } from "antd";
+import { Card, Row, Col, Divider } from "antd";
 import Loading from "../loading";
 import style from "./page.module.css";
 import NotFound from "@/components/layout/NotFound";
@@ -16,8 +16,8 @@ export default function Pesquisar() {
   const [filtros, setFiltros] = useState({
     categoria: "",
     subcategoria: "",
-    valorIntervaloInicial: "",
-    valorIntervaloFinal: "",
+    valorMinimo: "",
+    valorMaximo: "",
   });
 
   const [produtos, setProdutos] = useState([]);
@@ -31,7 +31,7 @@ export default function Pesquisar() {
   async function carregarProdutos() {
     setLoading(true);
     try {
-      const res = await fetch("/api/produtos-disponiveis");
+      const res = await fetch("/api/produtos?estoque=disponivel");
       let data = await res.json();
       setProdutos(data);
     } catch (err) {
@@ -64,14 +64,14 @@ export default function Pesquisar() {
         prev.filter((d) => d.subcategoria === filtros.subcategoria)
       );
     }
-    if (filtros.valorIntervaloInicial) {
+    if (filtros.valorMinimo) {
       setFiltrados((prev) =>
-        prev.filter((d) => d.valor > Number(filtros.valorIntervaloInicial))
+        prev.filter((d) => d.valor > Number(filtros.valorMinimo))
       );
     }
-    if (filtros.valorIntervaloFinal) {
+    if (filtros.valorMaximo) {
       setFiltrados((prev) =>
-        prev.filter((d) => d.valor < Number(filtros.valorIntervaloFinal))
+        prev.filter((d) => d.valor < Number(filtros.valorMaximo))
       );
     }
   }, [nome, filtros, produtos]);
@@ -80,8 +80,8 @@ export default function Pesquisar() {
     setFiltros({
       categoria: "",
       subcategoria: "",
-      valorIntervaloInicial: "",
-      valorIntervaloFinal: "",
+      valorMinimo: "",
+      valorMaximo: "",
     });
   };
 
@@ -197,11 +197,11 @@ export default function Pesquisar() {
               id="inicial"
               type="number"
               placeholder="19,99"
-              value={filtros.valorIntervaloInicial || ""}
+              value={filtros.valorMinimo || ""}
               onChange={(e) =>
                 setFiltros({
                   ...filtros,
-                  valorIntervaloInicial: e.target.value,
+                  valorMinimo: e.target.value,
                 })
               }
             />
@@ -213,9 +213,9 @@ export default function Pesquisar() {
               id="final"
               type="number"
               placeholder="49,99"
-              value={filtros.valorIntervaloFinal || ""}
+              value={filtros.valorMaximo || ""}
               onChange={(e) =>
-                setFiltros({ ...filtros, valorIntervaloFinal: e.target.value })
+                setFiltros({ ...filtros, valorMaximo: e.target.value })
               }
             />
           </li>

@@ -8,7 +8,7 @@ import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
 export default async function ProdutosList() {
   const response = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/produtos-disponiveis`
+    `${process.env.NEXTAUTH_URL}/api/produtos?estoque=disponivel`
   );
   const produtos = await response.json();
 
