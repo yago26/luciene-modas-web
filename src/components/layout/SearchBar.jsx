@@ -5,23 +5,11 @@ import { AutoComplete, Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-export default function SearchBar() {
-  const [produtos, setProdutos] = useState([]);
+export default function SearchBar({ produtos }) {
   const [valorPesquisa, setValorPesquisa] = useState("");
   const [options, setOptions] = useState([]);
 
   const router = useRouter();
-
-  useEffect(() => {
-    async function carregarProdutos() {
-      const response = await fetch(
-        `${process.env.NEXTAUTH_URL || ""}/api/produtos?estoque=disponivel`
-      );
-      const data = await response.json();
-      setProdutos(data);
-    }
-    carregarProdutos();
-  }, []);
 
   useEffect(() => {
     if (!valorPesquisa.trim()) {

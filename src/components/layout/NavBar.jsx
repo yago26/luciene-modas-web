@@ -10,6 +10,11 @@ import MenuHamburguer from "./MenuHamburguer";
 import NavBarCategoriasList from "./NavBarCategoriasList";
 
 export default async function NavBar() {
+  const response = await fetch(
+    `${process.env.NEXTAUTH_URL || ""}/api/produtos?estoque=disponivel`
+  );
+  const produtos = await response.json();
+
   const usuario = await getUsuarioServerSide();
 
   return (
@@ -25,7 +30,7 @@ export default async function NavBar() {
             />
           </Link>
 
-          <SearchBar />
+          <SearchBar produtos={produtos} />
 
           <div>
             {usuario && (
