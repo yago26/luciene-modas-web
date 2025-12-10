@@ -1,15 +1,12 @@
 import { Pool } from "pg";
+// Biblioteca externa q faz a conexão com o banco de dados do postgreSQL
+// Instale a biblioteca com "npm i pg"
 
-let pool;
-
-if (!global._pgPool) {
-  global._pgPool = new Pool({
-    connectionString: process.env.POSTGRES_URL,
-    max: 5, // evita abrir 20 conexões em dev
-    ssl: { rejectUnauthorized: false },
-  });
-}
-
-pool = global._pgPool;
-
-export default pool;
+export default new Pool({
+  connectionString: process.env.POSTGRES_URL,
+  /* Configurar na área de variáveis de ambiente, todas as aulas teremos q reconfigurar */
+  ssl: {
+    /* Questão de segurança, S do HTTPS */
+    rejectUnauthorized: false,
+  },
+});

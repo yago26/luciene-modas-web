@@ -50,17 +50,6 @@ export default function infoUsuario({ usuario }) {
 
   const { cidades, buscarCEP, loadingCep } = useEndereco(form, setForm);
 
-  const salvar = (response) => {
-    if (response.ok) {
-      setShowAlertSuccess(true);
-      setKeySuccess((prev) => prev + 1);
-      return;
-    }
-
-    setShowAlertError(true);
-    setKeyError((prev) => prev + 1);
-  };
-
   const salvarDadosPessoais = async () => {
     setLoadingSalvarDadosPessoais(true);
     if (!form.nome) {
@@ -87,7 +76,15 @@ export default function infoUsuario({ usuario }) {
       }
     );
     setLoadingSalvarDadosPessoais(false);
-    salvar(response);
+
+    if (response.ok) {
+      setShowAlertSuccess(true);
+      setKeySuccess((prev) => prev + 1);
+      return;
+    }
+
+    setShowAlertError(true);
+    setKeyError((prev) => prev + 1);
   };
 
   const salvarEndereco = async () => {
@@ -112,7 +109,14 @@ export default function infoUsuario({ usuario }) {
       }
     );
     setLoadingSalvarEndereco(false);
-    salvar(response);
+    if (response.ok) {
+      setShowAlertSuccess(true);
+      setKeySuccess((prev) => prev + 1);
+      return;
+    }
+
+    setShowAlertError(true);
+    setKeyError((prev) => prev + 1);
   };
 
   return (
