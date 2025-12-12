@@ -1,4 +1,8 @@
 .containerInfosProduto {
+  background-color: whitesmoke;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px gray;
+  padding: 40px;
   display: flex;
   gap: 5%;
 }

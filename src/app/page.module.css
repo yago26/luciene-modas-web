@@ -4,3 +4,35 @@
   gap: 50px;
   justify-content: center;
 }
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-terciaria);
+}
+
+.overlay {
+  position: fixed;
+  top: 18.25%;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 18.25%); /* ocupa apenas o espaço disponível */
+  background: rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  animation: esmanecer 750ms;
+  pointer-events: none;
+}
+
+@keyframes esmanecer {
+  0% {
+    background: rgba(0, 0, 0, 0);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}

@@ -24,5 +24,7 @@ export default function RootLayout({ children }) {
 const style = {
   container: {
     padding: "12% 10% 5% 10%",
+    minHeight: "100vh",
+    margin: "auto",
   },
 };

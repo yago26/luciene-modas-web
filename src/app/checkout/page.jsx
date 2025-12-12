@@ -1,11 +1,12 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Modal, Button, Card, Divider } from "antd";
+import { Modal, Button, Divider } from "antd";
 import Loading from "../loading";
 
 export default function Checkout() {
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   const [produtos, setProdutos] = useState([]);
@@ -23,38 +24,70 @@ export default function Checkout() {
     const quantidades = quantidadesParam.split(",").map(Number);
 
     async function buscarProdutos() {
-      const resultados = await Promise.all(
-        ids.map(async (id) => {
-          const res = await fetch(
-            `${process.env.NEXTAUTH_URL || ""}/api/produtos/${id}`
-          );
-          return res.ok ? await res.json() : null;
-        })
-      );
+      try {
+        const resultados = await Promise.all(
+          ids.map(async (id) => {
+            const res = await fetch(
+              `${process.env.NEXTAUTH_URL || ""}/api/produtos/${id}`
+            );
+            return res.ok ? await res.json() : null;
+          })
+        );
 
-      const produtosValidos = resultados.filter((p) => p !== null);
+        const produtosValidos = resultados.filter((p) => p !== null);
 
-      // Agora que produtos foram obtidos, montar produtosCompra:
-      const listaCompra = produtosValidos.map((produto, index) => ({
-        ...produto,
-        quantidade: quantidades[index],
-        subtotal: (produto.valor * quantidades[index]).toFixed(2),
-      }));
+        // Agora que produtos foram obtidos, montar produtosCompra:
+        const listaCompra = produtosValidos.map((produto, index) => ({
+          ...produto,
+          quantidade: quantidades[index],
+          subtotal: (produto.valor * quantidades[index]).toFixed(2),
+        }));
 
-      setProdutos(listaCompra);
+        setProdutos(listaCompra);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     }
 
     buscarProdutos();
-    setLoading(false);
   }, [searchParams]);
+
+  const finalizarPedido = async () => {
+    total = subtotalGeral + frete;
+    try {
+      const res = await fetch(`${process.env.NEXTAUTH_URL || ""}/api/pedidos`, {
+        method: "POST",
+        body: JSON.stringify({
+          itens: produtos,
+          total: total,
+        }),
+      });
+      if (res.ok) {
+        alert("Sucesso! Pedido finalizado.");
+        setIsModalOpen(false);
+        setTimeout(() => {
+          router.push("/meus-pedidos");
+        }, 3000);
+      } else {
+        const erro = await res.json();
+        alert(erro.error || "Erro ao finalizar pedido.");
+        setIsModalOpen(false);
+      }
+    } catch (e) {
+      alert("Ocorreu um erro inesperado");
+    }
+  };
 
   const subtotalGeral = produtos.reduce(
     (acc, item) => acc + Number(item.subtotal),
     0
   );
 
-  const frete = 19.9;
-  const total = subtotalGeral + frete;
+  const frete = subtotalGeral >= 150 ? 0 : subtotalGeral >= 50 ? 9.9 : 14.9;
+
+  let total = subtotalGeral + frete;
 
   if (loading) {
     return <Loading />;
@@ -67,7 +100,8 @@ export default function Checkout() {
       <div
         style={{
           padding: "30px",
-          backgroundColor: "var(--cor-secundaria)",
+          backgroundColor: "whitesmoke",
+          boxShadow: "1px 1px 10px gray",
           borderRadius: "10px",
           marginTop: "1rem",
           marginBottom: "1.5rem",
@@ -87,6 +121,7 @@ export default function Checkout() {
           >
             <div>
               <img
+                style={{ marginRight: "15px" }}
                 src={item.imagem}
                 alt={item.sobre || item.nome}
                 width={100}
@@ -143,9 +178,10 @@ export default function Checkout() {
             Cancelar
           </Button>,
           <Button
+            key="finalizar pedido"
+            onClick={finalizarPedido}
             style={{ backgroundColor: "green" }}
             type="primary"
-            key="finalizar pedido"
           >
             Finalizar pedido
           </Button>,

@@ -4,8 +4,3 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
-
-.produtosEmPromocao,
-.produtosMaisVendidos {
-  margin-bottom: 5%;
-}

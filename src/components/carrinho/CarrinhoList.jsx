@@ -4,11 +4,11 @@ import { useCarrinhoStore } from "@/app/store/carrinho";
 import style from "./carrinhoList.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Loading from "@/app/loading";
 import ItemCarrinho from "./ItemCarrinho";
 import Erro from "../toasts/Erro";
 import NotFound from "../layout/NotFound";
 import { Divider } from "antd";
+import Loading from "../layout/Loading";
 
 export default function CarrinhoList() {
   const router = useRouter();

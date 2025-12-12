@@ -57,7 +57,7 @@ export default function MenuHamburguer() {
       />
 
       <Drawer
-        title="Menu"
+        title="Luciene Modas"
         placement="right"
         onClose={() => setOpen(false)}
         open={open}

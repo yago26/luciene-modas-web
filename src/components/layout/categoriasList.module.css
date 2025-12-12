@@ -9,21 +9,22 @@
 
 .containerCategorias li {
   width: 8%;
-  transition: 0.5s;
-}
-
-.containerCategorias li:hover {
-  scale: 1.05;
 }
 
 .categoria {
-  padding: 10px;
-  border-radius: 10px;
-  background-color: var(--cor-principal);
-  color: var(--cor-secundaria);
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5px;
+
+  padding: 10px 0;
+  border-radius: 10px;
+  background-color: var(--cor-principal);
+  color: var(--cor-secundaria);
+  transition: 500ms;
+}
+
+.categoria:hover {
+  box-shadow: 1px 1px 10px gray;
 }

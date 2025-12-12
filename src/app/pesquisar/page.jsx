@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Card, Row, Col, Divider } from "antd";
-import Loading from "../loading";
 import style from "./page.module.css";
 import NotFound from "@/components/layout/NotFound";
+import Loading from "@/components/layout/Loading";
 
 export default function Pesquisar() {
   const searchParams = useSearchParams();

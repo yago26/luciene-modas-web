@@ -1,9 +1,11 @@
 .containerPesquisa {
   display: flex;
-  gap: 5%;
+  gap: 2.5%;
 }
 .containerFiltros,
 .containerResultados {
+  border-radius: 10px;
+  background-color: whitesmoke;
   box-shadow: 1px 1px 10px gray;
   padding: 30px;
   h2 {

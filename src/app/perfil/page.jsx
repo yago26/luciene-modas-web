@@ -11,7 +11,7 @@ export default async function Perfil() {
     <>
       <div style={style.header}>
         <h1>Perfil de Usuário</h1>
-        <OutrasAcoesUsuario />
+        <OutrasAcoesUsuario usuario={usuario} />
       </div>
       <Divider style={{ borderColor: "black" }} />
       <InfoUsuario usuario={usuario} />

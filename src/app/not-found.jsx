@@ -27,6 +27,7 @@ const style = {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    height: "70vh",
   },
   btn: {
     padding: "15px",

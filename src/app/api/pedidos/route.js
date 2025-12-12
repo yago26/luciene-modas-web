@@ -1,33 +1,147 @@
 import { v4 as uuidv4 } from "uuid";
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
+import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
-export async function POST(req) {
+export async function GET() {
   try {
-    const { usuario, produtos } = await req.json();
-    const idPedido = uuidv4();
+    const usuario = await getUsuarioServerSide();
 
-    const total = produtos.reduce((acc, p) => acc + p.preco * p.quantidade, 0);
-    await db.query(
-      "INSERT INTO pedidos (id, id_usuario, total) VALUES ($1, $2, $3)",
-      [idPedido, usuario.id, total] // substitua por id real do usuário autenticado
-    );
-
-    for (const p of produtos) {
-      await db.query(
-        "INSERT INTO itens_pedido (id, id_pedido, id_produto, quantidade, valor_unitario) VALUES ($1, $2, $3, $4, $5)",
-        [uuidv4(), idPedido, p.id, p.quantidade, p.valor]
+    if (!usuario) {
+      return NextResponse.json(
+        { error: "Usuário não encontrado." },
+        { status: 404 }
       );
     }
 
-    return NextResponse.json(
-      { mensagem: "Pedido finalizado" },
-      { status: 201 }
+    const result = await db.query(
+      "SELECT * FROM pedidos WHERE id_usuario = $1 ORDER BY data_criacao DESC",
+      [usuario.id]
     );
-  } catch (e) {
+
+    return NextResponse.json(result.rows);
+  } catch (error) {
+    console.log("Erro ao listar pedidos", error);
     return NextResponse.json(
-      { erro: "Erro ao finalizar pedido" },
+      { error: "Erro interno ao listar pedidos." },
       { status: 500 }
     );
+  }
+}
+
+export async function POST(req) {
+  const client = await db.connect();
+
+  try {
+    const usuario = await getUsuarioServerSide();
+
+    if (!usuario) {
+      return NextResponse.json(
+        { error: "Usuário não encontrado." },
+        { status: 404 }
+      );
+    }
+
+    const { cep, estado, cidade, bairro, rua, numero, complemento } = usuario;
+
+    if (!cep || !estado || !cidade || !bairro || !rua || !numero) {
+      return NextResponse.json(
+        { error: "Preencha os dados de endereço antes de finalizar o pedido." },
+        { status: 400 }
+      );
+    }
+
+    const { itens, total } = await req.json();
+
+    if (!itens || itens.length === 0) {
+      return NextResponse.json(
+        { error: "Nenhum item no pedido." },
+        { status: 400 }
+      );
+    }
+
+    if (typeof total !== "number" || total <= 0) {
+      return NextResponse.json({ error: "Total inválido." }, { status: 400 });
+    }
+
+    // inicia transação para não salvar pedido incompleto se der erro
+    await client.query("BEGIN");
+
+    const idPedido = uuidv4();
+
+    // cria pedido
+    await client.query(
+      `INSERT INTO pedidos (
+        id, 
+        id_usuario,
+        total,
+        cep,
+        estado,
+        cidade,
+        bairro,
+        rua,
+        numero,
+        complemento
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+      [
+        idPedido,
+        usuario.id,
+        total,
+        cep,
+        estado,
+        cidade,
+        bairro,
+        rua,
+        numero,
+        complemento,
+      ]
+    );
+
+    // busca carrinho do usuário apenas 1 vez
+    const carrinho = await client.query(
+      "SELECT id FROM carrinhos WHERE id_usuario = $1",
+      [usuario.id]
+    );
+
+    const idCarrinho = carrinho.rows[0]?.id;
+
+    if (!idCarrinho) {
+      await client.query("ROLLBACK");
+      return NextResponse.json(
+        { error: "Carrinho não encontrado para o usuário." },
+        { status: 404 }
+      );
+    }
+
+    // processa itens
+    for (const item of itens) {
+      await client.query(
+        "INSERT INTO itens_pedido (id, id_pedido, id_produto, quantidade) VALUES ($1, $2, $3, $4)",
+        [uuidv4(), idPedido, item.id, item.quantidade]
+      );
+
+      // remove item do carrinho
+      await client.query(
+        "DELETE FROM itens_carrinho WHERE id_carrinho = $1 AND id_produto = $2",
+        [idCarrinho, item.id]
+      );
+    }
+
+    await client.query("COMMIT");
+
+    return NextResponse.json(
+      { mensagem: "Pedido finalizado com sucesso." },
+      { status: 201 }
+    );
+  } catch (error) {
+    await client.query("ROLLBACK");
+
+    console.error("Erro ao finalizar pedido:", error);
+    return NextResponse.json(
+      { error: error?.message || "Erro interno ao listar pedidos." },
+      { status: 500 }
+    );
+  } finally {
+    client.release();
   }
 }

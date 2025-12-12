@@ -6,7 +6,7 @@ import { useState } from "react";
 import style from "./outrasAcoesUsuario.module.css";
 import { CircleX, LogOut } from "lucide-react";
 
-export default () => {
+export default ({ usuario }) => {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
 

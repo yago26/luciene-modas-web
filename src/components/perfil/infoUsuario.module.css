@@ -2,12 +2,20 @@
   display: flex;
   width: 100%;
   list-style: none;
-  gap: 5%;
+  gap: 2.5%;
+}
+
+.containerDadosPessoais {
+  height: min-content;
 }
 
 .containerDadosPessoais,
 .containerEndereco {
   width: 30%;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  padding: 25px;
+  box-shadow: 1px 1px 10px gray;
 }
 
 .infoUsuario {
