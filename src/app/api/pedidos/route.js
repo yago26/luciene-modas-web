@@ -3,32 +3,6 @@ import db from "@/lib/db";
 import { NextResponse } from "next/server";
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
-export async function GET() {
-  try {
-    const usuario = await getUsuarioServerSide();
-
-    if (!usuario) {
-      return NextResponse.json(
-        { error: "Usuário não encontrado." },
-        { status: 404 }
-      );
-    }
-
-    const result = await db.query(
-      "SELECT * FROM pedidos WHERE id_usuario = $1 ORDER BY data_criacao DESC",
-      [usuario.id]
-    );
-
-    return NextResponse.json(result.rows);
-  } catch (error) {
-    console.log("Erro ao listar pedidos", error);
-    return NextResponse.json(
-      { error: "Erro interno ao listar pedidos." },
-      { status: 500 }
-    );
-  }
-}
-
 export async function POST(req) {
   const client = await db.connect();
 

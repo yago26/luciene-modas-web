@@ -1,45 +1,40 @@
+import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
+import style from "./page.module.css";
 import { Divider } from "antd";
-import NotFound from "@/components/layout/NotFound";
 
 export default async function MeusPedidos() {
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/pedidos`, {
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
-    const erro = await response.json();
-
-    return (
-      <NotFound
-        titulo="Erro ao carregar pedidos"
-        mensagem={erro.error || "Tente novamente mais tarde."}
-        caminho="/"
-      />
+  let pedidos = [];
+  try {
+    const usuario = await getUsuarioServerSide();
+    const formData = new FormData();
+    formData.append("id", usuario.id);
+    const response = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/pedidos/get`,
+      { method: "POST", body: formData }
     );
+    if (response.ok) {
+      const p = await response.json();
+      pedidos = p.data;
+    } else {
+      throw new Error(response.error);
+    }
+  } catch (err) {
+  } finally {
   }
 
-  const pedidos = await response.json();
-
   return (
-    <>
+    <div>
       <h1>Meus pedidos</h1>
       <Divider style={{ borderColor: "black" }} />
-
-      <div className="containerPedidos">
-        {!Array.isArray(pedidos) || pedidos.length === 0 ? (
-          <NotFound
-            titulo="Nenhum pedido cadastrado!"
-            mensagem="Realize uma compra para visualizar seus pedidos."
-            caminho="/"
-          />
-        ) : (
-          pedidos.map((p) => (
-            <div key={p.id}>
-              <h3>{p.id}</h3>
-            </div>
-          ))
-        )}
+      <div className={style.containerPedido}>
+        {pedidos.map((pedido) => (
+          <div key={pedido.id}>
+            <div>Entrega: {pedido.pagamento}</div>
+            <div>Pagamento: {pedido.pagamento}</div>
+            <div>Data: {pedido.data_criacao}</div>
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
 }

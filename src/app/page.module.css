@@ -14,10 +14,10 @@
 
 .overlay {
   position: fixed;
-  top: 18.25%;
+  top: 15%;
   left: 0;
   width: 100vw;
-  height: calc(100vh - 18.25%); /* ocupa apenas o espaço disponível */
+  height: calc(100vh - 15%); /* ocupa apenas o espaço disponível */
   background: rgba(0, 0, 0, 0.3);
 
   display: flex;
