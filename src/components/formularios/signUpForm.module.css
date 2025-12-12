@@ -11,9 +11,10 @@
 
 .containerDado,
 .containerSenha {
+  border: none;
   display: flex;
   align-items: center;
-  border: 1px solid black;
+  box-shadow: 1px 1px 10px gray;
   border-radius: 30px;
   input {
     width: 100%;

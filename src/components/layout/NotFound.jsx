@@ -3,7 +3,12 @@
 import { QuestionOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-export default ({ titulo, mensagem, caminho, mensagemCaminho = "Ir às compras" }) => {
+export default ({
+  titulo,
+  mensagem,
+  caminho,
+  mensagemCaminho = "Ir às compras",
+}) => {
   const router = useRouter();
   return (
     <div
@@ -40,7 +45,7 @@ export default ({ titulo, mensagem, caminho, mensagemCaminho = "Ir às compras" 
           }}
           onClick={() => router.push(caminho)}
         >
-          mensagemCaminho
+          {mensagemCaminho}
         </button>
       )}
     </div>

@@ -1,23 +1,49 @@
 .pedido {
-    background-color: whitesmoke;
-    padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: whitesmoke;
+  padding: 30px;
+  border-bottom: 1px solid gray;
 }
 
 .status {
+  display: flex;
+  gap: 1%;
+  div {
     display: flex;
-    gap: 1%;
-    div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5%;
-        background-color: gray;
-        border-radius: 30px;
-        padding: 10px 20px;
-    }
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    background-color: gray;
+    border-radius: 30px;
+    padding: 10px 20px;
+    color: white;
+  }
 }
 
 .icone {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+.verde {
+  color: lightgreen !important;
+}
+
+.vermelho {
+  color: red !important;
+}
+
+.btnCancelar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+  border: none;
+  padding: 10px;
+  color: white;
+  background-color: red;
+  box-shadow: 1px solid red;
+  border-radius: 20px;
 }

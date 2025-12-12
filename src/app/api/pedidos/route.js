@@ -43,6 +43,10 @@ export async function POST(req) {
 
     const idPedido = uuidv4();
 
+    const dataBrasil = new Date().toLocaleString("sv-SE", {
+      timeZone: "America/Sao_Paulo",
+    });
+
     // cria pedido
     await client.query(
       `INSERT INTO pedidos (
@@ -55,8 +59,9 @@ export async function POST(req) {
         bairro,
         rua,
         numero,
-        complemento
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+        complemento, 
+        data_criacao
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
       [
         idPedido,
         usuario.id,
@@ -68,6 +73,7 @@ export async function POST(req) {
         rua,
         numero,
         complemento,
+        dataBrasil,
       ]
     );
 
