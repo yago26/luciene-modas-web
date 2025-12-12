@@ -49,8 +49,9 @@ const style = {
     marginBlock: "15px",
   },
   btn: {
+    border: "none",
     backgroundColor: "transparent",
-    boxShadow: "1px 1px 5px black",
+    boxShadow: "1px 1px 10px gray",
     borderRadius: "30px",
     display: "flex",
     justifyContent: "center",

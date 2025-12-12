@@ -1,0 +1,23 @@
+.pedido {
+    background-color: whitesmoke;
+    padding: 30px;
+}
+
+.status {
+    display: flex;
+    gap: 1%;
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5%;
+        background-color: gray;
+        border-radius: 30px;
+        padding: 10px 20px;
+    }
+}
+
+.icone {
+    width: 30px;
+    height: 30px;
+}

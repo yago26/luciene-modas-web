@@ -15,7 +15,7 @@
     "antd": "^6.0.1",
     "bcryptjs": "^3.0.2",
     "jsonwebtoken": "^9.0.2",
-    "lucide-react": "^0.536.0",
+    "lucide-react": "^0.561.0",
     "next": "^16.0.7",
     "next-auth": "^4.24.11",
     "pg": "^8.14.1",
