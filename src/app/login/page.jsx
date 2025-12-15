@@ -9,25 +9,29 @@ import { useState } from "react";
 import { Divider } from "antd";
 import ProvedoresNextAuth from "@/components/formularios/ProvedoresNextAuth";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [errorKey, setErrorKey] = useState(0);
 
+  const router = useRouter();
+
   const authUsuario = async (form) => {
     const response = await signIn("credentials", {
       email: form.email,
       senha: form.senha,
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
     });
 
-    if (response?.ok) {
-      setShowSuccessAlert(true);
-    } else {
+    if (!response) {
       setShowErrorAlert(true);
       setErrorKey((k) => k + 1);
+    } else {
+      setShowSuccessAlert(true);
+      router.push("/");
+      router.refresh();
     }
   };
 

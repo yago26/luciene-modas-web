@@ -1,20 +1,27 @@
 "use client";
 import { useState } from "react";
 import style from "./pedido.module.css";
-import { DollarSign, Van, X } from "lucide-react";
+import { DollarSign, Trash, Van } from "lucide-react";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 
-export default function Pedido({ pedido }) {
+export default function Pedido({ pedido, onRemoverPedidoLista }) {
+  const [loading, setLoading] = useState(false);
   const [showSuccessAlertRemove, setShowSuccessAlertRemove] = useState(false);
 
-  const handleExcluir = async () => {
+  const excluir = async (id_pedido) => {
+    setLoading(true);
     const response = await fetch(
-      `${process.env.NEXTAUTH_URL || ""}/api/pedidos/${pedido.id}`,
+      `${process.env.NEXTAUTH_URL || ""}/api/pedidos/${id_pedido}`,
       {
         method: "DELETE",
       }
     );
+    setLoading(false);
+
     if (response.ok) {
       setShowSuccessAlertRemove(true);
+      onRemoverPedidoLista(id_pedido);
       return;
     }
   };
@@ -22,6 +29,12 @@ export default function Pedido({ pedido }) {
   return (
     <div key={pedido.id} className={style.pedido}>
       <div className={style.infosPedido}>
+        <div>
+          {pedido.itens.map((i) => (
+            <div key={i.id}>{i.nome}</div>
+          ))}
+        </div>
+
         <div className={style.status}>
           <div>
             <Van className={style.icone} />
@@ -32,8 +45,8 @@ export default function Pedido({ pedido }) {
             {pedido.pagamento}
           </div>
         </div>
+
         <div>
-          Data de criação:{" "}
           {new Date(pedido.data_criacao).toLocaleString("pt-BR", {
             timeZone: "America/Sao_Paulo",
             day: "2-digit",
@@ -46,8 +59,18 @@ export default function Pedido({ pedido }) {
       </div>
 
       <div className={style.funcionalidades}>
-        <button onClick={handleExcluir} className={style.btnCancelar}>
-          <X size={25} /> Excluir
+        <button
+          onClick={() => excluir(pedido.id)}
+          className={style.btnCancelar}
+          disabled={loading}
+        >
+          {loading ? (
+            <Spin
+              indicator={<LoadingOutlined style={{ fontSize: 25 }} spin />}
+            />
+          ) : (
+            <Trash size={25} />
+          )}
         </button>
       </div>
     </div>

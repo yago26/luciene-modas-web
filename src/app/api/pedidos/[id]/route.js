@@ -25,7 +25,7 @@ export async function GET(req, { params }) {
               'imagem', pr.imagem
             )
           )
-        ) AS itens_pedido
+        ) AS itens
       FROM pedidos p
       JOIN itens_pedido i ON p.id = i.id_pedido
       JOIN produtos pr ON pr.id = i.id_produto

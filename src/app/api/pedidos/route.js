@@ -77,22 +77,6 @@ export async function POST(req) {
       ]
     );
 
-    // busca carrinho do usuário apenas 1 vez
-    const carrinho = await client.query(
-      "SELECT id FROM carrinhos WHERE id_usuario = $1",
-      [usuario.id]
-    );
-
-    const idCarrinho = carrinho.rows[0]?.id;
-
-    if (!idCarrinho) {
-      await client.query("ROLLBACK");
-      return NextResponse.json(
-        { error: "Carrinho não encontrado para o usuário." },
-        { status: 404 }
-      );
-    }
-
     // processa itens
     for (const item of itens) {
       await client.query(
@@ -101,10 +85,7 @@ export async function POST(req) {
       );
 
       // remove item do carrinho
-      await client.query(
-        "DELETE FROM itens_carrinho WHERE id_carrinho = $1 AND id_produto = $2",
-        [idCarrinho, item.id]
-      );
+      await client.query("DELETE FROM itens_carrinho WHERE id = $1", [item.id]);
     }
 
     await client.query("COMMIT");

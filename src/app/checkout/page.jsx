@@ -28,7 +28,6 @@ export default function Checkout() {
         );
         const itens_carrinho = await response.json();
         setItens(itens_carrinho);
-        console.log(itens);
       } catch (error) {
         console.log(error);
       } finally {
@@ -43,8 +42,10 @@ export default function Checkout() {
     total = subtotalGeral + frete;
     try {
       const itens_pedido = itens.map(
-        (i) => (i = { id_produto: i.id_produto, quantidade: i.quantidade })
+        (i) =>
+          (i = { id: i.id, id_produto: i.id_produto, quantidade: i.quantidade })
       );
+      console.log(itens_pedido);
       const res = await fetch(`${process.env.NEXTAUTH_URL || ""}/api/pedidos`, {
         method: "POST",
         body: JSON.stringify({
@@ -55,9 +56,7 @@ export default function Checkout() {
       if (res.ok) {
         alert("Sucesso! Pedido finalizado.");
         setIsModalOpen(false);
-        setTimeout(() => {
-          router.push("/meus-pedidos");
-        }, 3000);
+        router.push("/meus-pedidos");
       } else {
         const erro = await res.json();
         alert(erro.error || "Erro ao finalizar pedido.");

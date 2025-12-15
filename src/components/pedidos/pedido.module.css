@@ -4,7 +4,19 @@
   justify-content: space-between;
   background-color: whitesmoke;
   padding: 30px;
-  border-bottom: 1px solid gray;
+  border-radius: 30px;
+  border-bottom: 10px solid var(--cor-terciaria);
+  transition: 250ms;
+}
+
+.pedido:hover {
+  scale: 1.01;
+}
+
+.infosPedido {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .status {
@@ -42,8 +54,7 @@
   gap: 5%;
   border: none;
   padding: 10px;
-  color: white;
+  color: var(--cor-secundaria);
   background-color: red;
-  box-shadow: 1px solid red;
   border-radius: 20px;
 }
