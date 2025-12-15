@@ -20,6 +20,8 @@ export default function PedidosList({ usuario }) {
       setPedidos(data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -33,7 +35,6 @@ export default function PedidosList({ usuario }) {
         return novo;
       })
     );
-    setLoading(false);
   }, []);
 
   useEffect(() => {

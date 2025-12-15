@@ -15,15 +15,12 @@ export async function GET(req, { params }) {
         p.data_emissao_entrega,
         JSON_AGG(
           JSON_BUILD_OBJECT(
-            'id', i.id,
-            'quantidade', i.quantidade,
-            'produto', JSON_BUILD_OBJECT(
-              'id', pr.id,
-              'nome', pr.nome,
-              'valor', pr.valor,
-              'estoque', pr.estoque,
-              'imagem', pr.imagem
-            )
+            'id', pr.id,
+            'nome', pr.nome,
+            'valor', pr.valor,
+            'estoque', pr.estoque,
+            'imagem', pr.imagem,
+            'quantidade', i.quantidade
           )
         ) AS itens
       FROM pedidos p

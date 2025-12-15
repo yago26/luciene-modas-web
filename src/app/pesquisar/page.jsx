@@ -44,7 +44,6 @@ export default function Pesquisar() {
 
   // Filtrar produtos quando o termo mudar
   useEffect(() => {
-    setLoadingFiltrados(true);
     if (!nome.trim()) {
       setFiltrados(produtos);
       setLoadingFiltrados(false);

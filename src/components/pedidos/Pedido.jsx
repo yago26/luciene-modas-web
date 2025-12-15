@@ -3,7 +3,8 @@ import { useState } from "react";
 import style from "./pedido.module.css";
 import { DollarSign, Trash, Van } from "lucide-react";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
+import { Divider, Spin } from "antd";
+import Sucesso from "../toasts/Sucesso";
 
 export default function Pedido({ pedido, onRemoverPedidoLista }) {
   const [loading, setLoading] = useState(false);
@@ -29,10 +30,45 @@ export default function Pedido({ pedido, onRemoverPedidoLista }) {
   return (
     <div key={pedido.id} className={style.pedido}>
       <div className={style.infosPedido}>
-        <div>
+        <div style={{ color: "gray" }}>ID: {pedido.id}</div>
+
+        <div
+          style={{
+            height: "200px",
+            overflowY: "auto",
+          }}
+        >
           {pedido.itens.map((i) => (
-            <div key={i.id}>{i.nome}</div>
+            <div
+              key={i.id}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "15px",
+                padding: "10px",
+              }}
+            >
+              <img src={i.imagem} alt={i.nome} width={100} height={100} />
+              <div>
+                <h4>{i.nome}</h4>
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <span>Valor: {i.valor.toFixed(2).replace(".", ",")}</span>
+                  <span>Quantidade: {i.quantidade}</span>
+                </div>
+              </div>
+            </div>
           ))}
+        </div>
+
+        <Divider style={{ borderColor: "gray" }} />
+
+        <div>
+          <span style={{ fontWeight: "bold" }}>
+            Total:{" "}
+            <span style={{ color: "green" }}>
+              {pedido.total.replace(".", ",")}
+            </span>
+          </span>
         </div>
 
         <div className={style.status}>
@@ -61,18 +97,24 @@ export default function Pedido({ pedido, onRemoverPedidoLista }) {
       <div className={style.funcionalidades}>
         <button
           onClick={() => excluir(pedido.id)}
-          className={style.btnCancelar}
+          className={style.btnExcluir}
           disabled={loading}
         >
           {loading ? (
             <Spin
-              indicator={<LoadingOutlined style={{ fontSize: 25 }} spin />}
+              indicator={
+                <LoadingOutlined
+                  style={{ fontSize: 25, color: "white" }}
+                  spin
+                />
+              }
             />
           ) : (
             <Trash size={25} />
           )}
         </button>
       </div>
+      {showSuccessAlertRemove && <Sucesso mensagem={"Pedido excluído."} />}
     </div>
   );
 }
