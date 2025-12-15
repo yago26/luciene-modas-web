@@ -97,7 +97,7 @@ export async function POST(req) {
     for (const item of itens) {
       await client.query(
         "INSERT INTO itens_pedido (id, id_pedido, id_produto, quantidade) VALUES ($1, $2, $3, $4)",
-        [uuidv4(), idPedido, item.id, item.quantidade]
+        [uuidv4(), idPedido, item.id_produto, item.quantidade]
       );
 
       // remove item do carrinho

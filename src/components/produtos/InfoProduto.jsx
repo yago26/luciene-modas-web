@@ -6,23 +6,55 @@ import { useState } from "react";
 import { Divider, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import Sucesso from "../toasts/Sucesso";
+import Aviso from "../toasts/Aviso";
 
 export default ({ produto, usuario }) => {
   const [loading, setLoading] = useState(false);
+
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [keySuccess, setKeySuccess] = useState(0);
+
+  const [showWarningAlert, setShowWarningAlert] = useState(false);
+  const [keyWarning, setKeyWarning] = useState(0);
 
   const valor = String(produto.valor).replace(".", ",");
 
   const [cep, setCep] = useState("");
-  const { adicionarProduto } = useCarrinhoStore();
+  const [quantidade, setQuantidade] = useState(1);
+
+  const { itens, adicionarItemCarrinho } = useCarrinhoStore();
+
+  const item = itens.find((i) => i.id_produto === produto.id);
 
   const handleAdd = async () => {
     setLoading(true);
-    const result = await adicionarProduto(produto.id, 1);
+    if (quantidade > produto.estoque) {
+      setShowWarningAlert(true);
+      setKeyWarning((prev) => prev + 1);
+      setLoading(false);
+      return;
+    }
+
+    if (item) {
+      const somaComNovaQuantidade =
+        Number(item.quantidade) + Number(quantidade);
+      if (
+        produto.estoque <= item.quantidade ||
+        produto.estoque < somaComNovaQuantidade
+      ) {
+        setShowWarningAlert(true);
+        setKeyWarning((prev) => prev + 1);
+        setLoading(false);
+        return;
+      }
+    }
+
+    const result = await adicionarItemCarrinho(produto.id, quantidade);
     setLoading(false);
+
     if (result) {
       setShowSuccessAlert(true);
-      setTimeout(() => setShowSuccessAlert(false), 4000);
+      setKeySuccess((prev) => prev + 1);
     }
   };
 
@@ -56,23 +88,50 @@ export default ({ produto, usuario }) => {
         <Divider style={{ borderColor: "black" }} />
 
         {usuario && produto.estoque > 0 && (
-          <button
-            className={style.btnAdicionar}
-            onClick={() => (loading ? "" : handleAdd())}
-          >
-            {loading ? (
-              <Spin
-                indicator={
-                  <LoadingOutlined
-                    style={{ color: "white", height: "100%", fontSize: 15 }}
-                    spin
-                  />
-                }
+          <>
+            <button
+              className={style.btnAdicionar}
+              onClick={() => (loading ? "" : handleAdd())}
+            >
+              {loading ? (
+                <Spin
+                  indicator={
+                    <LoadingOutlined
+                      style={{ color: "white", height: "100%", fontSize: 15 }}
+                      spin
+                    />
+                  }
+                />
+              ) : (
+                "Adicionar"
+              )}
+            </button>
+
+            <div className={style.containerQuantidade}>
+              <button
+                onClick={() => {
+                  if (quantidade - 1 > 0)
+                    setQuantidade((prev) => Number(prev - 1));
+                }}
+              >
+                -
+              </button>
+              <input
+                type="text"
+                value={quantidade}
+                onChange={(e) => {
+                  const valor = e.target.value.replace(/[^0-9]/g, "");
+                  setQuantidade(valor);
+                }}
+                onBlur={(e) => {
+                  if (e.target.value == "") setQuantidade(1);
+                }}
               />
-            ) : (
-              "Adicionar"
-            )}
-          </button>
+              <button onClick={() => setQuantidade((prev) => Number(prev + 1))}>
+                +
+              </button>
+            </div>
+          </>
         )}
 
         <div className={style.containerFrete}>
@@ -111,7 +170,14 @@ export default ({ produto, usuario }) => {
 
       {showSuccessAlert && (
         <Sucesso
+          key={`s-${keySuccess}`}
           mensagem={`${produto.nome} adicionado(a) ao carrinho com sucesso!`}
+        />
+      )}
+      {showWarningAlert && (
+        <Aviso
+          key={`w-${keyWarning}`}
+          mensagem={`O máximo disponível de "${produto.nome}" com esses atributos são ${produto.estoque} unidade(s)`}
         />
       )}
     </>

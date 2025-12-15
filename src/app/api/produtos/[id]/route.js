@@ -5,6 +5,7 @@ export async function GET(req, { params }) {
   try {
     const { id } = await params;
     const result = await db.query("SELECT * FROM produtos WHERE id = $1", [id]);
+    // const result = await db.query("SELECT p.id, p.nome, p.sobre, p.imagem FROM produtos p WHERE id = $1", [id]);
 
     if (!result) {
       return NextResponse.json(
@@ -30,7 +31,7 @@ export async function DELETE(req, { params }) {
     const { id } = await params;
     const { url } = await req.json();
 
-    db.query("DELETE FROM produtos WHERE id = $1", [id]);
+    await db.query("DELETE FROM produtos WHERE id = $1", [id]);
 
     await del(url);
 

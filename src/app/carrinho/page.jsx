@@ -4,6 +4,8 @@ import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 export default async function Carrinho() {
   const usuario = await getUsuarioServerSide();
 
+  if (!usuario) return;
+
   return (
     <>
       <header style={style.header}>

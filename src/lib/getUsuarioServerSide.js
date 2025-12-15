@@ -11,7 +11,6 @@ export default async function getUsuarioServerSide() {
     const res = await fetch(
       `${process.env.NEXTAUTH_URL}/api/usuarios/${id_usuario}`
     );
-    ("");
     usuario = await res.json();
   }
 

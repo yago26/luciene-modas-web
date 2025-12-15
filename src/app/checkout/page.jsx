@@ -9,41 +9,26 @@ export default function Checkout() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [produtos, setProdutos] = useState([]);
+  const [itens, setItens] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    const idsParam = searchParams.get("ids");
-    const quantidadesParam = searchParams.get("quantidades");
+    const ids_itens_carrinho = searchParams.get("ids");
 
-    if (!idsParam || !quantidadesParam) return;
+    if (!ids_itens_carrinho) return;
 
-    const ids = idsParam.split(",");
-    const quantidades = quantidadesParam.split(",").map(Number);
-
-    async function buscarProdutos() {
+    async function buscarItens() {
       try {
-        const resultados = await Promise.all(
-          ids.map(async (id) => {
-            const res = await fetch(
-              `${process.env.NEXTAUTH_URL || ""}/api/produtos/${id}`
-            );
-            return res.ok ? await res.json() : null;
-          })
+        const response = await fetch(
+          `${
+            process.env.NEXTAUTH_URL || ""
+          }/api/itens-carrinho?ids=${ids_itens_carrinho}`
         );
-
-        const produtosValidos = resultados.filter((p) => p !== null);
-
-        // Agora que produtos foram obtidos, montar produtosCompra:
-        const listaCompra = produtosValidos.map((produto, index) => ({
-          ...produto,
-          quantidade: quantidades[index],
-          subtotal: (produto.valor * quantidades[index]).toFixed(2),
-        }));
-
-        setProdutos(listaCompra);
+        const itens_carrinho = await response.json();
+        setItens(itens_carrinho);
+        console.log(itens);
       } catch (error) {
         console.log(error);
       } finally {
@@ -51,16 +36,19 @@ export default function Checkout() {
       }
     }
 
-    buscarProdutos();
+    buscarItens();
   }, [searchParams]);
 
   const finalizarPedido = async () => {
     total = subtotalGeral + frete;
     try {
+      const itens_pedido = itens.map(
+        (i) => (i = { id_produto: i.id_produto, quantidade: i.quantidade })
+      );
       const res = await fetch(`${process.env.NEXTAUTH_URL || ""}/api/pedidos`, {
         method: "POST",
         body: JSON.stringify({
-          itens: produtos,
+          itens: itens_pedido,
           total: total,
         }),
       });
@@ -80,8 +68,8 @@ export default function Checkout() {
     }
   };
 
-  const subtotalGeral = produtos.reduce(
-    (acc, item) => acc + Number(item.subtotal),
+  const subtotalGeral = itens.reduce(
+    (acc, item) => acc + item.valor * item.quantidade,
     0
   );
 
@@ -109,7 +97,7 @@ export default function Checkout() {
       >
         <h2 style={{ color: "var(--cor-principal)" }}>Produtos</h2>
         <Divider style={{ borderColor: "black" }} />
-        {produtos.map((item) => (
+        {itens.map((item) => (
           <div
             key={item.id}
             style={{
@@ -123,7 +111,7 @@ export default function Checkout() {
               <img
                 style={{ marginRight: "15px" }}
                 src={item.imagem}
-                alt={item.sobre || item.nome}
+                alt={item.nome}
                 width={100}
                 height={100}
               />
@@ -134,7 +122,8 @@ export default function Checkout() {
             <div style={{ textAlign: "right" }}>
               <p>Preço unitário: R$ {Number(item.valor).toFixed(2)}</p>
               <p>
-                Subtotal: <strong>R$ {item.subtotal}</strong>
+                Subtotal:{" "}
+                <strong>R$ {(item.valor * item.quantidade).toFixed(2)}</strong>
               </p>
             </div>
           </div>

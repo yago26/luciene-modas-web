@@ -17,7 +17,8 @@ export default async function proxy(req) {
   const publics_auth =
     pathname.startsWith("/perfil") ||
     pathname.startsWith("/carrinho") ||
-    pathname.startsWith("/checkout");
+    pathname.startsWith("/checkout") ||
+    pathname.startsWith("/meus-pedidos");
 
   if (!token && publics_auth) {
     const url = new URL("/login", req.url);
@@ -42,6 +43,7 @@ export const config = {
     "/perfil/:path*",
     "/carrinho/:path*",
     "/checkout/:path*",
+    "/meus-pedidos/:path*",
     "/login/:path*",
     "/sign-up/:path*",
     // "/admin/:path*",

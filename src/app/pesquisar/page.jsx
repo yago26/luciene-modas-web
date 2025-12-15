@@ -23,13 +23,14 @@ export default function Pesquisar() {
   const [produtos, setProdutos] = useState([]);
   const [filtrados, setFiltrados] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingFiltrados, setLoadingFiltrados] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     carregarProdutos();
   }, []);
 
   async function carregarProdutos() {
-    setLoading(true);
     try {
       const res = await fetch("/api/produtos?estoque=disponivel");
       let data = await res.json();
@@ -43,8 +44,10 @@ export default function Pesquisar() {
 
   // Filtrar produtos quando o termo mudar
   useEffect(() => {
+    setLoadingFiltrados(true);
     if (!nome.trim()) {
       setFiltrados(produtos);
+      setLoadingFiltrados(false);
       return;
     }
 
@@ -74,6 +77,7 @@ export default function Pesquisar() {
         prev.filter((d) => d.valor < Number(filtros.valorMaximo))
       );
     }
+    setLoadingFiltrados(false);
   }, [nome, filtros, produtos]);
 
   const limparFiltros = () => {
@@ -228,7 +232,7 @@ export default function Pesquisar() {
 
       <div className={style.containerResultados}>
         <h2>Resultados para: "{nome}"</h2>
-        {loading ? (
+        {loadingFiltrados ? (
           <Loading />
         ) : (
           filtrados.length === 0 && (

@@ -23,7 +23,6 @@ export default async ({ params }) => {
         <NotFound
           titulo="Categoria inexistente!"
           mensagem="Essa categoria não existe na aplicação."
-          caminho="/"
         />
       </>
     );
@@ -56,7 +55,6 @@ export default async ({ params }) => {
           <NotFound
             titulo="Sem produtos!"
             mensagem="Infelizmente, não há produtos disponíveis nessa categoria no momento."
-            caminho="/"
           />
         ) : (
           produtos

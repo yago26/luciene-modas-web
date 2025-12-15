@@ -18,6 +18,32 @@
   margin-bottom: 15px;
 }
 
+.containerQuantidade {
+  display: flex;
+  width: 30%;
+  gap: 5px;
+  input {
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    width: 50px;
+    text-align: center;
+    outline: none;
+  }
+  button {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: var(--cor-secundaria);
+  }
+  :first-child {
+    background-color: var(--cor-terciaria);
+  }
+  :last-child {
+    background-color: var(--cor-principal);
+  }
+}
+
 .containerFrete {
   display: flex;
   flex-direction: column;

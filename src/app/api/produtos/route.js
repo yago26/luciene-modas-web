@@ -34,6 +34,8 @@ export async function GET(req) {
     }
 
     let query = "SELECT * FROM produtos";
+    // let query =
+    //   "SELECT p.id, p.nome, p.valor, p.imagem, p.estoque FROM produtos p";
 
     if (conditions.length > 0) {
       query += " WHERE " + conditions.join(" AND ");

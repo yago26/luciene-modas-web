@@ -3,13 +3,10 @@
 import style from "./loginForm.module.css";
 import { useState } from "react";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
-import { useCarrinhoStore } from "@/app/store/carrinho";
 
 export default function LoginForm({ onAuthUsuario }) {
   const [form, setForm] = useState({ email: "", senha: "" });
   const [isShowPassword, setIsShowPassword] = useState(false);
-
-  const { fetchItensCarrinho } = useCarrinhoStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,8 +17,6 @@ export default function LoginForm({ onAuthUsuario }) {
       email: "",
       senha: "",
     });
-
-    await fetchItensCarrinho();
   };
 
   return (

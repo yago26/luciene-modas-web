@@ -6,8 +6,8 @@ import { useRouter } from "next/navigation";
 export default ({
   titulo,
   mensagem,
-  caminho,
-  mensagemCaminho = "Ir às compras",
+  direcionar = "/",
+  mensagemDirecionar = "Ir às compras",
 }) => {
   const router = useRouter();
   return (
@@ -34,7 +34,7 @@ export default ({
         <h2>{titulo}</h2>
         <p>{mensagem}</p>
       </div>
-      {caminho && (
+      {direcionar && (
         <button
           style={{
             padding: "15px",
@@ -43,9 +43,9 @@ export default ({
             backgroundColor: "var(--cor-principal)",
             color: "var(--cor-secundaria)",
           }}
-          onClick={() => router.push(caminho)}
+          onClick={() => router.push(direcionar)}
         >
-          {mensagemCaminho}
+          {mensagemDirecionar}
         </button>
       )}
     </div>

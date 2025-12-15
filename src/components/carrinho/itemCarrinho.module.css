@@ -5,7 +5,7 @@
   width: 100%;
 }
 
-.containerProduto {
+.containerItem {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -16,8 +16,8 @@
   }
 }
 
-.containerQuantidadeProduto,
-.containerSelecaoProduto,
+.containerQuantidadeItem,
+.containerSelecaoItem,
 .containerExcluir,
 .containerValor {
   width: 15%;
@@ -26,13 +26,13 @@
   justify-content: center;
 }
 
-.containerQuantidadeProduto :first-child {
+.containerQuantidadeItem :first-child {
   background-color: var(--cor-terciaria);
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
 }
 
-.containerQuantidadeProduto :last-child {
+.containerQuantidadeItem :last-child {
   background-color: var(--cor-principal);
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;

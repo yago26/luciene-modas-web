@@ -14,61 +14,20 @@ export default function CarrinhoList() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
-  const [loadingCarregar, setLoadingCarregar] = useState(true);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const [selecionados, setSelecionados] = useState(new Set());
 
-  const { items, fetchItensCarrinho } = useCarrinhoStore();
-  const [itemsCarrinho, setItemsCarrinho] = useState([]);
+  const { itens, fetchItensCarrinho } = useCarrinhoStore();
 
   useEffect(() => {
     async function carregar() {
-      setLoadingCarregar(true);
+      setLoading(true);
       await fetchItensCarrinho();
-      setLoadingCarregar(false);
+      setLoading(false);
     }
     carregar();
   }, []);
-
-  useEffect(() => {
-    if (loadingCarregar) return;
-
-    if (items.length === 0) {
-      setItemsCarrinho([]);
-      setLoading(false);
-      return;
-    }
-
-    loadCarrinho();
-  }, [items, loadingCarregar]);
-
-  async function loadCarrinho() {
-    try {
-      setLoading(true);
-      const produtos = await Promise.all(
-        items.map(async (item) => {
-          const res = await fetch(
-            `${process.env.NEXTAUTH_URL || ""}/api/produtos/${item.id_produto}`
-          );
-          const data = await res.json();
-
-          return {
-            ...data,
-            quantidade:
-              item.quantidade > data.estoque ? data.estoque : item.quantidade,
-          };
-        })
-      );
-
-      produtos.sort((a, b) => a.nome.localeCompare(b.nome));
-      setItemsCarrinho(produtos);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
 
   function selecionarItem(idProduto) {
     setSelecionados((prev) => {
@@ -87,12 +46,16 @@ export default function CarrinhoList() {
     });
   }
 
-  const selecionadosArray = itemsCarrinho.filter((p) => selecionados.has(p.id));
+  let selecionadosArray = [];
+  let subtotal = 0;
 
-  const subtotal = selecionadosArray.reduce(
-    (acc, p) => acc + p.quantidade * Number(p.valor),
-    0
-  );
+  if (itens) {
+    selecionadosArray = itens.filter((p) => selecionados.has(p.id));
+    subtotal = selecionadosArray.reduce(
+      (acc, p) => acc + p.quantidade * Number(p.valor),
+      0
+    );
+  }
 
   return (
     <>
@@ -105,27 +68,26 @@ export default function CarrinhoList() {
           <div className={style.produtos}>
             {loading ? (
               <Loading />
-            ) : itemsCarrinho.length == 0 ? (
+            ) : itens.length == 0 ? (
               <NotFound
                 titulo="Carrinho vazio!"
                 mensagem="Seu carrinho está vazio no momento, adicione produtos para continuar."
-                caminho="/"
               />
             ) : (
-              itemsCarrinho.map((produto) => (
+              itens.map((item) => (
                 <div
-                  key={produto.id}
+                  key={item.id}
                   className={
-                    selecionados.has(produto.id)
+                    selecionados.has(item.id)
                       ? style.selecionado
                       : style.naoSelecionado
                   }
                 >
                   <ItemCarrinho
                     selecionados={selecionados}
-                    produto={produto}
-                    onSelecionarItem={() => selecionarItem(produto.id)}
-                    onRemoverSelecionado={() => removerSelecionado(produto.id)}
+                    item={item}
+                    onSelecionarItem={() => selecionarItem(item.id)}
+                    onRemoverSelecionado={() => removerSelecionado(item.id)}
                   />
                 </div>
               ))
@@ -181,14 +143,7 @@ export default function CarrinhoList() {
 
                   const ids = Array.from(selecionados);
 
-                  const quantidades = ids.map((id) => {
-                    const item = itemsCarrinho.find((p) => p.id === id);
-                    return item?.quantidade || 0;
-                  });
-
-                  router.push(
-                    `/checkout?ids=${ids}&quantidades=${quantidades}`
-                  );
+                  router.push(`/checkout?ids=${ids}`);
                 }}
               >
                 Realizar compra

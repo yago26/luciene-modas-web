@@ -2,19 +2,26 @@
 
 import Link from "next/link";
 import style from "@/components/produtos/cardProduto.module.css";
-import { useCarrinhoStore } from "@/app/store/carrinho";
 import { Spin } from "antd";
 import { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import Sucesso from "../toasts/Sucesso";
+import Aviso from "../toasts/Aviso";
+import { useCarrinhoStore } from "@/app/store/carrinho";
 
 export default function CardProduto({ produto, usuario }) {
+  const { adicionarItemCarrinho } = useCarrinhoStore();
+
   const [loading, setLoading] = useState(false);
+
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [keySuccess, setKeySuccess] = useState(0);
 
-  const { adicionarProduto } = useCarrinhoStore();
+  const [showWarningAlert, setShowWarningAlert] = useState(false);
+  const [keyWarning, setKeyWarning] = useState(0);
 
-  let { id, nome, sobre, valor, imagem, estoque } = produto;
+  let { id, nome, valor, imagem, estoque } = produto;
+
   const [reais, cents] = valor.split(".");
 
   if (nome.length > 63) {
@@ -25,12 +32,23 @@ export default function CardProduto({ produto, usuario }) {
   }
 
   const handleAdd = async () => {
+    if (loading) return;
+
     setLoading(true);
-    const result = await adicionarProduto(produto.id, 1);
-    setLoading(false);
-    if (result) {
-      setShowSuccessAlert(true);
-      setTimeout(() => setShowSuccessAlert(false), 3000);
+
+    try {
+      const result = await adicionarItemCarrinho(id, 1);
+
+      if (result === true) {
+        setShowSuccessAlert(true);
+        setKeySuccess((k) => k + 1);
+      } else {
+        setShowWarningAlert(true);
+        setKeyWarning((k) => k + 1);
+      }
+    } catch (err) {
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,7 +58,7 @@ export default function CardProduto({ produto, usuario }) {
         <Link href={`/produtos/${id}`}>
           <img
             src={imagem}
-            alt={sobre}
+            alt={nome}
             width={150}
             height={150}
             style={{ objectFit: "cover" }}
@@ -54,7 +72,8 @@ export default function CardProduto({ produto, usuario }) {
         {usuario && estoque > 0 && (
           <button
             className={style.btnAdicionar}
-            onClick={() => (loading ? "" : handleAdd())}
+            onClick={handleAdd}
+            disabled={loading}
           >
             {loading ? (
               <Spin
@@ -73,7 +92,16 @@ export default function CardProduto({ produto, usuario }) {
       </div>
 
       {showSuccessAlert && (
-        <Sucesso mensagem={`${nome} adicionado(a) ao carrinho com sucesso!`} />
+        <Sucesso
+          key={`${id}-s-${keySuccess}`}
+          mensagem={`${nome} adicionado(a) ao carrinho com sucesso!`}
+        />
+      )}
+      {showWarningAlert && (
+        <Aviso
+          key={`${id}-w-${keyWarning}`}
+          mensagem={`O máximo disponível de "${nome}" com esses atributos são ${estoque} unidade(s)`}
+        />
       )}
     </>
   );

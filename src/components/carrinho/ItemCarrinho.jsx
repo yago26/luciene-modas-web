@@ -12,51 +12,51 @@ import Aviso from "../toasts/Aviso";
 
 export default function ItemCarrinho({
   selecionados,
-  produto,
+  item,
   onSelecionarItem,
   onRemoverSelecionado,
 }) {
-  if (produto.estoque <= 0) {
+  if (item.estoque <= 0) {
     return;
   }
 
-  const valor = String(produto.valor).replace(".", ",");
+  const valor = String(item.valor).replace(".", ",");
 
   const [loading, setLoading] = useState(false);
-  const [quantidade, setQuantidade] = useState(produto.quantidade);
-  const [quantidadeAnterior, setQuantidadeAnterior] = useState(
-    produto.quantidade
-  );
+  const [quantidade, setQuantidade] = useState(item.quantidade);
+  const [quantidadeAnterior, setQuantidadeAnterior] = useState(item.quantidade);
 
   const [showWarningAlert, setShowWarningAlert] = useState(false);
   const [keyWarning, setKeyWarning] = useState(0);
 
   const [showSucessAlertRemove, setShowSucessAlertRemove] = useState(false);
 
-  const { atualizarProduto, removerProduto } = useCarrinhoStore();
+  const { atualizarItemCarrinho, removerItemCarrinho } = useCarrinhoStore();
 
   const handleEvent = async (e) => {
     const valor = e.target.value.replace(/[^0-9]/g, "");
     if (valor === "") {
-      setQuantidade(produto.quantidade);
+      setQuantidade(item.quantidade);
       return;
     }
-    if (valor >= produto.estoque) {
-      setQuantidade(produto.estoque);
+    if (valor >= item.estoque) {
+      setQuantidade(item.estoque);
       setShowWarningAlert(true);
       setKeyWarning((prev) => prev + 1);
-      await atualizarProduto(produto.id, produto.estoque);
+      await atualizarItemCarrinho(item.id, item.estoque);
       setShowWarningAlert(false);
       return;
     }
     setQuantidade(valor);
-    await atualizarProduto(produto.id, valor);
+    await atualizarItemCarrinho(item.id, valor);
   };
 
   const handleDelete = async () => {
+    if (loading) return;
+
     setLoading(true);
-    await removerProduto(produto.id);
-    onRemoverSelecionado(produto.id);
+    await removerItemCarrinho(item.id);
+    onRemoverSelecionado(item.id);
     setLoading(false);
     setShowSucessAlertRemove(true);
     setTimeout(() => setShowSucessAlertRemove(false), 3000);
@@ -65,36 +65,36 @@ export default function ItemCarrinho({
   return (
     <>
       <div className={style.containerItemCarrinho}>
-        <div className={style.containerProduto}>
-          <Link href={`/produtos/${produto.id}`}>
+        <div className={style.containerItem}>
+          <Link href={`/produtos/${item.id_produto}`}>
             <img
-              src={produto.imagem}
-              alt={produto.sobre || produto.nome}
+              src={item.imagem}
+              alt={item.sobre || item.nome}
               width={130}
               height={130}
             />
           </Link>
           <div>
-            <Link href={`/produtos/${produto.id}`}>
-              <h3>{produto.nome}</h3>
+            <Link href={`/produtos/${item.id_produto}`}>
+              <h3>{item.nome}</h3>
             </Link>
           </div>
         </div>
 
-        <div className={style.containerQuantidadeProduto}>
+        <div className={style.containerQuantidadeItem}>
           <button
             className={style.btn}
             onClick={async () => {
               if (quantidade <= 1) {
-                onRemoverSelecionado(produto.id);
-                await removerProduto(produto.id);
+                onRemoverSelecionado(item.id);
+                await removerItemCarrinho(item.id);
                 setShowSucessAlertRemove(true);
                 setTimeout(() => setShowSucessAlertRemove(false), 3000);
                 return;
               }
               const novaQuantidade = quantidade - 1;
               setQuantidade(novaQuantidade);
-              atualizarProduto(produto.id, novaQuantidade);
+              atualizarItemCarrinho(item.id, novaQuantidade);
             }}
           >
             -
@@ -104,8 +104,7 @@ export default function ItemCarrinho({
             type="text"
             value={quantidade}
             onChange={(e) => {
-              if (e.target.value <= produto.estoque)
-                setQuantidade(e.target.value);
+              if (e.target.value <= item.estoque) setQuantidade(e.target.value);
               else {
                 setShowWarningAlert(true);
                 setKeyWarning((prev) => prev + 1);
@@ -126,29 +125,29 @@ export default function ItemCarrinho({
           <button
             className={style.btn}
             onClick={async () => {
-              if (quantidade >= produto.estoque) {
+              if (quantidade >= item.estoque) {
                 setShowWarningAlert(true);
                 setKeyWarning((prev) => prev + 1);
                 return;
               }
               const novaQuantidade = Number(quantidade + 1);
               setQuantidade(novaQuantidade);
-              await atualizarProduto(produto.id, novaQuantidade);
+              await atualizarItemCarrinho(item.id, novaQuantidade);
             }}
           >
             +
           </button>
         </div>
 
-        <div className={style.containerSelecaoProduto}>
+        <div className={style.containerSelecaoItem}>
           <input
-            id={produto.id}
-            name={produto.id}
+            id={item.id}
+            name={item.id}
             className={style.checkbox}
-            checked={selecionados.has(produto.id)}
+            checked={selecionados.has(item.id)}
             type="checkbox"
             onChange={(e) => {
-              onSelecionarItem({ id: produto.id });
+              onSelecionarItem({ id: item.id });
             }}
           />
         </div>
@@ -161,7 +160,8 @@ export default function ItemCarrinho({
               justifyContent: "center",
             }}
             className={style.btnRemover}
-            onClick={async () => (loading ? "" : handleDelete())}
+            onClick={handleDelete}
+            disabled={loading}
           >
             {loading ? (
               <Spin
@@ -193,7 +193,7 @@ export default function ItemCarrinho({
       {showWarningAlert && (
         <Aviso
           key={keyWarning}
-          mensagem={`O máximo disponível de "${produto.nome}" com esses atributos são ${produto.estoque} unidade(s)`}
+          mensagem={`O máximo disponível de "${item.nome}" com esses atributos são ${item.estoque} unidade(s)`}
         />
       )}
     </>

@@ -3,47 +3,55 @@
 import { create } from "zustand";
 
 export const useCarrinhoStore = create((set, get) => ({
-  items: [],
+  itens: [],
 
   fetchItensCarrinho: async () => {
     const res = await fetch(`/api/itens-carrinho`);
-    const data = await res.json();
-    set({ items: data.items });
+    const itens_carrinho = await res.json();
+    set({ itens: itens_carrinho });
   },
 
-  adicionarProduto: async (id_produto, quantidade = 1) => {
+  adicionarItemCarrinho: async (id_produto, quantidade = 1) => {
     const res = await fetch(`/api/itens-carrinho`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idProduto: id_produto, quantidade: quantidade }),
     });
-    if (res.ok) {
-      await get().fetchItensCarrinho();
+    if (!res.ok) {
+      const error = await res.json();
+      return new Error(error.error);
     }
-    return res.ok;
+
+    const itens_carrinho = await res.json();
+    set({ itens: itens_carrinho });
+
+    return true;
   },
 
-  removerProduto: async (id_produto) => {
+  removerItemCarrinho: async (id_item_carrinho) => {
     const res = await fetch(`/api/itens-carrinho`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idProduto: id_produto }),
+      body: JSON.stringify({ idItemCarrinho: id_item_carrinho }),
     });
     if (res.ok) {
-      await get().fetchItensCarrinho();
+      const itens_carrinho = get().itens.filter(
+        (i) => i.id !== id_item_carrinho
+      );
+      set({ itens: itens_carrinho });
     }
     return res.ok;
   },
 
-  atualizarProduto: async (id_produto, quantidade) => {
+  atualizarItemCarrinho: async (id_item_carrinho, quantidade) => {
     const res = await fetch(`/api/itens-carrinho`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idProduto: id_produto, quantidade: quantidade }),
+      body: JSON.stringify({
+        idItemCarrinho: id_item_carrinho,
+        quantidade: quantidade,
+      }),
     });
-    if (res.ok) {
-      await get().fetchItensCarrinho();
-    }
     return res.ok;
   },
 }));
