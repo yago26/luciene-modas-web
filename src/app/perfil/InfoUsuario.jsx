@@ -1,13 +1,12 @@
 "use client";
 
-import style from "./infoUsuario.module.css";
+import { useEndereco } from "@/lib/useEndereco";
+import Sucesso from "@/components/toasts/Sucesso";
+import Aviso from "@/components/toasts/Aviso";
+import Erro from "@/components/toasts/Erro";
 
-import { useState } from "react";
 import { Divider, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import Sucesso from "../toasts/Sucesso";
-import Aviso from "../toasts/Aviso";
-import Erro from "../toasts/Erro";
 import {
   UserRound,
   Mail,
@@ -19,7 +18,10 @@ import {
   FileText,
   Milestone,
 } from "lucide-react";
-import { useEndereco } from "@/lib/useEndereco";
+
+import { useState } from "react";
+
+import style from "./infoUsuario.module.css";
 
 export default function infoUsuario({ usuario }) {
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);

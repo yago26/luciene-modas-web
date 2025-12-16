@@ -21,7 +21,7 @@ export async function GET(req) {
         i.id, i.id_produto, p.nome, p.valor, p.imagem, i.quantidade
       FROM 
       itens_carrinho i JOIN produtos p ON i.id_produto = p.id 
-      WHERE i.id = ANY($1::uuid[]);  
+      WHERE i.id = ANY($1::uuid[]) AND p.estoque > 0;  
       `,
         [ids_itens_carrinho]
       );
@@ -56,7 +56,7 @@ export async function GET(req) {
     const result = await db.query(
       `SELECT i.id, i.id_produto, p.nome, p.valor, p.imagem, p.estoque, i.quantidade FROM 
       itens_carrinho i JOIN produtos p ON i.id_produto = p.id 
-      WHERE id_carrinho = $1 
+      WHERE id_carrinho = $1 AND p.estoque > 0 
       ORDER BY p.nome`,
       [idCarrinho]
     );

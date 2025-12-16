@@ -1,6 +1,7 @@
-import { Divider } from "antd";
-import PedidosList from "@/components/pedidos/PedidosList";
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
+import PedidosList from "./PedidosList";
+
+import { Divider } from "antd";
 
 export default async function MeusPedidos() {
   const usuario = await getUsuarioServerSide();

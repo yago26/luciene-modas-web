@@ -1,14 +1,18 @@
 "use client";
 
 import { useCarrinhoStore } from "@/app/store/carrinho";
-import style from "./carrinhoList.module.css";
+import Loading from "../../components/layout/Loading";
+import NotFound from "../../components/layout/NotFound";
+import ItemCarrinho from "./ItemCarrinho";
+import Erro from "../../components/toasts/Erro";
+
+import { Divider } from "antd";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import ItemCarrinho from "./ItemCarrinho";
-import Erro from "../toasts/Erro";
-import NotFound from "../layout/NotFound";
-import { Divider } from "antd";
-import Loading from "../layout/Loading";
+
+import style from "./carrinhoList.module.css";
+import { Minus, Plus, Trash2 } from "lucide-react";
 
 export default function CarrinhoList() {
   const router = useRouter();
@@ -18,7 +22,7 @@ export default function CarrinhoList() {
 
   const [selecionados, setSelecionados] = useState(new Set());
 
-  const { itens, fetchItensCarrinho } = useCarrinhoStore();
+  const { itens, fetchItensCarrinho, removerItemCarrinho } = useCarrinhoStore();
 
   useEffect(() => {
     async function carregar() {
@@ -28,6 +32,22 @@ export default function CarrinhoList() {
     }
     carregar();
   }, []);
+
+  const handleRemoveAll = async () => {
+    // Fazer depois
+  };
+
+  const handleSelectAll = async () => {
+    const lista = new Set();
+    for (let item of itens) {
+      lista.add(item.id);
+    }
+    setSelecionados(lista);
+  };
+
+  const handleRemoveSelectionAll = async () => {
+    setSelecionados(new Set());
+  };
 
   function selecionarItem(idProduto) {
     setSelecionados((prev) => {
@@ -62,7 +82,24 @@ export default function CarrinhoList() {
       <div className={style.containerCarrinho}>
         {/* LISTA DE PRODUTOS */}
         <div className={style.containerProdutos}>
-          <h2>Produtos</h2>
+          <div>
+            <h2>Produtos</h2>
+            <button onClick={handleRemoveAll}>
+              <Trash2 />
+              Remover todos os produtos
+            </button>
+            {itens.length === selecionados.size ? (
+              <button onClick={handleRemoveSelectionAll}>
+                <Minus />
+                Remover seleção de todos os itens
+              </button>
+            ) : (
+              <button onClick={handleSelectAll}>
+                <Plus />
+                Selecionar todos os produtos
+              </button>
+            )}
+          </div>
           <Divider style={{ borderColor: "black" }} />
 
           <div className={style.produtos}>

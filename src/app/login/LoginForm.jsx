@@ -57,8 +57,7 @@ export default function LoginForm({ onAuthUsuario }) {
             required
           />
 
-          <button
-            type="button"
+          <div
             onClick={() => setIsShowPassword(!isShowPassword)}
             aria-label={isShowPassword ? "Ocultar senha" : "Mostrar senha"}
           >
@@ -67,7 +66,7 @@ export default function LoginForm({ onAuthUsuario }) {
             ) : (
               <EyeOff className={style.icone} />
             )}
-          </button>
+          </div>
         </div>
       </div>
 

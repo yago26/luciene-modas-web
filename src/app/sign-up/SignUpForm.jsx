@@ -1,7 +1,7 @@
 import { useState } from "react";
 import style from "./signUpForm.module.css";
 import { Eye, EyeOff, UserRound, Mail, Lock, LockOpen } from "lucide-react";
-import Aviso from "../toasts/Aviso";
+import Aviso from "../../components/toasts/Aviso";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 
@@ -126,9 +126,7 @@ export default function SignUpForm({ onAddUsuario, loading }) {
               onChange={(e) => setForm({ ...form, senha: e.target.value })}
               required
             />
-            <button
-              type="button"
-              style={{ outline: "none" }}
+            <div
               onClick={() => setIsShowPassword(!isShowPassword)}
             >
               {isShowPassword ? (
@@ -136,7 +134,7 @@ export default function SignUpForm({ onAddUsuario, loading }) {
               ) : (
                 <EyeOff aria-label="Esconder senha" className={style.icone} />
               )}
-            </button>
+            </div>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
-import InfoUsuario from "@/components/perfil/InfoUsuario";
-import OutrasAcoesUsuario from "@/components/perfil/OutrasAcoesUsuario";
+import InfoUsuario from "./InfoUsuario";
+import OutrasAcoesUsuario from "./OutrasAcoesUsuario";
 
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 import { Divider } from "antd";

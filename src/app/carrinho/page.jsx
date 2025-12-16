@@ -1,4 +1,4 @@
-import CarrinhoList from "@/components/carrinho/CarrinhoList";
+import CarrinhoList from "@/app/carrinho/CarrinhoList";
 import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
 
 export default async function Carrinho() {

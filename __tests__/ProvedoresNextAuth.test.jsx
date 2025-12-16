@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
-import ProvedoresNextAuth from "@/components/formularios/ProvedoresNextAuth";
+import ProvedoresNextAuth from "@/app/login/ProvedoresNextAuth";
 
 describe("ProvedoresNextAuth", () => {
   it("renderiza sem erros", () => {

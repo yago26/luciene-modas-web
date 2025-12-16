@@ -1,18 +1,21 @@
 "use client";
 
+import { useCarrinhoStore } from "@/app/store/carrinho";
+import Sucesso from "../../components/toasts/Sucesso";
+import Aviso from "../../components/toasts/Aviso";
+
+import { Spin } from "antd";
+import { Trash2 } from "lucide-react";
+import { LoadingOutlined } from "@ant-design/icons";
+
 import Link from "next/link";
 import { useState } from "react";
-import { Trash2 } from "lucide-react";
-import { Spin } from "antd";
+
 import style from "./itemCarrinho.module.css";
-import { useCarrinhoStore } from "@/app/store/carrinho";
-import { LoadingOutlined } from "@ant-design/icons";
-import Sucesso from "../toasts/Sucesso";
-import Aviso from "../toasts/Aviso";
 
 export default function ItemCarrinho({
-  selecionados,
   item,
+  selecionados,
   onSelecionarItem,
   onRemoverSelecionado,
 }) {
@@ -51,7 +54,7 @@ export default function ItemCarrinho({
     await atualizarItemCarrinho(item.id, valor);
   };
 
-  const handleDelete = async () => {
+  const handleRemove = async () => {
     if (loading) return;
 
     setLoading(true);
@@ -65,6 +68,19 @@ export default function ItemCarrinho({
   return (
     <>
       <div className={style.containerItemCarrinho}>
+        <div className={style.containerSelecaoItem}>
+          <input
+            id={item.id}
+            name={item.id}
+            className={style.checkbox}
+            checked={selecionados.has(item.id)}
+            type="checkbox"
+            onChange={(e) => {
+              onSelecionarItem({ id: item.id });
+            }}
+          />
+        </div>
+
         <div className={style.containerItem}>
           <Link href={`/produtos/${item.id_produto}`}>
             <img
@@ -85,11 +101,7 @@ export default function ItemCarrinho({
           <button
             className={style.btn}
             onClick={async () => {
-              if (quantidade <= 1) {
-                onRemoverSelecionado(item.id);
-                await removerItemCarrinho(item.id);
-                setShowSucessAlertRemove(true);
-                setTimeout(() => setShowSucessAlertRemove(false), 3000);
+              if (quantidade == 1) {
                 return;
               }
               const novaQuantidade = quantidade - 1;
@@ -139,17 +151,8 @@ export default function ItemCarrinho({
           </button>
         </div>
 
-        <div className={style.containerSelecaoItem}>
-          <input
-            id={item.id}
-            name={item.id}
-            className={style.checkbox}
-            checked={selecionados.has(item.id)}
-            type="checkbox"
-            onChange={(e) => {
-              onSelecionarItem({ id: item.id });
-            }}
-          />
+        <div className={style.containerValor}>
+          <p className={style.valor}>R$ {valor}</p>
         </div>
 
         <div className={style.containerExcluir}>
@@ -160,7 +163,7 @@ export default function ItemCarrinho({
               justifyContent: "center",
             }}
             className={style.btnRemover}
-            onClick={handleDelete}
+            onClick={handleRemove}
             disabled={loading}
           >
             {loading ? (
@@ -180,10 +183,6 @@ export default function ItemCarrinho({
               />
             )}
           </button>
-        </div>
-
-        <div className={style.containerValor}>
-          <p className={style.valor}>R$ {valor}</p>
         </div>
       </div>
 

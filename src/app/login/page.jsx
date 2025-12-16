@@ -1,13 +1,13 @@
 "use client";
 
 import style from "./page.module.css";
-import LoginForm from "@/components/formularios/LoginForm";
+import LoginForm from "@/app/login/LoginForm";
 import Erro from "@/components/toasts/Erro";
 import Sucesso from "@/components/toasts/Sucesso";
 import { SessionProvider, signIn } from "next-auth/react";
 import { useState } from "react";
 import { Divider } from "antd";
-import ProvedoresNextAuth from "@/components/formularios/ProvedoresNextAuth";
+import ProvedoresNextAuth from "@/app/login/ProvedoresNextAuth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

@@ -1,12 +1,15 @@
 "use client";
 
-import style from "@/components/produtos/infoProduto.module.css";
 import { useCarrinhoStore } from "@/app/store/carrinho";
-import { useState } from "react";
+import Sucesso from "../../components/toasts/Sucesso";
+import Aviso from "../../components/toasts/Aviso";
+
 import { Divider, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import Sucesso from "../toasts/Sucesso";
-import Aviso from "../toasts/Aviso";
+
+import { useState } from "react";
+
+import style from "./infoProduto.module.css";
 
 export default ({ produto, usuario }) => {
   const [loading, setLoading] = useState(false);
@@ -140,7 +143,7 @@ export default ({ produto, usuario }) => {
             {usuario ? (
               <input
                 className={style.cep}
-                value={usuario.cep.replace(/(\d{5})(\d{1,3})/, "$1-$2") || ""}
+                value={usuario.cep?.replace(/(\d{5})(\d{1,3})/, "$1-$2") || ""}
                 placeholder="Altere seu CEP no perfil."
                 disabled
               />

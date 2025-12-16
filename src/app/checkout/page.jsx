@@ -61,6 +61,7 @@ export default function Checkout() {
         const erro = await res.json();
         alert(erro.error || "Erro ao finalizar pedido.");
         setIsModalOpen(false);
+        router.push("/perfil");
       }
     } catch (e) {
       alert("Ocorreu um erro inesperado");
