@@ -1,13 +1,12 @@
+import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
+import NavBarCategoriasList from "./NavBarCategoriasList";
+import SearchBar from "./SearchBar";
+import NavBarFuncionalidades from "./NavBarFuncionalidades";
+
 import Link from "next/link";
 import Image from "next/image";
 
-import SearchBar from "./SearchBar";
-
 import style from "./navbar.module.css";
-import { CircleUserRound, Package, ShoppingCart } from "lucide-react";
-import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
-import MenuHamburguer from "./MenuHamburguer";
-import NavBarCategoriasList from "./NavBarCategoriasList";
 
 export default async function NavBar() {
   const response = await fetch(
@@ -32,36 +31,7 @@ export default async function NavBar() {
 
           <SearchBar produtos={produtos} />
 
-          <div>
-            {usuario && (
-              <div id={style.funcionalidadesAutenticadas}>
-                <Link href="/meus-pedidos">
-                  <Package className={style.icone} />
-                </Link>
-
-                <Link href="/carrinho">
-                  <ShoppingCart className={style.icone} />
-                </Link>
-
-                <Link href="/perfil">
-                  <CircleUserRound className={style.icone} />
-                </Link>
-
-                <MenuHamburguer />
-              </div>
-            )}
-
-            {!usuario && (
-              <div id={style.funcionalidadesNaoAutenticadas}>
-                <Link href="/login">
-                  <button className={style.login}>Login</button>
-                </Link>
-                <Link href="/sign-up">
-                  <button className={style.signUp}>Sign Up</button>
-                </Link>
-              </div>
-            )}
-          </div>
+          <NavBarFuncionalidades usuario={usuario} />
         </div>
 
         <NavBarCategoriasList />

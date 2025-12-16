@@ -1,0 +1,82 @@
+.linksRapidos {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.linksRapidos a {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  text-decoration: none;
+  color: gray;
+  font-size: small;
+  transition: 0.1s;
+}
+
+#funcionalidadesAutenticadas,
+#funcionalidadesNaoAutenticadas {
+  display: flex;
+}
+
+#funcionalidadesAutenticadas {
+  gap: 20px;
+}
+
+#funcionalidadesNaoAutenticadas {
+  gap: 10px;
+}
+
+.icone {
+  width: 30px;
+  height: 30px;
+  color: var(--cor-terciaria);
+}
+
+.login,
+.signUp {
+  background-color: transparent;
+  padding: 5px 10px;
+  color: var(--cor-terciaria);
+  transition: 0.1s;
+}
+
+.login {
+  border: none;
+}
+
+.signUp {
+  border-radius: 5px;
+  border: 1px var(--cor-terciaria) solid;
+}
+
+.linksRapidos a:hover {
+  scale: 1.05;
+  background-color: gray;
+  color: white;
+}
+
+.login:hover,
+.signUp:hover {
+  cursor: pointer;
+  scale: 1.05;
+}
+
+.carrinho {
+  position: relative;
+}
+
+.quantidadeItensCarrinho {
+  position: absolute;
+  top: -30%;
+  left: 20;
+
+  margin: 0;
+  padding: 2.5px 5px;
+  border-radius: 100%;
+
+  border: 3px solid rgb(167, 124, 16);
+  background-color: var(--cor-terciaria);
+  font-weight: bold;
+  color: white;
+}

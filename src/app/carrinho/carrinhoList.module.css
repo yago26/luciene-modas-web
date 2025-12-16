@@ -1,7 +1,44 @@
-.containerCarrinho {
+.itensCarrinho {
   display: flex;
   width: 100%;
   gap: 2.5%;
+}
+
+.containerSuperior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.funcionalidades {
+  display: flex;
+  gap: 15px;
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+    border: none;
+  }
+}
+
+.removerTodos {
+  color: red;
+  border: 1px solid lightcoral !important;
+}
+
+.removerSelecaoTodos,
+.selecionarTodos {
+  width: 300px;
+}
+
+.removerSelecaoTodos {
+  color: lightcoral;
+}
+
+.selecionarTodos {
+  color: green;
 }
 
 .containerProdutos,

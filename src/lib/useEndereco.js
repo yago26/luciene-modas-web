@@ -21,10 +21,15 @@ export function useEndereco(form, setForm) {
 
     setLoadingCep(true);
 
-    const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-    const data = await res.json();
-
-    setLoadingCep(false);
+    let res, data;
+    try {
+      res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      data = await res.json();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoadingCep(false);
+    }
 
     if (!data || data.erro) {
       setForm((prev) => ({

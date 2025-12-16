@@ -15,20 +15,23 @@ export default function SignUp() {
 
   const addUsuario = async (usuario) => {
     setLoading(true);
-    // fetch => Uma busca na API
-    const res = await fetch(`${process.env.NEXTAUTH_URL || ""}/api/sign-up`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(usuario),
-    });
+    let res, data;
+    try {
+      res = await fetch(`${process.env.NEXTAUTH_URL || ""}/api/sign-up`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(usuario),
+      });
+      data = await res.json();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
 
-    const data = await res.json();
-
-    setLoading(false);
-
-    if (res.ok) {
+    if (res?.ok) {
       setShowSuccessAlert(true);
       await signIn("credentials", {
         email: usuario.email,

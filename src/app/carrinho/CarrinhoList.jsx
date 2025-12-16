@@ -6,35 +6,51 @@ import NotFound from "../../components/layout/NotFound";
 import ItemCarrinho from "./ItemCarrinho";
 import Erro from "../../components/toasts/Erro";
 
-import { Divider } from "antd";
+import { Divider, Spin } from "antd";
+import { Minus, Plus, Trash2 } from "lucide-react";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import style from "./carrinhoList.module.css";
-import { Minus, Plus, Trash2 } from "lucide-react";
 
 export default function CarrinhoList() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
+  const [loadingRemoveSelectionAll, setLoadingRemoveSelectionAll] =
+    useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const [selecionados, setSelecionados] = useState(new Set());
 
-  const { itens, fetchItensCarrinho, removerItemCarrinho } = useCarrinhoStore();
+  const { itens, fetchItensCarrinho, removerTodosItens } = useCarrinhoStore();
 
   useEffect(() => {
     async function carregar() {
-      setLoading(true);
-      await fetchItensCarrinho();
-      setLoading(false);
+      try {
+        await fetchItensCarrinho();
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
     }
     carregar();
   }, []);
 
   const handleRemoveAll = async () => {
-    // Fazer depois
+    setLoadingRemoveSelectionAll(true);
+    try {
+      const ids = itens.map((i) => (i = i.id));
+      await removerTodosItens(ids);
+    } catch (err) {
+      console.log(err);
+      setLoadingRemoveSelectionAll(false);
+    } finally {
+      setLoadingRemoveSelectionAll(false);
+    }
   };
 
   const handleSelectAll = async () => {
@@ -79,26 +95,49 @@ export default function CarrinhoList() {
 
   return (
     <>
-      <div className={style.containerCarrinho}>
+      <div className={style.itensCarrinho}>
         {/* LISTA DE PRODUTOS */}
         <div className={style.containerProdutos}>
-          <div>
+          <div className={style.containerSuperior}>
             <h2>Produtos</h2>
-            <button onClick={handleRemoveAll}>
-              <Trash2 />
-              Remover todos os produtos
-            </button>
-            {itens.length === selecionados.size ? (
-              <button onClick={handleRemoveSelectionAll}>
-                <Minus />
-                Remover seleção de todos os itens
+            <div className={style.funcionalidades}>
+              <button
+                disabled={loadingRemoveSelectionAll}
+                className={style.removerTodos}
+                onClick={handleRemoveAll}
+              >
+                {loadingRemoveSelectionAll ? (
+                  <Spin
+                    indicator={
+                      <LoadingOutlined
+                        style={{ color: "red", height: "100%" }}
+                        spin
+                      />
+                    }
+                  />
+                ) : (
+                  <Trash2 />
+                )}
+                Remover todos os produtos
               </button>
-            ) : (
-              <button onClick={handleSelectAll}>
-                <Plus />
-                Selecionar todos os produtos
-              </button>
-            )}
+              {itens.length === selecionados.size ? (
+                <button
+                  className={style.removerSelecaoTodos}
+                  onClick={handleRemoveSelectionAll}
+                >
+                  <Minus />
+                  Remover seleção de todos os produtos
+                </button>
+              ) : (
+                <button
+                  className={style.selecionarTodos}
+                  onClick={handleSelectAll}
+                >
+                  <Plus />
+                  Selecionar todos os produtos
+                </button>
+              )}
+            </div>
           </div>
           <Divider style={{ borderColor: "black" }} />
 

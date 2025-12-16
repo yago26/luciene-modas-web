@@ -10,11 +10,10 @@ export default function Checkout() {
   const searchParams = useSearchParams();
 
   const [itens, setItens] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     const ids_itens_carrinho = searchParams.get("ids");
 
     if (!ids_itens_carrinho) return;

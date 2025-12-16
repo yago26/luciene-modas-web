@@ -43,6 +43,11 @@ export const useCarrinhoStore = create((set, get) => ({
     return res.ok;
   },
 
+  removerTodosItens: async (ids) => {
+    await Promise.all(ids.map((id) => get().removerItemCarrinho(id)));
+    set({ itens: [] });
+  },
+
   atualizarItemCarrinho: async (id_item_carrinho, quantidade) => {
     const res = await fetch(`/api/itens-carrinho`, {
       method: "PUT",
@@ -53,5 +58,9 @@ export const useCarrinhoStore = create((set, get) => ({
       }),
     });
     return res.ok;
+  },
+
+  getSize: () => {
+    return get().itens.length;
   },
 }));

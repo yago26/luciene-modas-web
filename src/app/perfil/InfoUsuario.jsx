@@ -65,19 +65,25 @@ export default function infoUsuario({ usuario }) {
       return;
     }
 
-    const response = await fetch(
-      `${process.env.NEXTAUTH_URL || ""}/api/usuarios/${usuario.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nome: form.nome,
-        }),
-      }
-    );
-    setLoadingSalvarDadosPessoais(false);
+    let response;
+    try {
+      response = await fetch(
+        `${process.env.NEXTAUTH_URL || ""}/api/usuarios/${usuario.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nome: form.nome,
+          }),
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoadingSalvarDadosPessoais(false);
+    }
 
     if (response.ok) {
       setShowAlertSuccess(true);
@@ -93,24 +99,31 @@ export default function infoUsuario({ usuario }) {
     setLoadingSalvarEndereco(true);
     const cepLimpo = form.cep.replace(/\D/g, "");
 
-    const response = await fetch(
-      `${process.env.NEXTAUTH_URL || ""}/api/usuarios/${usuario.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cep: cepLimpo,
-          cidade: form.cidade,
-          bairro: form.bairro,
-          rua: form.rua,
-          numero: form.numero,
-          complemento: form.complemento,
-        }),
-      }
-    );
-    setLoadingSalvarEndereco(false);
+    let response;
+    try {
+      response = await fetch(
+        `${process.env.NEXTAUTH_URL || ""}/api/usuarios/${usuario.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            cep: cepLimpo,
+            cidade: form.cidade,
+            bairro: form.bairro,
+            rua: form.rua,
+            numero: form.numero,
+            complemento: form.complemento,
+          }),
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoadingSalvarEndereco(false);
+    }
+
     if (response.ok) {
       setShowAlertSuccess(true);
       setKeySuccess((prev) => prev + 1);

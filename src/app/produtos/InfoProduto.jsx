@@ -52,12 +52,16 @@ export default ({ produto, usuario }) => {
       }
     }
 
-    const result = await adicionarItemCarrinho(produto.id, quantidade);
-    setLoading(false);
-
-    if (result) {
-      setShowSuccessAlert(true);
-      setKeySuccess((prev) => prev + 1);
+    try {
+      const result = await adicionarItemCarrinho(produto.id, quantidade);
+      if (result) {
+        setShowSuccessAlert(true);
+        setKeySuccess((prev) => prev + 1);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 

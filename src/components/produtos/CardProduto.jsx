@@ -47,6 +47,7 @@ export default function CardProduto({ produto, usuario }) {
         setKeyWarning((k) => k + 1);
       }
     } catch (err) {
+      console.log(err);
     } finally {
       setLoading(false);
     }

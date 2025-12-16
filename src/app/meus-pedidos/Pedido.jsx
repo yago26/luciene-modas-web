@@ -2,7 +2,7 @@
 import Sucesso from "@/components/toasts/Sucesso";
 
 import { DollarSign, Trash, Van } from "lucide-react";
-import { LoadingOutlined } from "@ant-design/icons";
+import { ConsoleSqlOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Divider, Spin } from "antd";
 
 import { useState } from "react";
@@ -15,18 +15,22 @@ export default function Pedido({ pedido, onRemoverPedidoLista }) {
 
   const excluir = async (id_pedido) => {
     setLoading(true);
-    const response = await fetch(
-      `${process.env.NEXTAUTH_URL || ""}/api/pedidos/${id_pedido}`,
-      {
-        method: "DELETE",
-      }
-    );
-    setLoading(false);
+    try {
+      const response = await fetch(
+        `${process.env.NEXTAUTH_URL || ""}/api/pedidos/${id_pedido}`,
+        {
+          method: "DELETE",
+        }
+      );
 
-    if (response.ok) {
-      setShowSuccessAlertRemove(true);
-      onRemoverPedidoLista(id_pedido);
-      return;
+      if (response.ok) {
+        setShowSuccessAlertRemove(true);
+        onRemoverPedidoLista(id_pedido);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 

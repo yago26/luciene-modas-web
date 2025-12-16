@@ -42,7 +42,7 @@ export default function ItemCarrinho({
       setQuantidade(item.quantidade);
       return;
     }
-    if (valor >= item.estoque) {
+    if (valor > item.estoque) {
       setQuantidade(item.estoque);
       setShowWarningAlert(true);
       setKeyWarning((prev) => prev + 1);
@@ -58,11 +58,16 @@ export default function ItemCarrinho({
     if (loading) return;
 
     setLoading(true);
-    await removerItemCarrinho(item.id);
-    onRemoverSelecionado(item.id);
-    setLoading(false);
-    setShowSucessAlertRemove(true);
-    setTimeout(() => setShowSucessAlertRemove(false), 3000);
+    try {
+      await removerItemCarrinho(item.id);
+      onRemoverSelecionado(item.id);
+      setShowSucessAlertRemove(true);
+      setTimeout(() => setShowSucessAlertRemove(false), 3000);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -116,7 +121,9 @@ export default function ItemCarrinho({
             type="text"
             value={quantidade}
             onChange={(e) => {
-              if (e.target.value <= item.estoque) setQuantidade(e.target.value);
+              if (isNaN(Number(e.target.value))) return;
+              if (e.target.value <= item.estoque)
+                setQuantidade(e.target.value.trim());
               else {
                 setShowWarningAlert(true);
                 setKeyWarning((prev) => prev + 1);

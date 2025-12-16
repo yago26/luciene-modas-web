@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import style from "./NavBarCategoriasList.module.css";
 import { usePathname } from "next/navigation";
+
+import style from "./NavBarCategoriasList.module.css";
 
 export default () => {
   const pathname = usePathname();
