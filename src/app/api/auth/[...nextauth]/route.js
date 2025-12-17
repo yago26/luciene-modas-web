@@ -4,9 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
 import db from "@/lib/db";
-import bcrypt from "bcryptjs"; // Necessário para a lógica de Credenciais, se não usar API externa
-
-// --- FUNÇÕES DE BANCO DE DADOS MODULARIZADAS ---
+import bcrypt from "bcryptjs";
 
 async function getUsuarioByEmail(email) {
   try {
@@ -24,19 +22,19 @@ async function getUsuarioByEmail(email) {
 async function createNewUsuario(profile) {
   try {
     const idUsuario = uuidv4();
-    const senhaAleatoria = crypto.randomUUID(); // Usa o bcrypt, que é a biblioteca que sua API de cadastro original usava
+    const senhaAleatoria = crypto.randomUUID();
     const senha_hash = await bcrypt.hash(senhaAleatoria, 12);
     const role = "consumidor";
     await db.query(
       "INSERT INTO usuarios (id, nome, email, senha, role) VALUES ($1, $2, $3, $4, $5)",
       [idUsuario, profile.name || "Consumidor", profile.email, senha_hash, role]
-    ); // 2. INSERIR CARRINHO ASSOCIADO
+    );
 
     const idCarrinho = uuidv4();
     await db.query("INSERT INTO carrinhos (id, id_usuario) VALUES ($1, $2)", [
       idCarrinho,
       idUsuario,
-    ]); // Retorna o objeto formatado para ser usado no JWT
+    ]);
 
     return {
       id: idUsuario,
@@ -50,8 +48,6 @@ async function createNewUsuario(profile) {
   }
 }
 
-// --- OPÇÕES DE AUTENTICAÇÃO NEXTAUTH ---
-
 const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
@@ -62,13 +58,12 @@ const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET, // Usamos o PROFILE callback para tratar o cadastro Social de forma eficiente
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       async profile(profile) {
         let usuario = await getUsuarioByEmail(profile.email);
         if (!usuario) {
-          // Se não existe, cria a conta no DB e obtém os dados formatados
           usuario = await createNewUsuario(profile);
-        } // Retorna o objeto de usuário que será passado ao callback JWT no parâmetro 'user'
+        } 
 
         return {
           id: usuario.id,
