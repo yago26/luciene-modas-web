@@ -24,7 +24,7 @@ li,
 button,
 label,
 input {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 a {
@@ -60,4 +60,36 @@ h3 {
 
 ::-webkit-scrollbar-thumb:active {
   background: rgb(194, 146, 25);
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-terciaria);
+}
+
+.overlay {
+  position: fixed;
+  top: 15%;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 15%); /* ocupa apenas o espaço disponível */
+  background: rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  animation: esmanecer 750ms;
+  pointer-events: none;
+}
+
+@keyframes esmanecer {
+  0% {
+    background: rgba(0, 0, 0, 0);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0.3);
+  }
 }

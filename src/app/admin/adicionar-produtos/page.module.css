@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 40%;
+  input,
+  button,
+  textarea {
+    padding: 10px;
+    border: none;
+    box-shadow: 1px 1px 10px gray;
+    outline: none;
+  }
+}

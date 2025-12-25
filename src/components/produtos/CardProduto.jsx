@@ -60,8 +60,8 @@ export default function CardProduto({ produto, usuario }) {
           <img
             src={imagem}
             alt={nome}
-            width={150}
-            height={150}
+            width="100%"
+            height={200}
             style={{ objectFit: "cover" }}
           />
           <h4 className={style.nome}>{nome}</h4>

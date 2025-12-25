@@ -57,21 +57,22 @@ export default async ({ params }) => {
             mensagem="Infelizmente, não há produtos disponíveis nessa categoria no momento."
           />
         ) : (
-          produtos
-            .filter((produto) => {
-              if (produto.categoria === nome || produto.subcategoria === nome) {
-                return produto;
-              }
-            })
-            .map((produto) => {
-              return (
-                <CardProduto
-                  key={produto.id}
-                  produto={produto}
-                  usuario={usuario}
-                />
-              );
-            })
+          produtos.map((produto) => {
+            const propsCardProduto = {
+              id: produto.id,
+              nome: produto.nome,
+              valor: produto.valor,
+              imagem: produto.imagem,
+              estoque: produto.estoque,
+            };
+            return (
+              <CardProduto
+                key={produto.id}
+                produto={propsCardProduto}
+                usuario={usuario}
+              />
+            );
+          })
         )}
       </div>
     </>

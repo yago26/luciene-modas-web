@@ -3,10 +3,10 @@
   flex-direction: column;
   width: 100%;
   gap: 10px;
-}
-
-.formulario h1 {
-  text-align: center;
+  h1 {
+    font-weight: bold;
+    text-align: center;
+  }
 }
 
 .containerDado,
@@ -23,6 +23,7 @@
     outline: none;
   }
 }
+
 .containerDado {
   padding: 9px 15px;
 }
@@ -55,4 +56,8 @@
 
 .iconeAtivo {
   color: black;
+}
+
+.verSenha {
+  cursor: pointer;
 }

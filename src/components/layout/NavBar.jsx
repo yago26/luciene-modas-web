@@ -26,6 +26,7 @@ export default async function NavBar() {
               alt="Logo marca Luciene Modas - Roupas e Cosméticos"
               width={60}
               height={60}
+              loading="eager"
             />
           </Link>
 

@@ -13,7 +13,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import style from "./carrinhoList.module.css";
+import style from "./itemsCarrinhoList.module.css";
 
 export default function CarrinhoList() {
   const router = useRouter();

@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Modal, Button, Divider } from "antd";
-import Loading from "../loading";
+import Loading from "@/components/layout/Loading";
 
 export default function Checkout() {
   const router = useRouter();

@@ -27,7 +27,9 @@ export default ({ usuario }) => {
         setLoading(false);
       }
     }
-    carregar();
+    if (usuario) {
+      carregar();
+    }
   }, []);
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default ({ usuario }) => {
             <Link href="/carrinho">
               <ShoppingCart className={style.icone} />
             </Link>
-            {!loading && (
+            {!loading && quantidadeItensCarrinho > 0 && (
               <span className={style.quantidadeItensCarrinho}>
                 {quantidadeItensCarrinho}
               </span>

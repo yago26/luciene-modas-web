@@ -33,9 +33,8 @@ export async function GET(req) {
       }
     }
 
-    let query = "SELECT * FROM produtos";
-    // let query =
-    //   "SELECT p.id, p.nome, p.valor, p.imagem, p.estoque FROM produtos p";
+    let query =
+      "SELECT p.id, p.nome, p.valor, p.imagem, p.estoque FROM produtos p";
 
     if (conditions.length > 0) {
       query += " WHERE " + conditions.join(" AND ");
@@ -54,8 +53,16 @@ export async function GET(req) {
 
 export async function POST(req) {
   try {
-    let { nome, sobre, valor, categoria, subcategoria, imagemUrl, estoque } =
-      await req.json();
+    let {
+      nome,
+      sobre,
+      valor,
+      categoria,
+      subcategoria,
+      imagemUrl,
+      imagensUrl,
+      estoque,
+    } = await req.json();
 
     // --------- VALIDAÇÕES ESSENCIAIS ---------
 
@@ -143,6 +150,16 @@ export async function POST(req) {
         imagemUrl || null,
         estoqueNumero,
       ]
+    );
+
+    await Promise.all(
+      imagensUrl.map((url) => {
+        const idImagem = uuidv4();
+        db.query(
+          "INSERT INTO imagens_produto (id, id_produto, url) VALUES ($1, $2, $3)",
+          [idImagem, id, url]
+        );
+      })
     );
 
     return NextResponse.json(

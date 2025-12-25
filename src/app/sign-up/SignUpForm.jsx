@@ -25,12 +25,45 @@ export default function SignUpForm({ onAddUsuario, loading }) {
     /* Tira o funcionamento padrão do <form></form> */
     e.preventDefault();
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(form.email)) {
+    if (!form.nome.trim()) {
       setShowWarningAlert({
         visivel: true,
-        mensagem: "Por favor, insira um e-mail válido.",
+        mensagem:
+          "Por favor, insira um nome válido. Não são permitidos nomes com apenas espaços em branco.",
+      });
+      setWarningKey((k) => k + 1);
+      return;
+    }
+
+    const caracteresNome = form.nome.split("");
+    let contador = 0;
+    for (let caracter of caracteresNome) {
+      if (caracter == " ") {
+        if (++contador == 2) {
+          setShowWarningAlert({
+            visivel: true,
+            mensagem:
+              "Por favor, insira um nome válido. Não são permitidos nomes com espaços em branco seguidos.",
+          });
+          setWarningKey((k) => k + 1);
+          return;
+        }
+      } else {
+        contador = 0;
+      }
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (
+      !emailRegex.test(form.email) ||
+      (!form.email.endsWith("@gmail.com") &&
+        !form.email.endsWith("@academico.ifpb.edu.br") &&
+        !form.email.endsWith("@ifpb.edu.br"))
+    ) {
+      setShowWarningAlert({
+        visivel: true,
+        mensagem: `Por favor, insira um e-mail válido. Ex.: "email.valido@gmail.com".`,
       });
       setWarningKey((k) => k + 1);
       return;
@@ -85,7 +118,11 @@ export default function SignUpForm({ onAddUsuario, loading }) {
               id="nome"
               placeholder="Nome"
               value={form.nome}
-              onChange={(e) => setForm({ ...form, nome: e.target.value })}
+              onChange={(e) => {
+                const value = e.target.value;
+                const regex = /^[a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ ]+$/;
+                if (regex.test(value)) setForm({ ...form, nome: value });
+              }}
               required
               maxLength={255}
             />
@@ -123,16 +160,20 @@ export default function SignUpForm({ onAddUsuario, loading }) {
               id="senhaCadastro"
               placeholder="Senha"
               value={form.senha}
-              onChange={(e) => setForm({ ...form, senha: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, senha: e.target.value.replace(" ", "") })
+              }
               required
             />
             <div
+              className={style.verSenha}
               onClick={() => setIsShowPassword(!isShowPassword)}
+              aria-label={isShowPassword ? "Ocultar senha" : "Mostrar senha"}
             >
               {isShowPassword ? (
-                <Eye aria-label="Mostrar senha" className={style.iconeAtivo} />
+                <Eye className={style.iconeAtivo} />
               ) : (
-                <EyeOff aria-label="Esconder senha" className={style.icone} />
+                <EyeOff className={style.icone} />
               )}
             </div>
           </div>

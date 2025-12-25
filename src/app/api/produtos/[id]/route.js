@@ -4,8 +4,29 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
   try {
     const { id } = await params;
-    const result = await db.query("SELECT * FROM produtos WHERE id = $1", [id]);
-    // const result = await db.query("SELECT p.id, p.nome, p.sobre, p.imagem FROM produtos p WHERE id = $1", [id]);
+    const result = await db.query(
+      `SELECT 
+        p.id,
+        p.nome,
+        p.sobre,
+        p.valor,
+        p.imagem,
+        COALESCE(
+          JSON_AGG(
+            JSON_BUILD_OBJECT(
+              'id', i.id,
+              'url', i.url
+            )
+          ) FILTER (WHERE i.id IS NOT NULL),
+          '[]'
+        ) AS imagens
+      FROM produtos p
+      LEFT JOIN imagens_produto i ON p.id = i.id_produto
+      WHERE p.id = $1
+      GROUP BY p.id, p.nome, p.sobre, p.valor, p.imagem;
+      `,
+      [id]
+    );
 
     if (!result) {
       return NextResponse.json(

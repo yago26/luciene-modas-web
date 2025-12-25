@@ -9,29 +9,22 @@ import { useState } from "react";
 import { Divider } from "antd";
 import ProvedoresNextAuth from "@/app/login/ProvedoresNextAuth";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function Login() {
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [errorKey, setErrorKey] = useState(0);
-
-  const router = useRouter();
 
   const authUsuario = async (form) => {
     const response = await signIn("credentials", {
       email: form.email,
       senha: form.senha,
-      redirect: false,
+      redirect: true,
+      callbackUrl: "/",
     });
 
     if (!response) {
       setShowErrorAlert(true);
       setErrorKey((k) => k + 1);
-    } else {
-      setShowSuccessAlert(true);
-      router.push("/");
-      router.refresh();
     }
   };
 
@@ -58,7 +51,6 @@ export default function Login() {
         </div>
       </div>
 
-      {showSuccessAlert && <Sucesso mensagem="Autenticação bem-sucedida." />}
       {showErrorAlert && (
         <Erro key={errorKey} mensagem="Credenciais inválidas." />
       )}

@@ -9,9 +9,13 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 import { useState } from "react";
 
-import style from "./infoProduto.module.css";
+import style from "./funcionalidadesProduto.module.css";
 
 export default ({ produto, usuario }) => {
+  const { id, nome, estoque } = produto;
+
+  const valor = produto.valor.replace(".", ",");
+
   const [loading, setLoading] = useState(false);
 
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -20,18 +24,16 @@ export default ({ produto, usuario }) => {
   const [showWarningAlert, setShowWarningAlert] = useState(false);
   const [keyWarning, setKeyWarning] = useState(0);
 
-  const valor = String(produto.valor).replace(".", ",");
-
   const [cep, setCep] = useState("");
   const [quantidade, setQuantidade] = useState(1);
 
   const { itens, adicionarItemCarrinho } = useCarrinhoStore();
 
-  const item = itens.find((i) => i.id_produto === produto.id);
+  const item = itens.find((i) => i.id_produto === id);
 
   const handleAdd = async () => {
     setLoading(true);
-    if (quantidade > produto.estoque) {
+    if (quantidade > estoque) {
       setShowWarningAlert(true);
       setKeyWarning((prev) => prev + 1);
       setLoading(false);
@@ -41,10 +43,7 @@ export default ({ produto, usuario }) => {
     if (item) {
       const somaComNovaQuantidade =
         Number(item.quantidade) + Number(quantidade);
-      if (
-        produto.estoque <= item.quantidade ||
-        produto.estoque < somaComNovaQuantidade
-      ) {
+      if (estoque <= item.quantidade || estoque < somaComNovaQuantidade) {
         setShowWarningAlert(true);
         setKeyWarning((prev) => prev + 1);
         setLoading(false);
@@ -53,7 +52,7 @@ export default ({ produto, usuario }) => {
     }
 
     try {
-      const result = await adicionarItemCarrinho(produto.id, quantidade);
+      const result = await adicionarItemCarrinho(id, quantidade);
       if (result) {
         setShowSuccessAlert(true);
         setKeySuccess((prev) => prev + 1);
@@ -67,34 +66,22 @@ export default ({ produto, usuario }) => {
 
   return (
     <>
-      <div className={style.infosProduto}>
-        <h1>{produto.nome}</h1>
-
-        <Divider style={{ borderColor: "black" }} />
-
-        <h3>Descrição</h3>
-        <p>{!produto.sobre ? produto.nome : produto.sobre}</p>
-
-        {/* <h4 style={{ color: "gray" }}>Lembrete: Atributos</h4>
+      <div className={style.container}>
+        <h4 style={{ color: "gray" }}>Lembrete: Atributos</h4>
         Manipular mais decentemente os atributos no banco de dados
-
         <p>
           Selecione a opção de <strong>tamanho (PP, P, M, G, GG)</strong>
         </p>
         <input type="radio" />
         <p style={{ color: "gray", marginLeft: "20px" }}>Para roupas</p>
-
         <p>
           Selecione a opção de <strong>volume</strong>
         </p>
         <input type="radio" />
-        <p style={{ color: "gray", marginLeft: "20px" }}>Para cosméticos</p> */}
-
+        <p style={{ color: "gray", marginLeft: "20px" }}>Para cosméticos</p>
         <p className={style.valor}>R$ {valor}</p>
-
         <Divider style={{ borderColor: "black" }} />
-
-        {usuario && produto.estoque > 0 && (
+        {usuario && estoque > 0 && (
           <>
             <button
               className={style.btnAdicionar}
@@ -140,7 +127,6 @@ export default ({ produto, usuario }) => {
             </div>
           </>
         )}
-
         <div className={style.containerFrete}>
           <h2>Estimar o frete</h2>
           <div>
@@ -178,13 +164,13 @@ export default ({ produto, usuario }) => {
       {showSuccessAlert && (
         <Sucesso
           key={`s-${keySuccess}`}
-          mensagem={`${produto.nome} adicionado(a) ao carrinho com sucesso!`}
+          mensagem={`${nome} adicionado(a) ao carrinho com sucesso!`}
         />
       )}
       {showWarningAlert && (
         <Aviso
           key={`w-${keyWarning}`}
-          mensagem={`O máximo disponível de "${produto.nome}" com esses atributos são ${produto.estoque} unidade(s)`}
+          mensagem={`O máximo disponível de "${nome}" com esses atributos são ${estoque} unidade(s)`}
         />
       )}
     </>

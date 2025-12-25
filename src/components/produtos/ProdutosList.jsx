@@ -20,10 +20,17 @@ export default async function ProdutosList() {
         <h2>Produtos Disponíveis</h2>
         <div className={style.produtosPaginaInicial}>
           {produtos.map((produto) => {
+            const propsCardProduto = {
+              id: produto.id,
+              nome: produto.nome,
+              valor: produto.valor,
+              imagem: produto.imagem,
+              estoque: produto.estoque,
+            };
             return (
               <Suspense key={produto.id} fallback={<Loading />}>
                 <CardProduto
-                  produto={produto}
+                  produto={propsCardProduto}
                   usuario={usuario ? JSON.parse(JSON.stringify(usuario)) : null}
                 />
               </Suspense>

@@ -58,6 +58,7 @@ export default function LoginForm({ onAuthUsuario }) {
           />
 
           <div
+            className={style.verSenha}
             onClick={() => setIsShowPassword(!isShowPassword)}
             aria-label={isShowPassword ? "Ocultar senha" : "Mostrar senha"}
           >

@@ -13,6 +13,7 @@ export default function Footer() {
               alt="Logo marca Luciene Modas - Roupas e Cosméticos"
               width={96}
               height={96}
+              loading="eager"
             />
           </Link>
           <div className={style.contatosRodape}>

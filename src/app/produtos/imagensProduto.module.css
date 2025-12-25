@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  gap: 10px;
+}
+
+.containerImagens {
+  display: flex;
+  flex-direction: column;
+}
+
+.img {
+  object-fit: cover;
+}

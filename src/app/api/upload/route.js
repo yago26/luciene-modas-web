@@ -13,6 +13,12 @@ export async function POST(req) {
   const formData = await req.formData();
   const file = formData.get("file");
 
+  const MAX = 5 * 1024 * 1024; // 5MB
+
+  if (file.size > MAX) {
+    return NextResponse.json({ error: "Imagem muito grande" }, { status: 413 });
+  }
+
   const blob = await put(file.name, file, {
     access: "public",
     addRandomSuffix: true /* Adicionar um sufixo aleatório (permite repetição de arquivos) */,
