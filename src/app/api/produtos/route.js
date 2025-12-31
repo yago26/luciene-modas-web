@@ -12,29 +12,44 @@ export async function GET(req) {
 
     const categoria = searchParams.get("categoria");
     const subcategoria = searchParams.get("subcategoria");
+    const filtros = searchParams.get("filtrar");
     const estoque = searchParams.get("estoque");
 
+    let query;
+    const colunasPermitidas = ["id", "nome", "valor", "imagem", "estoque"];
+
+    if (filtros) {
+      const colunas = filtros
+        .replaceAll(" ", "")
+        .split(",")
+        .filter((c) => colunasPermitidas.includes(c))
+        .map((c) => `p.${c}`)
+        .join(", ");
+
+      query = `SELECT ${colunas || "p.id"} FROM produtos p`;
+    } else {
+      query =
+        "SELECT p.id, p.nome, p.valor, p.imagem, p.estoque FROM produtos p";
+    }
+
     if (categoria) {
-      conditions.push(`categoria = $${index++}`);
+      conditions.push(`p.categoria = $${index++}`);
       values.push(categoria);
     }
 
     if (subcategoria) {
-      conditions.push(`subcategoria = $${index++}`);
+      conditions.push(`p.subcategoria = $${index++}`);
       values.push(subcategoria);
     }
 
     if (estoque) {
       if (estoque === "disponivel") {
-        conditions.push(`estoque > 0`);
+        conditions.push(`p.estoque > 0`);
       }
       if (estoque === "indisponivel") {
-        conditions.push(`estoque = 0`);
+        conditions.push(`p.estoque = 0`);
       }
     }
-
-    let query =
-      "SELECT p.id, p.nome, p.valor, p.imagem, p.estoque FROM produtos p";
 
     if (conditions.length > 0) {
       query += " WHERE " + conditions.join(" AND ");

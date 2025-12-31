@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, act } from "@testing-library/react";
-import NavBar from "@/components/layout/NavBar";
+import NavBar from "@/components/navbar/NavBar";
 
 describe("NavBar", () => {
   it("renderiza sem erros", () => {

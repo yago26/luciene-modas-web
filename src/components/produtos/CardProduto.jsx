@@ -5,8 +5,8 @@ import style from "@/components/produtos/cardProduto.module.css";
 import { Spin } from "antd";
 import { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import Sucesso from "../toasts/Sucesso";
-import Aviso from "../toasts/Aviso";
+import Sucesso from "../ui/toasts/Sucesso";
+import Aviso from "../ui/toasts/Aviso";
 import { useCarrinhoStore } from "@/app/store/carrinho";
 
 export default function CardProduto({ produto, usuario }) {

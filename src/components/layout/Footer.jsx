@@ -21,7 +21,10 @@ export default function Footer() {
             <p>+55 (83) 98728-4758</p>
             <ul>
               <li>
-                <a href="https://www.instagram.com/luciene_modas_lm/">
+                <a
+                  href="https://www.instagram.com/luciene_modas_lm/"
+                  target="_blank"
+                >
                   <img
                     src="/footer/instagram.svg"
                     alt="Instagram"
@@ -31,21 +34,10 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/">
+                <a href="https://wa.me/5583987284758">
                   <img
                     src="/footer/whatsapp.svg"
                     alt="Whatsapp"
-                    width={30}
-                    height={30}
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="/">
-                  <img
-                    style={{ backgroundColor: "white", borderRadius: "5px" }}
-                    src="/footer/facebook.svg"
-                    alt="Facebook"
                     width={30}
                     height={30}
                   />
@@ -67,12 +59,8 @@ export default function Footer() {
         <div className={style.divRodape}>
           <h5>Ajuda e suporte</h5>
           <ul>
-            <li>
-              <a href="/">Sobre sua conta</a>
-            </li>
-            <li>
-              <a href="/">Dúvidas mais frequentes</a>
-            </li>
+            <li>Sobre sua conta</li>
+            <li>Dúvidas mais frequentes</li>
           </ul>
         </div>
 

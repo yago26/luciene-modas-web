@@ -1,8 +1,7 @@
 import NotFound from "@/components/layout/NotFound";
 import CardProduto from "@/components/produtos/CardProduto";
 
-import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
-import { Divider } from "antd";
+import getUsuarioServerSide from "@/utils/getUsuarioServerSide";
 
 export default async ({ params }) => {
   const { nome } = await params;
@@ -40,17 +39,10 @@ export default async ({ params }) => {
 
   return (
     <>
-      <h1>{nomeFormatado}</h1>
-      <Divider style={{ borderColor: "black" }} />
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-around",
-          gap: "0.01%",
-        }}
-      >
+      <header>
+        <h1 style={styles.titulo}>{nomeFormatado}</h1>
+      </header>
+      <div style={styles.produtos}>
         {produtos.length == 0 ? (
           <NotFound
             titulo="Sem produtos!"
@@ -77,4 +69,20 @@ export default async ({ params }) => {
       </div>
     </>
   );
+};
+
+const styles = {
+  titulo: {
+    backgroundColor: "var(--cor-principal)",
+    borderRadius: "10px",
+    width: "min-content",
+    padding: "20px",
+  },
+  produtos: {
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-around",
+    gap: "0.01%",
+  },
 };

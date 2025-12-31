@@ -1,0 +1,12 @@
+.pesquisar {
+  border-radius: 2.4rem;
+}
+
+.icone {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: white;
+  background-color: var(--cor-terciaria);
+  padding: 0.5rem;
+  border-radius: 2rem;
+}

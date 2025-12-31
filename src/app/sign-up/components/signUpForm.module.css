@@ -1,0 +1,54 @@
+.formulario {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  h1 {
+    text-align: center;
+  }
+}
+
+.containerDado,
+.containerSenha {
+  border: 1px solid gray;
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  padding: 0;
+  input {
+    width: 100%;
+    border: none;
+    padding-block: 15px;
+    background-color: transparent;
+    outline: none;
+  }
+}
+
+.error {
+  color: red;
+}
+
+.containerSenha {
+  div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.icone,
+.iconeAtivo {
+  width: 30px;
+  margin: 8px;
+}
+
+.icone {
+  color: gray;
+}
+
+.iconeAtivo {
+  color: black;
+}
+
+.verSenha {
+  cursor: pointer;
+}

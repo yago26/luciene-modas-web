@@ -2,8 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Modal, Button, Divider } from "antd";
+import { Modal, Button } from "antd";
 import Loading from "@/components/layout/Loading";
+import Divider from "@/components/ui/Divider";
 
 export default function Checkout() {
   const router = useRouter();
@@ -95,7 +96,7 @@ export default function Checkout() {
         }}
       >
         <h2 style={{ color: "var(--cor-principal)" }}>Produtos</h2>
-        <Divider style={{ borderColor: "black" }} />
+        <Divider />
         {itens.map((item) => (
           <div
             key={item.id}
@@ -136,7 +137,7 @@ export default function Checkout() {
           <p>
             Frete: <strong>R$ {frete.toFixed(2)}</strong>
           </p>
-          <Divider style={{ borderColor: "black" }} />
+          <Divider />
           <h3 style={{ color: "black" }}>
             Total:{" "}
             <strong style={{ color: "green" }}>R$ {total.toFixed(2)}</strong>

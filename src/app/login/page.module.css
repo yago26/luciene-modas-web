@@ -1,18 +1,20 @@
-.containerLogin {
+.container {
   display: flex;
   justify-content: center;
+  height: 100%;
 }
 
-.containerLateralEsquerda {
-  width: 35%;
-  min-height: 30%;
-  padding: 2.5%;
-  background-color: var(--cor-principal);
-  color: var(--cor-secundaria);
-}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-.containerLateralDireita {
+  border-radius: 15px;
   background-color: whitesmoke;
-  padding: 30px;
+  padding: 3% 2.5%;
   width: 35%;
+  h1,
+  .direcionar {
+    text-align: center;
+  }
 }

@@ -2,8 +2,15 @@
 
 :root {
   --cor-principal: #97315a;
+  --cor-complementar-principal: #702040;
+
   --cor-secundaria: #fff;
-  --cor-terciaria: goldenrod;
+  --cor-complementar-secundaria: #f5f5f5;
+
+  --cor-terciaria: #daa520;
+  --cor-complementar-terciaria: #b98c14;
+
+  --font-color: #808080;
 }
 
 * {
@@ -39,6 +46,10 @@ h1,
 h2,
 h3 {
   color: var(--cor-terciaria);
+}
+
+h1 {
+  font-weight: bold;
 }
 
 /* Estilo para toda a barra */

@@ -1,0 +1,18 @@
+.itens {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.selecionado {
+  padding: 1% 2% 1% 1%;
+  scale: 0.98;
+  background-color: rgb(200, 200, 200);
+  filter: grayscale(0.1);
+  transition: 0.5s;
+}
+
+.naoSelecionado {
+  transition: 0.5s;
+}

@@ -1,0 +1,53 @@
+.container {
+  width: 100%;
+  position: sticky;
+  overflow: auto;
+  height: min-content;
+  max-height: 75%;
+  top: 22.5%;
+}
+
+.subcontainer {
+  border-radius: 0.5rem;
+  background-color: whitesmoke;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 2rem;
+  padding-top: 0;
+}
+
+.titulo {
+  padding: 1.4rem;
+  background-color: var(--cor-principal);
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  h1 {
+    margin: 0 !important;
+    padding: 0;
+  }
+}
+
+.itens {
+  width: 100%;
+  h2 {
+    color: var(--cor-principal);
+  }
+}
+
+.item {
+  width: 100%;
+  padding-block: 1rem;
+  border-bottom: 1px solid gray;
+  gap: 5%;
+  display: flex;
+  font-size: 0.95rem;
+  :first-child {
+    width: 60%;
+  }
+  :last-child {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

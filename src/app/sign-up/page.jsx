@@ -2,9 +2,9 @@
 /* O padrão é estar do lado do servidor ('use server') */
 
 import style from "./page.module.css";
-import SignUpForm from "@/app/sign-up/SignUpForm";
-import Sucesso from "@/components/toasts/Sucesso";
-import { Divider } from "antd";
+import SignUpForm from "@/app/sign-up/components/SignUpForm";
+import Sucesso from "@/components/ui/toasts/Sucesso";
+import Divider from "@/components/ui/Divider";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -17,7 +17,7 @@ export default function SignUp() {
     setLoading(true);
     let res, data;
     try {
-      res = await fetch(`${process.env.NEXTAUTH_URL || ""}/api/sign-up`, {
+      res = await fetch(`${process.env.NEXTAUTH_URL || ""}/api/usuarios`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,18 +46,14 @@ export default function SignUp() {
 
   return (
     <>
-      <div className={style.containerSignUp}>
-        <div className={style.containerLateralEsquerda}>
+      <div className={style.container}>
+        <div className={style.content}>
+          <h1>Sign Up</h1>
           <SignUpForm onAddUsuario={addUsuario} loading={loading} />
-          <Divider style={{ borderColor: "black" }}>ou</Divider>
-          <p className={style.linkLogin}>
-            Já possui uma conta? <Link href="./login">Login</Link>
+          <Divider>ou</Divider>
+          <p className={style.direcionar}>
+            Já possui uma conta? <Link href="/login">Entrar</Link>
           </p>
-        </div>
-        <div className={style.containerLateralDireita}>
-          <h2>Bem vindo(a), Novo Usuário!</h2>
-          <Divider style={{ borderColor: "white" }} />
-          <p>Inicie sua maravilhosa experiência na plataforma Luciene Modas</p>
         </div>
       </div>
 

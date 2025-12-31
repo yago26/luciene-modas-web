@@ -1,10 +1,11 @@
-import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
-import FuncionalidadesProduto from "../FuncionalidadesProduto";
-import { Divider } from "antd";
+import getUsuarioServerSide from "@/utils/getUsuarioServerSide";
+import Funcionalidades from "../components/Funcionalidades";
 
 import style from "./page.module.css";
-import ImagensProduto from "../ImagensProduto";
+import Imagens from "../components/Imagens";
 import NotFound from "@/app/not-found";
+import Divider from "@/components/ui/Divider";
+import Comentarios from "../components/Comentarios";
 
 export default async function ProductPage({ params }) {
   const { id } = await params;
@@ -22,14 +23,14 @@ export default async function ProductPage({ params }) {
 
   const { nome, sobre, valor, imagem, imagens, estoque } = produto;
 
-  const propsImagensProduto = {
+  const propsImagens = {
     nome: nome,
     sobre: sobre,
     imagem: imagem,
     imagens: imagens,
   };
 
-  const propsFuncionalidadesProduto = {
+  const propsFuncionalidades = {
     id: id,
     nome: nome,
     valor: valor,
@@ -39,17 +40,18 @@ export default async function ProductPage({ params }) {
   return (
     <>
       <div className={style.container}>
-        <ImagensProduto produto={propsImagensProduto} />
+        <Imagens produto={propsImagens} />
         <div className={style.infosProduto}>
           <h1 style={{ fontWeight: "bold" }}>{nome}</h1>
-          <Divider style={{ borderColor: "black" }} />
+          <Divider />
           <h2>Descrição</h2>
           <p>{sobre ? sobre : nome}</p>
-          <FuncionalidadesProduto
-            produto={propsFuncionalidadesProduto}
-            usuario={usuario}
-          />
+          <Funcionalidades produto={propsFuncionalidades} usuario={usuario} />
         </div>
+      </div>
+
+      <div>
+        <Comentarios usuario={usuario} />
       </div>
     </>
   );

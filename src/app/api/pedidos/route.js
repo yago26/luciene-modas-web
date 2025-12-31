@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
-import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
+import getUsuarioServerSide from "@/utils/getUsuarioServerSide";
 
 export async function POST(req) {
   const client = await db.connect();

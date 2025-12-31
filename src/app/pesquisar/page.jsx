@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Card, Row, Col, Divider } from "antd";
+import { Card, Row, Col } from "antd";
 import style from "./page.module.css";
 import NotFound from "@/components/layout/NotFound";
 import Loading from "@/components/layout/Loading";
@@ -85,185 +85,184 @@ export default function Pesquisar() {
   };
 
   return (
-    <div className={style.containerPesquisa}>
+    <div className={style.container}>
       <div className={style.containerFiltros}>
-        <h2>Filtros</h2>
-        <Divider style={{ borderColor: "black" }} />
-        <h3>Categoria</h3>
-        <ul className={style.listaCategoria}>
-          <li>
-            <input
-              id="roupas"
-              name="categoria"
-              type="radio"
-              value="roupas"
-              onChange={(e) => {
-                setFiltros({ ...filtros, categoria: e.target.value });
-              }}
-              checked={filtros.categoria == "roupas"}
-            />
-            <label htmlFor="roupas">Roupas</label>
-          </li>
-          <li>
-            <input
-              id="cosmeticos"
-              name="categoria"
-              type="radio"
-              value="cosmeticos"
-              onChange={(e) => {
-                setFiltros({ ...filtros, categoria: e.target.value });
-              }}
-              checked={filtros.categoria == "cosmeticos"}
-            />
-            <label htmlFor="cosmeticos">Cosméticos</label>
-          </li>
-          <li>
-            <input
-              id="outros"
-              name="categoria"
-              type="radio"
-              value="outros"
-              onChange={(e) => {
-                setFiltros({ ...filtros, categoria: e.target.value });
-              }}
-              checked={filtros.categoria == "outros"}
-            />
-            <label htmlFor="outros">Outros</label>
-          </li>
-        </ul>
+        <header>
+          <h2>Filtros</h2>
+        </header>
 
-        <h3>Subcategoria</h3>
-        <ul className={style.listaSubcategoria}>
-          <li>
-            <input
-              id="masculino"
-              name="subcategoria"
-              type="radio"
-              value="masculino"
-              onChange={(e) => {
-                setFiltros({ ...filtros, subcategoria: e.target.value });
-              }}
-              checked={filtros.subcategoria == "masculino"}
-            />
-            <label htmlFor="masculino">Masculino</label>
-          </li>
-          <li>
-            <input
-              id="feminino"
-              name="subcategoria"
-              type="radio"
-              value="feminino"
-              onChange={(e) => {
-                setFiltros({ ...filtros, subcategoria: e.target.value });
-              }}
-              checked={filtros.subcategoria == "feminino"}
-            />
-            <label htmlFor="feminino">Feminino</label>
-          </li>
-          <li>
-            <input
-              id="infantil"
-              name="subcategoria"
-              type="radio"
-              value="infantil"
-              onChange={(e) => {
-                setFiltros({ ...filtros, subcategoria: e.target.value });
-              }}
-              checked={filtros.subcategoria == "infantil"}
-            />
-            <label htmlFor="infantil">Infantil</label>
-          </li>
-          <li>
-            <input
-              id="sub-outros"
-              name="subcategoria"
-              type="radio"
-              value="outros"
-              onChange={(e) => {
-                setFiltros({ ...filtros, subcategoria: e.target.value });
-              }}
-              checked={filtros.subcategoria == "outros"}
-            />
-            <label htmlFor="sub-outros">Outros</label>
-          </li>
-        </ul>
+        <div className={style.filtros}>
+          <h3>Categoria</h3>
+          <ul className={style.listaCategoria}>
+            <li>
+              <input
+                id="roupas"
+                type="checkbox"
+                value="roupas"
+                onChange={(e) => {
+                  setFiltros({ ...filtros, categoria: e.target.value });
+                }}
+                checked={filtros.categoria == "roupas"}
+              />
+              <label htmlFor="roupas">Roupas</label>
+            </li>
+            <li>
+              <input
+                id="cosmeticos"
+                type="checkbox"
+                value="cosmeticos"
+                onChange={(e) => {
+                  setFiltros({ ...filtros, categoria: e.target.value });
+                }}
+                checked={filtros.categoria == "cosmeticos"}
+              />
+              <label htmlFor="cosmeticos">Cosméticos</label>
+            </li>
+            <li>
+              <input
+                id="outros"
+                type="checkbox"
+                value="outros"
+                onChange={(e) => {
+                  setFiltros({ ...filtros, categoria: e.target.value });
+                }}
+                checked={filtros.categoria == "outros"}
+              />
+              <label htmlFor="outros">Outros</label>
+            </li>
+          </ul>
 
-        <h3>Intervalos de Preços</h3>
-        <ul>
-          <li className={style.valores}>
-            <label htmlFor="inicial">Inicial: </label>
-            <input
-              id="inicial"
-              type="number"
-              placeholder="19,99"
-              value={filtros.valorMinimo || ""}
-              onChange={(e) =>
-                setFiltros({
-                  ...filtros,
-                  valorMinimo: e.target.value,
-                })
-              }
-            />
-          </li>
+          <h3>Subcategoria</h3>
+          <ul className={style.listaSubcategoria}>
+            <li>
+              <input
+                id="masculino"
+                type="checkbox"
+                value="masculino"
+                onChange={(e) => {
+                  setFiltros({ ...filtros, subcategoria: e.target.value });
+                }}
+                checked={filtros.subcategoria == "masculino"}
+              />
+              <label htmlFor="masculino">Masculino</label>
+            </li>
+            <li>
+              <input
+                id="feminino"
+                type="checkbox"
+                value="feminino"
+                onChange={(e) => {
+                  setFiltros({ ...filtros, subcategoria: e.target.value });
+                }}
+                checked={filtros.subcategoria == "feminino"}
+              />
+              <label htmlFor="feminino">Feminino</label>
+            </li>
+            <li>
+              <input
+                id="infantil"
+                type="checkbox"
+                value="infantil"
+                onChange={(e) => {
+                  setFiltros({ ...filtros, subcategoria: e.target.value });
+                }}
+                checked={filtros.subcategoria == "infantil"}
+              />
+              <label htmlFor="infantil">Infantil</label>
+            </li>
+            <li>
+              <input
+                id="sub-outros"
+                type="checkbox"
+                value="outros"
+                onChange={(e) => {
+                  setFiltros({ ...filtros, subcategoria: e.target.value });
+                }}
+                checked={filtros.subcategoria == "outros"}
+              />
+              <label htmlFor="sub-outros">Outros</label>
+            </li>
+          </ul>
 
-          <li className={style.valores}>
-            <label htmlFor="final">Final: </label>
-            <input
-              id="final"
-              type="number"
-              placeholder="49,99"
-              value={filtros.valorMaximo || ""}
-              onChange={(e) =>
-                setFiltros({ ...filtros, valorMaximo: e.target.value })
-              }
-            />
-          </li>
-        </ul>
+          <h3>Intervalos de Preços</h3>
+          <ul>
+            <li className={style.valores}>
+              <label htmlFor="inicial">Inicial: </label>
+              <input
+                id="inicial"
+                type="number"
+                placeholder="19,99"
+                value={filtros.valorMinimo || ""}
+                onChange={(e) =>
+                  setFiltros({
+                    ...filtros,
+                    valorMinimo: e.target.value,
+                  })
+                }
+              />
+            </li>
 
-        <button className={style.btnLimparFiltros} onClick={limparFiltros}>
-          Limpar filtros
-        </button>
+            <li className={style.valores}>
+              <label htmlFor="final">Final: </label>
+              <input
+                id="final"
+                type="number"
+                placeholder="49,99"
+                value={filtros.valorMaximo || ""}
+                onChange={(e) =>
+                  setFiltros({ ...filtros, valorMaximo: e.target.value })
+                }
+              />
+            </li>
+          </ul>
+
+          <button className={style.btnLimparFiltros} onClick={limparFiltros}>
+            Limpar os filtros
+          </button>
+        </div>
       </div>
 
       <div className={style.containerResultados}>
         <h2>Resultados para: "{nome}"</h2>
-        {loading ? (
-          <Loading />
-        ) : (
-          filtrados.length === 0 && (
-            <NotFound
-              titulo="Nenhum produto encontrado!"
-              mensagem="Não há nenhum produto cadastrado e disponível com esses filtros e/ou nome."
-            />
-          )
-        )}
+        <div className={style.resultados}>
+          {loading ? (
+            <Loading />
+          ) : (
+            filtrados.length === 0 && (
+              <NotFound
+                titulo="Nenhum produto encontrado!"
+                mensagem="Não há nenhum produto cadastrado e disponível com esses filtros e/ou nome."
+              />
+            )
+          )}
 
-        <Row gutter={[16, 16]} style={{ marginTop: 10 }}>
-          {!loading &&
-            filtrados.map((produto) => (
-              <Col xs={24} sm={12} md={8} lg={6} key={produto.id}>
-                <Card
-                  hoverable
-                  cover={
-                    <img
-                      alt={produto.nome}
-                      src={produto.imagem}
-                      style={{
-                        height: 200,
-                        objectFit: "cover",
-                      }}
+          <Row gutter={[16, 16]} style={{ marginTop: 10 }}>
+            {!loading &&
+              filtrados.map((produto) => (
+                <Col xs={24} sm={12} md={8} lg={6} key={produto.id}>
+                  <Card
+                    hoverable
+                    cover={
+                      <img
+                        alt={produto.nome}
+                        src={produto.imagem}
+                        style={{
+                          height: 200,
+                          objectFit: "cover",
+                        }}
+                      />
+                    }
+                    onClick={() => router.push(`/produtos/${produto.id}`)}
+                  >
+                    <Card.Meta
+                      title={produto.nome}
+                      description={`R$ ${Number(produto.valor).toFixed(2)}`}
                     />
-                  }
-                  onClick={() => router.push(`/produtos/${produto.id}`)}
-                >
-                  <Card.Meta
-                    title={produto.nome}
-                    description={`R$ ${Number(produto.valor).toFixed(2)}`}
-                  />
-                </Card>
-              </Col>
-            ))}
-        </Row>
+                  </Card>
+                </Col>
+              ))}
+          </Row>
+        </div>
       </div>
     </div>
   );

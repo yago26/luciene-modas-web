@@ -4,7 +4,25 @@ import db from "@/lib/db";
 export async function GET(req, { params }) {
   try {
     const { id } = await params;
-    const result = await db.query("SELECT * FROM usuarios WHERE id = $1", [id]);
+
+    const { searchParams } = new URL(req.url);
+    const incluirEndereco = searchParams.get("endereco") === "true";
+
+    let infosEndereco = "";
+    if (incluirEndereco) {
+      infosEndereco = ", cep, estado, cidade, bairro, rua, numero, complemento";
+    }
+
+    const result = await db.query(
+      `
+      SELECT 
+        id, nome, email, role ${infosEndereco}
+      FROM usuarios
+      WHERE id = $1
+      `,
+      [id]
+    );
+
     if (result.rows.length === 0) {
       return NextResponse.json(
         { error: "Usuário não encontrado" },

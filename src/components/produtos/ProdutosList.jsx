@@ -2,7 +2,7 @@ import CardProduto from "@/components/produtos/CardProduto";
 import Loading from "../layout/Loading";
 
 import { Suspense } from "react";
-import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
+import getUsuarioServerSide from "@/utils/getUsuarioServerSide";
 
 import style from "@/components/produtos/produtosList.module.css";
 

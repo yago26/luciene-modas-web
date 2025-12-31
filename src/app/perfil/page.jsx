@@ -1,7 +1,7 @@
-import InfoUsuario from "./InfoUsuario";
-import OutrasAcoesUsuario from "./OutrasAcoesUsuario";
+import InfoUsuario from "./components/InfoUsuario";
+import OutrasAcoesUsuario from "./components/OutrasAcoesUsuario";
 
-import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
+import getUsuarioServerSide from "@/utils/getUsuarioServerSide";
 import { Divider } from "antd";
 
 export default async function Perfil() {
@@ -10,7 +10,7 @@ export default async function Perfil() {
   return (
     <>
       <div style={style.header}>
-        <h1>Perfil de Usuário</h1>
+        <h1>Bem-vindo ao seu perfil!</h1>
         <OutrasAcoesUsuario usuario={usuario} />
       </div>
       <Divider style={{ borderColor: "black" }} />

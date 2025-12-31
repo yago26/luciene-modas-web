@@ -63,11 +63,11 @@ const authOptions = {
         let usuario = await getUsuarioByEmail(profile.email);
         if (!usuario) {
           usuario = await createNewUsuario(profile);
-        } 
+        }
 
         return {
           id: usuario.id,
-          name: usuario.nome || profile.name,
+          name: usuario.name || profile.name,
           email: usuario.email,
           role: usuario.role,
         };
@@ -81,16 +81,24 @@ const authOptions = {
         senha: { label: "Senha", type: "password" },
       },
       async authorize(credentials) {
-        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: credentials?.email,
-            senha: credentials?.senha,
-          }),
-        });
-        const data = await res.json();
-        return res.ok && data.usuario ? data.usuario : null;
+        if (!credentials?.email || !credentials?.senha) return null;
+
+        const usuario = await getUsuarioByEmail(credentials.email);
+        if (!usuario) return null;
+
+        const senhaValida = await bcrypt.compare(
+          credentials.senha,
+          usuario.senha
+        );
+
+        if (!senhaValida) return null;
+
+        return {
+          id: usuario.id,
+          name: usuario.nome,
+          email: usuario.email,
+          role: usuario.role,
+        };
       },
     }),
   ],

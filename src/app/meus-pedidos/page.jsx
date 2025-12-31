@@ -1,7 +1,6 @@
-import getUsuarioServerSide from "@/lib/getUsuarioServerSide";
-import PedidosList from "./PedidosList";
-
-import { Divider } from "antd";
+import getUsuarioServerSide from "@/utils/getUsuarioServerSide";
+import PedidosList from "./components/PedidosList";
+import Divider from "@/components/ui/Divider";
 
 export default async function MeusPedidos() {
   const usuario = await getUsuarioServerSide();
@@ -11,7 +10,7 @@ export default async function MeusPedidos() {
   return (
     <div>
       <h1>Meus pedidos</h1>
-      <Divider style={{ borderColor: "black" }} />
+      <Divider />
       <PedidosList usuario={usuario} />
     </div>
   );

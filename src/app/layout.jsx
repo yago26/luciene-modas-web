@@ -1,4 +1,4 @@
-import NavBar from "@/components/layout/NavBar";
+import NavBar from "@/components/navbar/NavBar";
 import Footer from "@/components/layout/Footer";
 import "antd/dist/reset.css";
 import "./globals.css";
@@ -23,8 +23,7 @@ export default function RootLayout({ children }) {
 
 const style = {
   container: {
-    padding: "12% 10% 5% 10%",
+    padding: "calc(18dvh + 10dvh) 10% 10dvh 10%",
     minHeight: "100vh",
-    margin: "auto",
   },
 };
