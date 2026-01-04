@@ -6,20 +6,21 @@ export async function GET(req, { params }) {
     const { id } = await params;
 
     const { searchParams } = new URL(req.url);
-    const incluirEndereco = searchParams.get("endereco") === "true";
+    const completo = searchParams.has("completo");
 
-    let infosEndereco = "";
-    if (incluirEndereco) {
-      infosEndereco = ", cep, estado, cidade, bairro, rua, numero, complemento";
-    }
+    const allowColumns = {
+      completo: `id, nome, imagem, username, role, email,
+        cep, estado, cidade, bairro, rua, numero, complemento`,
+      incompleto: "id, nome, imagem, role, username",
+    };
+
+    const colunas = completo ? allowColumns.completo : allowColumns.incompleto;
 
     const result = await db.query(
-      `
-      SELECT 
-        id, nome, email, role ${infosEndereco}
+      `SELECT 
+        ${colunas}
       FROM usuarios
-      WHERE id = $1
-      `,
+      WHERE id = $1`,
       [id]
     );
 

@@ -1,5 +1,5 @@
 import getUsuarioServerSide from "@/utils/getUsuarioServerSide";
-import ClientComponent from "./components/ClientComponent";
+import ClientComponent from "./_components/ClientComponent";
 
 export default async function Carrinho() {
   const usuario = await getUsuarioServerSide();

@@ -2,7 +2,7 @@
 /* O padrão é estar do lado do servidor ('use server') */
 
 import style from "./page.module.css";
-import SignUpForm from "@/app/sign-up/components/SignUpForm";
+import SignUpForm from "@/app/sign-up/_components/SignUpForm";
 import Sucesso from "@/components/ui/toasts/Sucesso";
 import Divider from "@/components/ui/Divider";
 import { signIn } from "next-auth/react";

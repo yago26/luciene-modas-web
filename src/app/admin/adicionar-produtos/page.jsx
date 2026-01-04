@@ -108,6 +108,14 @@ export default () => {
     <>
       <h1>Criar novos produtos</h1>
       <form onSubmit={handleSubmit} className={style.form}>
+        {form.imagem && (
+          <img
+            src={form.imagem.name}
+            alt="Imagem do produto"
+            width={150}
+            height={150}
+          />
+        )}
         <input
           type="file"
           onChange={(e) => {

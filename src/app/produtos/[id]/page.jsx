@@ -1,14 +1,15 @@
 import getUsuarioServerSide from "@/utils/getUsuarioServerSide";
-import Funcionalidades from "../components/Funcionalidades";
+import Funcionalidades from "../_components/Funcionalidades";
 
 import style from "./page.module.css";
-import Imagens from "../components/Imagens";
+import Imagens from "../_components/Imagens";
 import NotFound from "@/app/not-found";
 import Divider from "@/components/ui/Divider";
-import Comentarios from "../components/Comentarios";
+import Comentarios from "../_components/ComentariosList";
 
 export default async function ProductPage({ params }) {
   const { id } = await params;
+
   const response = await fetch(
     `${process.env.NEXTAUTH_URL}/api/produtos/${id}`
   );
@@ -51,7 +52,7 @@ export default async function ProductPage({ params }) {
       </div>
 
       <div>
-        <Comentarios usuario={usuario} />
+        <Comentarios usuario={usuario} id_produto={id} />
       </div>
     </>
   );

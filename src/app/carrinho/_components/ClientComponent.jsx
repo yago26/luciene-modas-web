@@ -1,6 +1,6 @@
 "use client";
 
-import { useCarrinhoStore } from "@/app/store/carrinho";
+import { useCarrinhoStore } from "@/app/_store/carrinho";
 import ItemsList from "./ItemsList";
 import ResumoCompra from "./ResumoCompra";
 import Funcionalidades from "./Funcionalidades";

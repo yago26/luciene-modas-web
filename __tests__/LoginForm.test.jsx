@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, act } from "@testing-library/react";
-import LoginForm from "@/app/login/components/LoginForm";
+import LoginForm from "@/app/login/_components/LoginForm";
 
 describe("LoginForm", () => {
   it("renderiza sem erros", () => {

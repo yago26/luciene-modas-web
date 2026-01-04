@@ -26,7 +26,7 @@ import bcrypt from "bcryptjs";
 export async function GET() {
   try {
     const result = await db.query(
-      "SELECT u.id, u.nome, u.email, u.role FROM usuarios u"
+      "SELECT u.id, u.nome, u.email, u.imagem, u.role, u.username FROM usuarios u"
     );
     return NextResponse.json(result.rows);
   } catch (error) {

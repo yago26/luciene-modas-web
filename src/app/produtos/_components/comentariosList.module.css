@@ -1,0 +1,51 @@
+.identificador {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  p {
+    margin: 0;
+  }
+}
+
+.imagemUsuario {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 2rem;
+  border: 2px solid lightgray;
+  padding: 5px;
+  background-color: white;
+}
+
+.username {
+  color: var(--cor-da-fonte);
+}
+
+.conteudo {
+  padding: 1rem;
+  text-align: justify;
+  outline: none;
+}
+
+.avaliacao * {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.dadosComentario {
+  display: flex;
+  flex-direction: column;
+}
+
+.avaliacao * {
+  width: 2rem;
+  height: 2rem;
+}
+
+.imagemUsuario {
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 2rem;
+  border: 2px solid lightgray;
+  padding: 5px;
+  background-color: white;
+}

@@ -7,7 +7,7 @@ import { useState } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import Sucesso from "../ui/toasts/Sucesso";
 import Aviso from "../ui/toasts/Aviso";
-import { useCarrinhoStore } from "@/app/store/carrinho";
+import { useCarrinhoStore } from "@/app/_store/carrinho";
 
 export default function CardProduto({ produto, usuario }) {
   const { adicionarItemCarrinho } = useCarrinhoStore();

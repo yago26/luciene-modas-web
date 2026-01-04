@@ -3,7 +3,7 @@ import getUsuarioServerSide from "@/utils/getUsuarioServerSide";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 
-export async function GET() {
+export async function GET(req) {
   try {
     // Criar o sistema de respostas
     // * Verificar respostas depois
@@ -11,19 +11,59 @@ export async function GET() {
 
     const usuario = await getUsuarioServerSide();
 
+    const { searchParams } = new URL(req.url);
+
+    const idProduto = searchParams.get("id_produto");
+
     let ordenar = "";
+
+    let count = 0;
+    const values = [];
+
     if (usuario) {
       ordenar = `
-            ORDER BY 
-                CASE
-                    WHEN id_usuario = $1 THEN 1
-                END,
-                data_criacao DESC
-            `;
+        ORDER BY CASE
+          WHEN c.fixado = true THEN 1
+          WHEN c.id_usuario = $${++count} THEN 2
+          ELSE 3
+        END,
+        c.data_criacao DESC
+      `;
+      values.push(usuario.id);
+    } else {
+      ordenar = `ORDER BY c.data_criacao DESC`;
     }
-    const result = await db.query(
-      `SELECT * FROM comentarios WHERE resposta_de = null ${ordenar}`
-    );
+
+    const query = `SELECT 
+        c.id, 
+        c.conteudo, 
+        c.avaliacao_produto, 
+        c.data_criacao, 
+        JSON_AGG (
+          JSON_BUILD_OBJECT(
+            'id', u.id, 
+            'nome', u.nome,
+            'imagem', u.imagem,
+            'username', u.username,
+            'role', u.role
+          )
+        ) AS usuario
+      FROM 
+        comentarios c JOIN usuarios u 
+        ON c.id_usuario = u.id
+      WHERE 
+        c.id_produto = $${++count} 
+        AND c.resposta_de IS NULL
+      GROUP BY 
+        c.id, 
+        c.conteudo, 
+        c.avaliacao_produto,
+        c.data_criacao
+      ${ordenar}`;
+
+    values.push(idProduto);
+
+    const result = await db.query(query, values);
 
     return NextResponse.json({ data: result.rows }, { status: 200 });
   } catch (err) {

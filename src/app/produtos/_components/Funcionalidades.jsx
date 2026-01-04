@@ -1,6 +1,6 @@
 "use client";
 
-import { useCarrinhoStore } from "@/app/store/carrinho";
+import { useCarrinhoStore } from "@/app/_store/carrinho";
 import Sucesso from "../../../components/ui/toasts/Sucesso";
 import Aviso from "../../../components/ui/toasts/Aviso";
 

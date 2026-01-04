@@ -1,6 +1,6 @@
 "use client";
 
-import { useCarrinhoStore } from "@/app/store/carrinho";
+import { useCarrinhoStore } from "@/app/_store/carrinho";
 import Menu from "./Menu";
 
 import { CircleUserRound, Package, ShoppingCart } from "lucide-react";

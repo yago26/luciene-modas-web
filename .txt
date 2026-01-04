@@ -1,4 +1,12 @@
+IMPORTANTE:
+> Validar todos os campos no back e front;
+
 # FRONT-END
+    * /perfil
+        > Design
+        > Foto de perfil
+        > Validação de campos no front e back
+    
     * / : Montar um design mais interessante para a landing page
 
     * /pesquisar;

@@ -1,5 +1,5 @@
 import getUsuarioServerSide from "@/utils/getUsuarioServerSide";
-import PedidosList from "./components/PedidosList";
+import PedidosList from "./_components/PedidosList";
 import Divider from "@/components/ui/Divider";
 
 export default async function MeusPedidos() {

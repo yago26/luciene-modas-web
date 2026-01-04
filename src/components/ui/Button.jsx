@@ -25,17 +25,17 @@ export default ({
     pequeno: {
       padding: "0.5rem",
       borderRadius: "0.75rem",
-      borderBottom: `0.1rem solid var(--cor-complementar-${cor})`,
+      borderBottom: `0.2rem solid var(--cor-complementar-${cor})`,
     },
     normal: {
       padding: "0.75rem",
       borderRadius: "1rem",
-      borderBottom: `0.2rem solid var(--cor-complementar-${cor})`,
+      borderBottom: `0.3rem solid var(--cor-complementar-${cor})`,
     },
     grande: {
       padding: "1rem",
       borderRadius: "1.25rem",
-      borderBottom: `0.3rem solid var(--cor-complementar-${cor})`,
+      borderBottom: `0.4rem solid var(--cor-complementar-${cor})`,
     },
   };
   return (
@@ -65,5 +65,9 @@ const styles = {
   button: {
     color: "white",
     border: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "0.3rem",
   },
 };
